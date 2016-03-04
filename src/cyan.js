@@ -1,3 +1,9 @@
+/*
+cyan.js v0.9.0
+(c) 2016 zlz
+Released under the MIT License.
+*/
+
 (function (window) {
     var ob = {};
     ob.$ = function (id) {

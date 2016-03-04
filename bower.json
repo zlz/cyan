@@ -1,5 +1,6 @@
 {
   "name": "cyan",
+  "version": "0.9.0",
   "description": "cyan js/css common lib",
   "authors": ["zlz@live.cn"],
   "license": "MIT",
