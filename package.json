@@ -1,0 +1,38 @@
+{
+  "author": "Cyan",
+  "contributors": [],
+  "description": "cyan app",
+  "engines": {},
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "app",
+  "repository": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.9",
+  "dependencies": {
+    "bower": "latest",
+    "del": "latest",
+    "eslint": "latest",
+    "eslint-config-google": "latest",
+    "eslint-plugin-react": "latest",
+    "fs": "latest",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-babel": "latest",
+    "gulp-changed": "latest",
+    "gulp-concat": "latest",
+    "gulp-csso": "latest",
+    "gulp-debug": "latest",
+    "gulp-rename": "latest",
+    "gulp-replace": "latest",
+    "gulp-sass": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-uglify": "latest",
+    "gulp-util": "latest",
+    "path": "latest"
+  },
+  "devDependencies": {}  
+}
