@@ -120,6 +120,9 @@ class Cyan {
     }
 }
 let cyan = new Cyan();
+export {
+    cyan
+};
 //获取数组值val的索引
 Array.prototype.indexOf = function (val) {
     for (var i = 0; i < this.length; i++) {

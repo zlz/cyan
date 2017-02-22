@@ -1,7 +1,4 @@
 {
-    "directory":"./vendors",
-    "json":"bower.json",
-    "endpoint":"https://Bower.herokuapp.com",
-    "searchpath":"",
-    "shorthand_resolver":""
+    "directory":"./dist/vendors",
+    "json":"bower.json"
 }
