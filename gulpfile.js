@@ -14,10 +14,11 @@ const gulp = require('gulp'),
             js: './src/scripts/**/*.js',
             view: './src/views/**/*',
             img: './src/images/**/*',
+            data: './src/datas/**/*',
             vendor: './src/vendors/**/*',
             entry: {
                 'vendor.common': './src/scripts/vendor.common',
-                app: './src/scripts/controllers/app'
+                app: './src/scripts/app'
             }
         },
         dest: {
@@ -26,9 +27,9 @@ const gulp = require('gulp'),
             js: './dist/scripts',
             view: './dist/views',
             img: './dist/images',
+            data: './dist/datas',
             vendor: './dist/vendors'
         },
-        tmp: './tmp',
         concat: {
             css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/bootstrap.min.css', './dist/styles/common.min.css']
         }
@@ -45,29 +46,45 @@ gulp.task('style', function() {
     let scss = $.filter('**/*.scss', {
         restore: true
     });
-    return gulp.src(paths.src.style).pipe($.changed(paths.dest.style, {
-        extension: '.min.css'
-    })).on('data', function(file) {
-        $.util.log(file.path);
-    }).pipe(scss).pipe($.sass({
-        outputStyle: 'expanded'
-    }).on('error', function(err) {
-        $.util.log(err.message);
-        this.emit('end');
-    })).pipe(scss.restore).pipe($.csso()).pipe($.autoprefixer('last 2 version', 'safari5', 'ie8', 'ie9', 'opera 12.1', 'ios 6', 'android 4')).on('error', function(err) {
-        $.util.log(err.message);
-        this.emit('end');
-    }).pipe($.rename({
-        suffix: '.min'
-    })).pipe(gulp.dest(paths.dest.style));
+    return gulp.src(paths.src.style)
+        .pipe($.changed(paths.dest.style, {
+            extension: '.min.css'
+        }))
+        .on('data', function(file) {
+            $.util.log(file.path);
+        })
+        .pipe(scss)
+        .pipe($.sass(
+            {
+                outputStyle: 'expanded'
+            })
+            .on('error', function(err) {
+                $.util.log(err.message);
+                this.emit('end');
+            }))
+        .pipe(scss.restore)
+        .pipe($.csso())
+        .pipe($.autoprefixer('last 2 version', 'safari5', 'ie8', 'ie9', 'opera 12.1', 'ios 6', 'android 4'))
+        .on('error', function(err) {
+            $.util.log(err.message);
+            this.emit('end');
+        })
+        .pipe($.rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest(paths.dest.style));
 });
 gulp.task('styleConcat', ['style'], function() {
-    return gulp.src(paths.concat.css).pipe($.concat('vendor.common.min.css')).pipe(gulp.dest(paths.dest.style));
+    return gulp.src(paths.concat.css)
+        .pipe($.concat('vendor.common.min.css'))
+        .pipe(gulp.dest(paths.dest.style));
 });
 gulp.task('js', function() {
-    return gulp.src(paths.src.js).pipe($.changed(paths.dest.js, {
+    return gulp.src(paths.src.js)
+        .pipe($.changed(paths.dest.js, {
             extension: '.min.js'
-        })).on('data', function(file) {
+        }))
+        .on('data', function(file) {
             $.util.log(file.path);
         })
         // .pipe($.sourcemaps.init())
@@ -75,10 +92,12 @@ gulp.task('js', function() {
             presets: ['es2015'],
             compact: true,
             comments: false
-        })).on('error', function(err) {
+        }))
+        .on('error', function(err) {
             $.util.log(err.fileName, err.lineNumber, err.message);
             this.emit('end');
-        }).pipe($.rename({
+        })
+        .pipe($.rename({
             suffix: '.min'
         }))
         // .pipe($.sourcemaps.write('./', {
@@ -138,13 +157,20 @@ gulp.task('webpack', function(callback) {
     });
 });
 gulp.task('rootFile', function() {
-    return gulp.src(paths.src.root + '/*.*').pipe(gulp.dest(paths.dest.root));
+    return gulp.src(paths.src.root + '/*.*')
+        .pipe(gulp.dest(paths.dest.root));
 });
 gulp.task('view', function() {
-    return gulp.src(paths.src.view).pipe(gulp.dest(paths.dest.view));
+    return gulp.src(paths.src.view)
+        .pipe(gulp.dest(paths.dest.view));
 });
 gulp.task('img', function() {
-    return gulp.src(paths.src.img).pipe(gulp.dest(paths.dest.img));
+    return gulp.src(paths.src.img)
+        .pipe(gulp.dest(paths.dest.img));
+});
+gulp.task('data', function() {
+    return gulp.src(paths.src.data)
+        .pipe(gulp.dest(paths.dest.data));
 });
 gulp.task('bower', function() {
     if (status === 'dev') {
@@ -158,6 +184,7 @@ gulp.task('watch', function() {
     gulp.watch(paths.src.root + '/*.*', ['rootFile']);
     gulp.watch(paths.src.view, ['view']);
     gulp.watch(paths.src.img, ['img']);
+    gulp.watch(paths.src.data, ['data']);
     gulp.watch(paths.src.vendor, ['vendor']);
     gulp.watch(paths.src.js, ['webpack']);
 });
@@ -199,7 +226,8 @@ gulp.task('server', function() {
     const server = http.createServer(function(req, res) {
         let reqUrl = req.url;
         console.log(reqUrl);
-        let pathName = url.parse(reqUrl).pathname;
+        let pathName = url.parse(reqUrl)
+            .pathname;
         if (path.extname(pathName) === '') {
             pathName += '/';
         }
@@ -238,7 +266,7 @@ gulp.task('server', function() {
     });
 });
 gulp.task('run', function() {
-    runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'styleConcat'], 'webpack', 'watch', 'server');
+    runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'styleConcat'], 'webpack', 'watch', 'server');
 });
 gulp.task('default', function() {
     status = 'dev';

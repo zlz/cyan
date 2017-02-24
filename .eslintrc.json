@@ -19,21 +19,34 @@
     },
     "plugins": ["react", "angular"],
     "rules": {
-        "indent": ["error", 4, { "SwitchCase": 1, "VariableDeclarator": 1 }],
-        "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+        "quotes": ["error", "single", {
+            "avoidEscape": true,
+            "allowTemplateLiterals": true
+        }],
         "semi": ["error", "always"],
         "eqeqeq": ["error", "always"],
         "curly": ["error", "all"],
         "brace-style": ["error", "1tbs"],
-        "camelcase": ["error", { "properties": "always" }],
-        "comma-spacing": ["error", { "before": false, "after": true }],
+        "camelcase": ["error", {
+            "properties": "always"
+        }],
+        "comma-spacing": ["error", {
+            "before": false,
+            "after": true
+        }],
         "comma-style": ["error", "last"],
         "computed-property-spacing": ["error", "never"],
         "jsx-quotes": ["error", "prefer-single"],
         "consistent-this": ["error", "that"],
-        "key-spacing": ["error", { "mode": "strict" }],
-        "keyword-spacing": ["error", { "after": true }],
-        "new-cap": ["error", { "newIsCap": true }],
+        "key-spacing": ["error", {
+            "mode": "strict"
+        }],
+        "keyword-spacing": ["error", {
+            "after": true
+        }],
+        "new-cap": ["error", {
+            "newIsCap": true
+        }],
         "new-parens": "error",
         "no-console": "warn",
         "no-mixed-spaces-and-tabs": "error"

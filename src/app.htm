@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" ng-app="app" ng-controller="AppCtrl as app">
+<html lang="zh-CN" ng-app="app" ng-controller="commonCtrl as commonctrl">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
@@ -13,11 +13,11 @@
     <link href="styles/vendor.common.min.css" rel="stylesheet">
     <link href="styles/app.min.css" rel="stylesheet">
 </head>
-<body>
+<body ng-controller="appCtrl as indexctrl">
 <div class="">
-    <div class="hd">{{app.a}} </div>
-    <div class="bd"> </div>
-    <div class="ft text-center lh-2 pd-tb-30"></div>
+    <hd dt="commonctrl.data.hd.nav"></hd>
+    <div class="bd" ui-view></div>
+    <ft dt="commonctrl.data.ft"></ft>
 </div>
 <script type="text/javascript" src="scripts/vendor.common.bundle.min.js"></script>
 <script type="text/javascript" src="scripts/app.bundle.min.js"></script>

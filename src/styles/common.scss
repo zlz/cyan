@@ -1,13 +1,37 @@
-$color: #1B1C1E, #1B1C1E, #EAEAEA, #FFF;
+$color: #33363B, #1B1C1E, #EAEAEA, #FFF, #37474F, #21A675;
+$num: 3.125, 1.875;
 .hd {
-    height: 3.75em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: #{nth($num, 1)}em;
+    line-height: #{nth($num, 1)}em;
     background: nth($color, 1);
     color: nth($color, 4);
+    a {
+        color: nth($color, 4);
+        &:active, &:hover, &:focus {
+            border: 0;
+            outline: 0;
+            background-color: nth($color, 5);
+            color: nth($color, 6);
+        }
+    }
 }
 .bd {
+    position: absolute;
+    top: #{nth($num, 1)}em;
+    left: 0;
+    right: 0;
+    bottom: #{nth($num, 2) * 16 + 2}px;
     min-height: 300px;
 }
 .ft {
-    height: 30px;
-    border-top: 1px solid nth($color, 3);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: #{nth($num, 2)}em;
+    line-height: #{nth($num, 2)}em;
+    border-top: 2px nth($color, 6) solid;
 }

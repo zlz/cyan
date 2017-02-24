@@ -1,0 +1,19 @@
+{
+    "hd": {
+        "nav": [{
+            "text": "HOME",
+            "href": "/"
+        },
+        {
+            "text": "CODES",
+            "href": "/codes"
+        }, {
+            "text": "ABOUT",
+            "href": "/about"
+        }]
+    },
+    "ft": {
+        "text": "@LOON 2017",
+        "link": "http://www.zhulongzhen.cn"
+    }
+}
