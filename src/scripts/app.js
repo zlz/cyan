@@ -1,24 +1,24 @@
 /*global angular*/
 let app = angular.module('app', ['ui.router', 'ui.bootstrap']);
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    /* 使用when来对一些不合法的路由进行重定向 */
-    $urlRouterProvider.when('', '/');
-    /* 通过$stateProvider的state()函数来进行路由定义 */
-    $stateProvider.state('/', {
-            url: '/',
-            templateUrl: '../views/index.htm'
-        })
-        .state('/codes', {
-            url: '/codes',
-            templateUrl: '../views/codes.htm'
-        })
-        .state('/about', {
-            url: '/about',
-            templateUrl: '../views/about.htm'
-        });
-}]);
 require('./controllers/common');
 require('./controllers/app');
 require('./directives/hd');
 require('./directives/ft');
-require('./services/crud');
+require('./provider/crud');
+require('./provider/bridge');
+app.config(['$stateProvider', '$urlRouterProvider', '$injector', 'bridgeProvider', function($stateProvider, $urlRouterProvider, $injector, bridgeProvider) {
+        $urlRouterProvider.when('', '/home');
+        $urlRouterProvider.otherwise('/404');
+        bridgeProvider.store('$stateProvider', $stateProvider);
+    }])
+    .run(['$injector', 'crud', 'bridge', function($injector, crud, bridge) {
+        crud({
+                method: 'GET',
+                url: './datas/router.json'
+            })
+            .then((res) => {
+                res.data.states.forEach(function(state) {
+                    bridge.$stateProvider.state(state);
+                });
+            });
+    }]);

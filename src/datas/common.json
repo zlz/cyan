@@ -2,14 +2,14 @@
     "hd": {
         "nav": [{
             "text": "HOME",
-            "href": "/"
+            "href": "home"
         },
         {
             "text": "CODES",
-            "href": "/codes"
+            "href": "codes"
         }, {
             "text": "ABOUT",
-            "href": "/about"
+            "href": "about"
         }]
     },
     "ft": {

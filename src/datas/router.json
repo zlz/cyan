@@ -1,0 +1,15 @@
+{
+    "states": [{
+        "name": "home",
+        "url": "/home",
+        "templateUrl": "../views/home.htm"
+    }, {
+        "name": "codes",
+        "url": "/codes",
+        "templateUrl": "../views/codes.htm"
+    }, {
+        "name": "about",
+        "url": "/about",
+        "templateUrl": "../views/about.htm"
+    }]
+}

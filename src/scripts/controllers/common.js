@@ -1,13 +1,13 @@
 /*global angular */
 angular.module('app')
-    .controller('commonCtrl', ['$scope', '$http', 'crudServ', ($scope, $http, crudServ) => {
+    .controller('commonCtrl', ['$scope', '$injector', 'crud', ($scope, $injector, crud) => {
         let vm = $scope.commonctrl;
-        crudServ({
-                method: 'POST',
+        crud({
+                method: 'GET',
                 url: '../../datas/common.json'
             })
             .then((res) => {
-                console.log(res);
                 $scope.$apply(() => vm.data = res.data);
             });
+
     }]);
