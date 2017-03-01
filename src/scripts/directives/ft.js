@@ -8,7 +8,7 @@ angular.module('app')
             },
             template: `<div class="ft">
             <div class="pd-r-10 pd-l-2 text-right em-12">
-                <a ng-href="{{dt.href}}">{{dt.text}}</a>
+                <a ng-href="{{dt.data[dt.translate].ft.href}}">{{dt.data[dt.translate].ft.text}}</a>
             </div>
         </div>`,
             replace: true
