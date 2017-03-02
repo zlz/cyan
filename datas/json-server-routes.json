@@ -1,0 +1,5 @@
+{
+    "/api/news": "/news",
+    "/api/product": "/product",
+    "/api/profile": "/profile"
+}
