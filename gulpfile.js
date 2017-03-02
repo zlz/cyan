@@ -2,8 +2,10 @@ const gulp = require('gulp'),
     $ = require('gulp-load-plugins')(),
     fs = require('fs'),
     del = require('del'),
+    open = require('open'),
     http = require('http'),
     path = require('path'),
+    proxy = require('http-proxy-middleware'),
     url = require('url'),
     webpack = require('webpack'),
     runSequence = require('run-sequence'),
@@ -35,14 +37,14 @@ const gulp = require('gulp'),
         }
     };
 let status = '';
-gulp.task('clean', function() {
+gulp.task('clean', () => {
     if (status === 'dev') {
         return del([paths.dest.root + '/**/*', '!' + paths.dest.vendor + '/**']);
     } else {
         return del([paths.dest.root + '/**/*']);
     }
 });
-gulp.task('style', function() {
+gulp.task('style', () => {
     let scss = $.filter('**/*.scss', {
         restore: true
     });
@@ -50,7 +52,7 @@ gulp.task('style', function() {
         .pipe($.changed(paths.dest.style, {
             extension: '.min.css'
         }))
-        .on('data', function(file) {
+        .on('data', (file) => {
             $.util.log(file.path);
         })
         .pipe(scss)
@@ -58,14 +60,14 @@ gulp.task('style', function() {
             {
                 outputStyle: 'expanded'
             })
-            .on('error', function(err) {
+            .on('error', (err) => {
                 $.util.log(err.message);
                 this.emit('end');
             }))
         .pipe(scss.restore)
         .pipe($.csso())
         .pipe($.autoprefixer('last 2 version', 'safari5', 'ie8', 'ie9', 'opera 12.1', 'ios 6', 'android 4'))
-        .on('error', function(err) {
+        .on('error', (err) => {
             $.util.log(err.message);
             this.emit('end');
         })
@@ -74,17 +76,17 @@ gulp.task('style', function() {
         }))
         .pipe(gulp.dest(paths.dest.style));
 });
-gulp.task('styleConcat', ['style'], function() {
+gulp.task('styleConcat', ['style'], () => {
     return gulp.src(paths.concat.css)
         .pipe($.concat('vendor.common.min.css'))
         .pipe(gulp.dest(paths.dest.style));
 });
-gulp.task('js', function() {
+gulp.task('js', () => {
     return gulp.src(paths.src.js)
         .pipe($.changed(paths.dest.js, {
             extension: '.min.js'
         }))
-        .on('data', function(file) {
+        .on('data', (file) => {
             $.util.log(file.path);
         })
         // .pipe($.sourcemaps.init())
@@ -93,7 +95,7 @@ gulp.task('js', function() {
             compact: true,
             comments: false
         }))
-        .on('error', function(err) {
+        .on('error', (err) => {
             $.util.log(err.fileName, err.lineNumber, err.message);
             this.emit('end');
         })
@@ -106,7 +108,7 @@ gulp.task('js', function() {
         // }))
         .pipe(gulp.dest(paths.dest.js));
 });
-gulp.task('webpack', function(callback) {
+gulp.task('webpack', (callback) => {
     const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
     const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
     let filename = '';
@@ -146,7 +148,7 @@ gulp.task('webpack', function(callback) {
         },
         resolve: {},
         externals: {}
-    }, function(err, stats) {
+    }, (err, stats) => {
         if (err) {
             throw new $.util.PluginError('webpack', err);
         }
@@ -156,30 +158,30 @@ gulp.task('webpack', function(callback) {
         callback();
     });
 });
-gulp.task('rootFile', function() {
+gulp.task('rootFile', () => {
     return gulp.src(paths.src.root + '/*.*')
         .pipe(gulp.dest(paths.dest.root));
 });
-gulp.task('view', function() {
+gulp.task('view', () => {
     return gulp.src(paths.src.view)
         .pipe(gulp.dest(paths.dest.view));
 });
-gulp.task('img', function() {
+gulp.task('img', () => {
     return gulp.src(paths.src.img)
         .pipe(gulp.dest(paths.dest.img));
 });
-gulp.task('data', function() {
+gulp.task('data', () => {
     return gulp.src(paths.src.data)
         .pipe(gulp.dest(paths.dest.data));
 });
-gulp.task('bower', function() {
+gulp.task('bower', () => {
     if (status === 'dev') {
         return true;
     } else if (status === 'prod') {
         return $.bower();
     }
 });
-gulp.task('watch', function() {
+gulp.task('watch', () => {
     gulp.watch(paths.src.style, ['styleConcat']);
     gulp.watch(paths.src.root + '/*.*', ['rootFile']);
     gulp.watch(paths.src.view, ['view']);
@@ -188,91 +190,37 @@ gulp.task('watch', function() {
     gulp.watch(paths.src.vendor, ['vendor']);
     gulp.watch(paths.src.js, ['webpack']);
 });
-gulp.task('server', function() {
-    console.time('[server][Start]');
-    const getContentType = function(filePath) {
-        let contentType = '';
-        const ext = path.extname(filePath);
-        switch (ext) {
-            case '.html':
-                contentType = 'text/html';
-                break;
-            case '.htm':
-                contentType = 'text/html';
-                break;
-            case '.js':
-                contentType = 'text/javascript';
-                break;
-            case '.css':
-                contentType = 'text/css';
-                break;
-            case '.gif':
-                contentType = 'image/gif';
-                break;
-            case '.jpg':
-                contentType = 'image/jpeg';
-                break;
-            case '.png':
-                contentType = 'image/png';
-                break;
-            case '.ico':
-                contentType = 'image/icon';
-                break;
-            default:
-                contentType = 'application/octet-stream';
+gulp.task('connect', () => {
+    $.connect.server({
+        debug: true,
+        root: ['dist'],
+        index: 'app.htm',
+        port: 8899,
+        middleware: () => {
+            return [
+                proxy(['/api'], {
+                    target: 'http://127.0.0.1:9090',
+                    changeOrigin: false
+                })
+            ];
         }
-        return contentType;
-    };
-    const server = http.createServer(function(req, res) {
-        let reqUrl = req.url;
-        console.log(reqUrl);
-        let pathName = url.parse(reqUrl)
-            .pathname;
-        if (path.extname(pathName) === '') {
-            pathName += '/';
-        }
-        if (pathName.charAt(pathName.length - 1) === '/') {
-            pathName += 'app.htm';
-        }
-        let filePath = path.join('./dist/', pathName);
-        fs.exists(filePath, function(exists) {
-            if (exists) {
-                res.writeHead(200, {
-                    'Content-Type': getContentType(filePath)
-                });
-                var stream = fs.createReadStream(filePath, {
-                    flags: 'r',
-                    encoding: null
-                });
-                stream.on('error', function() {
-                    res.writeHead(404);
-                    res.end('<h1>404 Read Error</h1>');
-                });
-                stream.pipe(res);
-            } else {
-                res.writeHead(404, {
-                    'Content-Type': 'text/html'
-                });
-                res.end('<h1>404 Not Found</h1>');
-            }
-        });
     });
-    server.on('error', function(error) {
-        console.log(error);
-    });
-    server.listen(8899, function() {
-        console.log('[server][Start] running at http://127.0.0.1:8899/');
-        console.timeEnd('[server][Start]');
-    });
+    open('http://127.0.0.1:8899');
 });
-gulp.task('run', function() {
-    runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'styleConcat'], 'webpack', 'watch', 'server');
+gulp.task('shell', () => {
+    return gulp.src('*.js', {
+            read: false
+        })
+        .pipe($.shell(['json-server --watch ./datas/datas.json --port 9090']));
 });
-gulp.task('default', function() {
+gulp.task('run', () => {
+    runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'styleConcat'], 'webpack', 'watch', 'connect', 'shell');
+});
+gulp.task('default', () => {
     status = 'dev';
     gulp.start('run');
 });
-gulp.task('prod', function() {
+gulp.task('prod', () => {
     status = 'prod';
     gulp.start('run');
 });
