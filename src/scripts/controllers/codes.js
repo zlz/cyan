@@ -6,11 +6,10 @@ angular.module('app')
             vm.title = 'codes.htm';
             crud.$http({
                     method: 'GET',
-                    url: '/api/codes'
+                    url: '/data/imgs?col=壁纸&tag=风景&sort=0&pn=3&rn=3&p=channel&from=1'
                 })
                 .then((res) => {
                     vm.data = res.data;
-                    $scope.$apply(() => vm.data = res.data);
                 });
         });
     }]);

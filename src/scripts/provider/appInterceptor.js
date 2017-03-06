@@ -6,7 +6,6 @@ angular.module('app')
                 return $q.when(config);
             },
             'response': function(res) {
-                console.log(res);
                 return $q.when(res);
             },
             'requestError': function(reqErr) {

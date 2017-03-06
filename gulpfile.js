@@ -198,6 +198,10 @@ gulp.task('connect', () => {
                 proxy(['/api'], {
                     target: 'http://127.0.0.1:9090',
                     changeOrigin: false
+                }),
+                proxy(['/data/imgs'], {
+                    target: 'http://image.baidu.com',
+                    changeOrigin: true
                 })
             ];
         }

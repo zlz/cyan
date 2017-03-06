@@ -16,31 +16,29 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         $httpProvider.interceptors.push('appInterceptor');
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
-    .run(['$rootScope', '$injector', '$urlRouter', 'crud', 'bridge', function($rootScope, $injector, $urlRouter, crud, bridge) {
-        let getCommonData = new Promise((resolve, reject) => {
-            console.log(crud);
-            crud.$http({
-                    method: 'GET',
-                    url: './datas/common.json'
-                })
-                .then((res) => {
-                    resolve(res);
-                    res.data.cn.hd.nav.forEach(function(item) {
-                        bridge.$stateProvider.state({
-                            name: item.href,
-                            url: '/' + item.href,
-                            templateUrl: '../views/' + item.href + '.htm',
-                            controller: item.href + 'Ctrl as ' + item.href + 'ctrl'
-                        });
+    .run(['$rootScope', '$injector', '$urlRouter', '$q', 'crud', 'bridge', function($rootScope, $injector, $urlRouter, $q, crud, bridge) {
+        let deferred = $q.defer();
+        crud.$http({
+                method: 'GET',
+                url: './datas/common.json'
+            })
+            .then((res) => {
+                res.data.cn.hd.nav.forEach(function(item) {
+                    bridge.$stateProvider.state({
+                        name: item.href,
+                        url: '/' + item.href,
+                        templateUrl: '../views/' + item.href + '.htm',
+                        controller: item.href + 'Ctrl as ' + item.href + 'ctrl'
                     });
-                    bridge.$urlRouterProvider.when('', '/home');
-                    bridge.$urlRouterProvider.otherwise('/404');
-                    $urlRouter.sync();
-                }, (err) => {
-                    reject(err);
                 });
-        });
-        bridge.store('getCommonData', getCommonData);
+                bridge.$urlRouterProvider.when('', '/home');
+                bridge.$urlRouterProvider.otherwise('/404');
+                $urlRouter.sync();
+                deferred.resolve(res);
+            }, (err) => {
+                deferred.reject(err);
+            });
+        bridge.store('getCommonData', deferred.promise);
     }])
     .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {
         let vm = $scope.appctrl;
@@ -54,7 +52,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
             vm.trans = para;
             localStorage.setItem('trans', para);
         };
-        bridge.getCommonData.then((val) => {
-            $scope.$apply(() => vm.data = val.data);
+        bridge.getCommonData.then((res) => {
+            vm.data = res.data;
         });
     }]);

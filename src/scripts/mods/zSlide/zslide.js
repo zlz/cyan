@@ -24,10 +24,10 @@
         }
         len = data.length;
         for (i = 0; i < len; i = i + 1) {
-            rollStr = rollStr + "<a href='" + data[i].url + "' target='_blank' class='sld-a0'><img class='sld-img' src='" + data[i].img_url + "'' style='height:100%'></a>";
+            rollStr = rollStr + "<a href='" + data[i].fromUrl + "' target='_blank' class='sld-a0'><img class='sld-img' src='" + data[i].url + "'' style='height:100%'></a>";
             pageStr = pageStr + "<span class='sld-page-itm' data-num='" + i + "'></span>";
         }
-        rollStr = rollStr + "<a href='" + data[0].url + "' target='_blank' class='sld-a0'><img class='sld-img' src='" + data[0].img_url + "'' style='height:100%'></a>";
+        rollStr = rollStr + "<a href='" + data[0].formUrl + "' target='_blank' class='sld-a0'><img class='sld-img' src='" + data[0].url + "'' style='height:100%'></a>";
         sld.append('<div class="sld-roll">' + rollStr + '</div><a class="sld-tit" href="#" target="_blank"></a><div class="sld-page">' + pageStr + '</div><div class="sld-arw-left"></div><div class="sld-arw-right"></div>').css({
             'display': 'block'
         });
@@ -40,7 +40,7 @@
         stepWidth = viewWidth;
         setTitPage = function () {
             tit.href = data[step].url;
-            tit.html(data[step].short_intro);
+            tit.html(data[step].title);
             pageItms.removeClass('sld-page-fcs').eq(step).addClass('sld-page-fcs');
         };
         animLeft = function () {
