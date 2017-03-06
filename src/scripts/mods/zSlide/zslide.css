@@ -20,7 +20,7 @@
 .sld .sld-img {
     width: 100%;
 }
-.sld a.sld-tit {
+.sld .sld-tit {
     position: absolute;
     left: 0;
     bottom: 0;

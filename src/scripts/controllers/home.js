@@ -7,20 +7,11 @@ angular.module('app')
         });
         crud.$http({
                 method: 'GET',
-                url: '/data/imgs?col=%E5%A3%81%E7%BA%B8&tag=%E9%A3%8E%E6%99%AF&sort=0&pn=3&rn=10&p=channel&from=1',
+                url: 'api/album',
             })
             .then((res) => {
-                let data = [];
-                
-                res.data.imgs.forEach((item) => {
-                    data.push({
-                        id: item.id,
-                        title: item.desc,
-                        url: item.imageUrl,
-                        fromUrl: item.fromUrl
-                    });
-                });
-                zslide.data = data;
+                console.log(res);
+                zslide.data = res.data;
                 zslide($('.sld'), 3000);
             });
     }]);

@@ -1,5 +1,5 @@
-(function (define) {
-    var fn = function (sld, spdb) {
+(function(define) {
+    var fn = function(sld, spdb) {
         var $ = fn.$ || jQuery,
             spda = 450,
             data = fn.data,
@@ -27,10 +27,11 @@
             rollStr = rollStr + "<a href='" + data[i].fromUrl + "' target='_blank' class='sld-a0'><img class='sld-img' src='" + data[i].url + "'' style='height:100%'></a>";
             pageStr = pageStr + "<span class='sld-page-itm' data-num='" + i + "'></span>";
         }
-        rollStr = rollStr + "<a href='" + data[0].formUrl + "' target='_blank' class='sld-a0'><img class='sld-img' src='" + data[0].url + "'' style='height:100%'></a>";
-        sld.append('<div class="sld-roll">' + rollStr + '</div><a class="sld-tit" href="#" target="_blank"></a><div class="sld-page">' + pageStr + '</div><div class="sld-arw-left"></div><div class="sld-arw-right"></div>').css({
-            'display': 'block'
-        });
+        rollStr = rollStr + "<a href='" + data[0].fromUrl + "' target='_blank' class='sld-a0'><img class='sld-img' src='" + data[0].url + "'' style='height:100%'></a>";
+        sld.append('<div class="sld-roll">' + rollStr + '</div><span class="sld-tit" target="_blank"></span><div class="sld-page">' + pageStr + '</div><div class="sld-arw-left"></div><div class="sld-arw-right"></div>')
+            .css({
+                'display': 'block'
+            });
         roll = sld.find('.sld-roll');
         tit = sld.find('.sld-tit');
         arwLeft = sld.find('.sld-arw-left');
@@ -38,17 +39,20 @@
         pageItms = sld.find('.sld-page-itm');
         viewWidth = sld.innerWidth();
         stepWidth = viewWidth;
-        setTitPage = function () {
+        setTitPage = function() {
             tit.href = data[step].url;
             tit.html(data[step].title);
-            pageItms.removeClass('sld-page-fcs').eq(step).addClass('sld-page-fcs');
+            pageItms.removeClass('sld-page-fcs')
+                .eq(step)
+                .addClass('sld-page-fcs');
         };
-        animLeft = function () {
+        animLeft = function() {
             step = step + 1;
             stepWidth = viewWidth * step;
+            roll.stop(true, true);
             roll.animate({
                 scrollLeft: stepWidth
-            }, spda, 'swing', function () {
+            }, spda, 'swing', function() {
                 if (step === len) {
                     step = 0;
                     roll.scrollLeft(0);
@@ -56,23 +60,24 @@
                 setTitPage();
             });
         };
-        animRight = function () {
+        animRight = function() {
             step = step - 1;
             if (step < 0) {
                 step = len - 1;
                 roll.scrollLeft(viewWidth * len);
             }
             stepWidth = viewWidth * step;
+            roll.stop(true, true);
             roll.animate({
                 scrollLeft: stepWidth
-            }, spda, 'swing', function () {
+            }, spda, 'swing', function() {
                 setTitPage();
             });
         };
         anim = window.setInterval(animLeft, spdb);
         setTitPage();
         sld.on({
-            mouseover: function (evt) {
+            mouseover: function(evt) {
                 var $el = $(evt.target);
                 clearInterval(anim);
                 arwLeft.show();
@@ -82,10 +87,10 @@
                     animLeft();
                 }
             },
-            mouseout: function () {
+            mouseout: function() {
                 anim = window.setInterval(animLeft, spdb);
             },
-            click: function (evt) {
+            click: function(evt) {
                 var $el = $(evt.target);
                 if ($el.hasClass('sld-arw-left')) {
                     animRight();
@@ -95,19 +100,22 @@
                 }
             }
         });
-        $(document).on('mouseover', function (evt) {
-            var $el = $(evt.target);
-            if (!$el.parents().hasClass('sld')) {
-                arwLeft.hide();
-                arwRight.hide();
-            }
-        });
-        $(window).resize(function () {
-            viewWidth = sld.innerWidth();
-        });
+        $(document)
+            .on('mouseover', function(evt) {
+                var $el = $(evt.target);
+                if (!$el.parents()
+                    .hasClass('sld')) {
+                    arwLeft.hide();
+                    arwRight.hide();
+                }
+            });
+        $(window)
+            .resize(function() {
+                viewWidth = sld.innerWidth();
+            });
     };
     if (typeof define === 'function' && define.amd) {
-        define(['jquery'], function ($) {
+        define(['jquery'], function($) {
             fn.$ = $;
             return fn;
         });

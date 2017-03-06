@@ -28,27 +28,17 @@
     "profile": {
         "name": "typicode"
     },
-    "album": {
-        "status": {
-            "code": "0"
-        },
-        "total": "360",
-        "count": "10",
-        "data": [{
-            "id": "108305",
-            "url": "http:\/\/slide.news.sina.com.cn\/y\/slide_1_63957_108305.html\/d\/1",
-            "img_url": "http:\/\/www.sinaimg.cn\/dy\/slidenews\/1_img\/2017_09\/63957_781586_878457.jpg",
-            "title": "\u65b0\u6d6a\u7231\u62cd\u201c\u751f\u4e8e\u8857\u5934\u201d \u7b2c\u4e8c\u5b63\u5ea6\u5165\u9009\u4f5c\u54c1\u5927\u8d4f"
+    "album": [{
+            "fromUrl": "http://cn.bing.com/Search?q=%e9%98%bf%e8%b4%9d%e5%b0%94%c2%b7%e5%a1%94%e6%96%af%e6%9b%bc%e5%9b%bd%e5%ae%b6%e5%85%ac%e5%9b%ad&mkt=zh-cn&FORM=BNLH",
+            "url": "http://cn.bing.com/az/hprichbg/rb/Aoraki_ZH-CN7776353328_1920x1080.jpg",
+            "title": "\u963f\u8d1d\u5c14\u00b7\u5854\u65af\u66fc\u56fd\u5bb6\u516c\u56ed"
         }, {
-            "id": "108027",
-            "url": "http:\/\/slide.news.sina.com.cn\/y\/slide_1_63957_108027.html\/d\/1",
-            "img_url": "http:\/\/www.sinaimg.cn\/dy\/slidenews\/1_img\/2017_07\/63957_778847_926076.jpg",
-            "title": "\u201c\u62cd\u7167\u5427\u5c11\u5e74\u201d\u7b2c\u56db\u5b63\u5f81\u96c6\u622a\u7a3f\u540e\uff0c\u7ecf\u8fc7\u5bfc\u5e08\u56e2\u8bc4\u9009\u5ba1\u6838\uff0c\u6700\u7ec815\u4eba\u5165\u9009\u672c\u5b63\u6444\u5f71\u5de5\u574a\u3002"
+            "fromUrl": "http://cn.bing.com/Search?q=%e6%88%b4%e5%ae%89%e5%a8%9c%e9%97%aa%e8%9d%b6&mkt=zh-cn&FORM=BNLH",
+            "url": "http://cn.bing.com/az/hprichbg/rb/ButterflyWorld_ZH-CN11273971874_1920x1080.jpg",
+            "title": "\u6234\u5b89\u5a1c\u95ea\u8776"
         }, {
-            "id": "108026",
-            "url": "http:\/\/slide.news.sina.com.cn\/y\/slide_1_63957_108026.html\/d\/1",
-            "img_url": "http:\/\/www.sinaimg.cn\/dy\/slidenews\/1_img\/2017_07\/63957_778828_870679.jpg",
-            "title": "\u201c\u62cd\u7167\u5427\u5c11\u5e74\u201d\u7b2c\u56db\u5b63\u5f81\u96c6\u622a\u7a3f\u540e\uff0c\u7ecf\u8fc7\u5bfc\u5e08\u56e2\u8bc4\u9009\u5ba1\u6838\uff0c\u6700\u7ec815\u4eba\u5165\u9009\u672c\u5b63\u6444\u5f71\u5de5\u574a\u3002"
+            "fromUrl": "http://cn.bing.com/Search?q=%e5%8d%97%e9%9d%9e%e5%89%91%e7%be%9a&mkt=zh-cn&FORM=BNLH",
+            "url": "http://cn.bing.com/az/hprichbg/rb/SpringbokHerd_ZH-CN11603112082_1920x1080.jpg",
+            "title": "\u5357\u975e\u5251\u7f9a"
         }]
-    }
 }
