@@ -1,10 +1,16 @@
-$color: #33363B, #1B1C1E, #EAEAEA, #FFF, #770127, #FFD8E5;
+$color: #000A0D, #1B1C1E, #EAEAEA, #FFF, #770127, #FFD8E5, #555;
 $num: 3.125, 1.875;
 @mixin s1 {
     border: 0;
     outline: 0;
     background-color: nth($color, 5);
     color: nth($color, 6);
+}
+.bg-1 {
+    background-color: nth($color, 7);
+}
+.bg-2 {
+    background-color: nth($color, 2);
 }
 .hd {
     position: absolute;
