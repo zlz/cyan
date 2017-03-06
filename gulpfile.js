@@ -1,12 +1,9 @@
 const gulp = require('gulp'),
     $ = require('gulp-load-plugins')(),
-    fs = require('fs'),
     del = require('del'),
     open = require('open'),
-    http = require('http'),
     path = require('path'),
     proxy = require('http-proxy-middleware'),
-    url = require('url'),
     webpack = require('webpack'),
     runSequence = require('run-sequence'),
     paths = {
@@ -33,7 +30,7 @@ const gulp = require('gulp'),
             vendor: './dist/vendors'
         },
         concat: {
-            css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/bootstrap.min.css', './dist/styles/common.min.css']
+            css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/bootstrap.min.css', './dist/styles/common.min.css', './src/scripts/mods/zSlide/zslide.css']
         }
     };
 let status = '';

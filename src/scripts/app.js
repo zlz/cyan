@@ -1,5 +1,5 @@
 /*global angular*/
-let app = angular.module('app', ['ui.router', 'ui.bootstrap']);
+let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap']);
 require('./controllers/home');
 require('./controllers/codes');
 require('./controllers/about');
@@ -7,14 +7,19 @@ require('./directives/hd');
 require('./directives/ft');
 require('./provider/crud');
 require('./provider/bridge');
-app.config(['$stateProvider', '$urlRouterProvider', '$injector', 'bridgeProvider', function($stateProvider, $urlRouterProvider, $injector, bridgeProvider) {
+require('./provider/appInterceptor');
+app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$httpProvider', 'bridgeProvider', function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $httpProvider, bridgeProvider) {
         $urlRouterProvider.deferIntercept(false);
         bridgeProvider.store('$stateProvider', $stateProvider);
         bridgeProvider.store('$urlRouterProvider', $urlRouterProvider);
+        $sceDelegateProvider.resourceUrlWhitelist(['self', 'http://platform.sina.com.cn/slide/album', 'https://angularjs.org/**']);
+        $httpProvider.interceptors.push('appInterceptor');
+        $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
     .run(['$rootScope', '$injector', '$urlRouter', 'crud', 'bridge', function($rootScope, $injector, $urlRouter, crud, bridge) {
         let getCommonData = new Promise((resolve, reject) => {
-            crud({
+            console.log(crud);
+            crud.$http({
                     method: 'GET',
                     url: './datas/common.json'
                 })
