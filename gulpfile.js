@@ -208,7 +208,7 @@ gulp.task('shell', () => {
     return gulp.src('*.js', {
             read: false
         })
-        .pipe($.shell(['justreq start -c']));
+        .pipe($.shell(['node ./node_modules/justreq-cli/bin/justreq start -c']));
 });
 gulp.task('run', () => {
     runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'styleConcat'], 'webpack', 'watch', 'connect', 'shell');
