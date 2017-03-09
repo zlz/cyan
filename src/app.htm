@@ -16,13 +16,13 @@
         </script>
     <![endif]-->
     <link href="styles/vendor.common.min.css" rel="stylesheet">
-    <link ng-href="styles/app.{{appctrl.trans}}.min.css" rel="stylesheet">
+    <link ng-href="styles/app.{{rootComm.trans}}.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="">
-    <hd dt="appctrl"></hd>
+    <hd data="rootComm"></hd>
     <div class="bd" ui-view></div>
-    <ft dt="appctrl"></ft>
+    <ft data="rootComm"></ft>
 </div>
 <script type="text/javascript" src="scripts/vendor.common.bundle.min.js"></script>
 <script type="text/javascript" src="scripts/app.bundle.min.js"></script>

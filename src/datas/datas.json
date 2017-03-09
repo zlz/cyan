@@ -1,112 +1,158 @@
 {
-  "nav": [
-    {
-      "id": 1,
-      "platform": "web",
-      "lang": "cn",
-      "text": "首页",
-      "href": "home"
+    "cn": {
+        "common": {
+            "nav": [
+            {
+                "id": 1,
+                "text": "首页",
+                "href": "home"
+            },
+            {
+                "id": 2,
+                "text": "代码",
+                "href": "codes"
+            },
+            {
+                "id": 3,
+                "text": "关于",
+                "href": "about"
+            }],
+            "ft": {
+                "text": "@龙 2017",
+                "href": "http://zhulongzhen.cn"
+            }
+        },
+        "album": [
+        {
+            "id": 1,
+            "fromUrl": "http://cn.bing.com/Search?q=%e9%98%bf%e8%b4%9d%e5%b0%94%c2%b7%e5%a1%94%e6%96%af%e6%9b%bc%e5%9b%bd%e5%ae%b6%e5%85%ac%e5%9b%ad&mkt=zh-cn&FORM=BNLH",
+            "url": "http://cn.bing.com/az/hprichbg/rb/Aoraki_ZH-CN7776353328_1920x1080.jpg",
+            "title": "阿贝尔·塔斯曼国家公园"
+        },
+        {
+            "id": 2,
+            "fromUrl": "http://cn.bing.com/Search?q=%e6%88%b4%e5%ae%89%e5%a8%9c%e9%97%aa%e8%9d%b6&mkt=zh-cn&FORM=BNLH",
+            "url": "http://cn.bing.com/az/hprichbg/rb/ButterflyWorld_ZH-CN11273971874_1920x1080.jpg",
+            "title": "戴安娜闪蝶"
+        },
+        {
+            "id": 3,
+            "fromUrl": "http://cn.bing.com/Search?q=%e5%a4%a7%e5%b3%a1%e8%b0%b7%e5%8d%97%e7%bc%98&mkt=zh-cn&FORM=BNLH",
+            "url": "http://az29176.vo.msecnd.net/videocontent/LookoutTower_GrandCanyon_FF_768_HD_ZH-CN727571233.jpg",
+            "title": "大峡谷南缘"
+        }],
+        "news": [
+        {
+            "id": 1,
+            "title": "news-title1",
+            "author": "news-author1"
+        }, {
+            "id": 2,
+            "title": "news-title2",
+            "author": "news-author2"
+        }],
+        "codes": [
+        {
+            "id": 1,
+            "title": "code-title-1",
+            "text": "code-text-1"
+        },
+        {
+            "id": 2,
+            "title": "code-title-2",
+            "text": "code-text-2"
+        }],
+        "product": [
+        {
+            "id": 1,
+            "body": "p1",
+            "postId": 1
+        },
+        {
+            "id": 2,
+            "body": "p2",
+            "postId": 2
+        }],
+        "profile": {
+            "name": "typicode"
+        }
     },
-    {
-      "id": 2,
-      "platform": "admin",
-      "lang": "cn",
-      "text": "代码",
-      "href": "codes"
-    },
-    {
-      "id": 3,
-      "text": "关于",
-      "href": "about"
-    },
-    {
-      "id": 4,
-      "text": "HOME",
-      "href": "home"
-    },
-    {
-      "id": 5,
-      "text": "CODES",
-      "href": "codes"
-    },
-    {
-      "id": 6,
-      "text": "ABOUT",
-      "href": "about"
-    },
-    {
-      "text": "产品1",
-      "href": "product",
-      "id": 7
+    "en": {
+        "common": {
+            "nav": [
+            {
+                "id": 1,
+                "text": "HOME",
+                "href": "home"
+            },
+            {
+                "id": 2,
+                "text": "CODES",
+                "href": "codes"
+            },
+            {
+                "id": 3,
+                "text": "ABOUT",
+                "href": "about"
+            }],
+            "ft": {
+                "text": "@LOON 2017",
+                "href": "http://www.jsmodule.com"
+            }
+        },
+        "album": [
+        {
+            "id": 1,
+            "fromUrl": "http://cn.bing.com/Search?q=%e9%98%bf%e8%b4%9d%e5%b0%94%c2%b7%e5%a1%94%e6%96%af%e6%9b%bc%e5%9b%bd%e5%ae%b6%e5%85%ac%e5%9b%ad&mkt=zh-cn&FORM=BNLH",
+            "url": "http://cn.bing.com/az/hprichbg/rb/Aoraki_ZH-CN7776353328_1920x1080.jpg",
+            "title": "en阿贝尔·塔斯曼国家公园"
+        },
+        {
+            "id": 2,
+            "fromUrl": "http://cn.bing.com/Search?q=%e6%88%b4%e5%ae%89%e5%a8%9c%e9%97%aa%e8%9d%b6&mkt=zh-cn&FORM=BNLH",
+            "url": "http://cn.bing.com/az/hprichbg/rb/ButterflyWorld_ZH-CN11273971874_1920x1080.jpg",
+            "title": "en戴安娜闪蝶"
+        },
+        {
+            "id": 3,
+            "fromUrl": "http://cn.bing.com/Search?q=%e5%a4%a7%e5%b3%a1%e8%b0%b7%e5%8d%97%e7%bc%98&mkt=zh-cn&FORM=BNLH",
+            "url": "http://az29176.vo.msecnd.net/videocontent/LookoutTower_GrandCanyon_FF_768_HD_ZH-CN727571233.jpg",
+            "title": "en大峡谷南缘"
+        }],
+        "news": [
+        {
+            "id": 1,
+            "title": "news-title1",
+            "author": "news-author1"
+        }, {
+            "id": 2,
+            "title": "news-title2",
+            "author": "news-author2"
+        }],
+        "codes": [
+        {
+            "id": 1,
+            "title": "code-title-1",
+            "text": "code-text-1"
+        },
+        {
+            "id": 2,
+            "title": "code-title-2",
+            "text": "code-text-2"
+        }],
+        "product": [
+        {
+            "id": 1,
+            "body": "p1",
+            "postId": 1
+        },
+        {
+            "id": 2,
+            "body": "p2",
+            "postId": 2
+        }],
+        "profile": {
+            "name": "typicode"
+        }
     }
-  ],
-  "ft": [
-    {
-      "text": "@龙 2017",
-      "href": "http://zhulongzhen.cn"
-    },
-    {
-      "text": "@LOON 2017",
-      "href": "http://www.jsmodule.com"
-    }
-  ],
-  "news": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "codes": [
-    {
-      "id": 1,
-      "title": "code-title-1",
-      "text": "code-text-1"
-    },
-    {
-      "id": 2,
-      "title": "code-title-2",
-      "text": "code-text-2"
-    }
-  ],
-  "product": [
-    {
-      "id": 1,
-      "body": "p1",
-      "postId": 1
-    },
-    {
-      "id": 2,
-      "body": "p2",
-      "postId": 2
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  },
-  "album": [
-    {
-      "id": 1,
-      "fromUrl": "http://cn.bing.com/Search?q=%e9%98%bf%e8%b4%9d%e5%b0%94%c2%b7%e5%a1%94%e6%96%af%e6%9b%bc%e5%9b%bd%e5%ae%b6%e5%85%ac%e5%9b%ad&mkt=zh-cn&FORM=BNLH",
-      "url": "http://cn.bing.com/az/hprichbg/rb/Aoraki_ZH-CN7776353328_1920x1080.jpg",
-      "title": "阿贝尔·塔斯曼国家公园"
-    },
-    {
-      "id": 2,
-      "fromUrl": "http://cn.bing.com/Search?q=%e6%88%b4%e5%ae%89%e5%a8%9c%e9%97%aa%e8%9d%b6&mkt=zh-cn&FORM=BNLH",
-      "url": "http://cn.bing.com/az/hprichbg/rb/ButterflyWorld_ZH-CN11273971874_1920x1080.jpg",
-      "title": "戴安娜闪蝶"
-    },
-    {
-      "id": 3,
-      "fromUrl": "http://cn.bing.com/Search?q=%e5%a4%a7%e5%b3%a1%e8%b0%b7%e5%8d%97%e7%bc%98&mkt=zh-cn&FORM=BNLH",
-      "url": "http://az29176.vo.msecnd.net/videocontent/LookoutTower_GrandCanyon_FF_768_HD_ZH-CN727571233.jpg",
-      "title": "大峡谷南缘"
-    }
-  ],
-  "test0": {
-    "test1": {
-      "test2": "text"
-    }
-  }
 }

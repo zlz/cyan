@@ -10,7 +10,8 @@ angular.module('app')
                     data: paras.data,
                     params: paras.params,
                     jsonpCallbackParam: paras.jsonpCallbackParam || 'callback',
-                    responseType: paras.responseType
+                    responseType: paras.responseType,
+                    cache: paras.cache
                 })
                 .then((res) => {
                     deferred.resolve(res);

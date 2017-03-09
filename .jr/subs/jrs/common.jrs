@@ -1,13 +1,36 @@
 const path = require('path');
 const fs = require('fs');
-const dataFile = path.resolve('./src/datas/common.json');
+const dataFile = path.resolve('./src/datas/datas.json');
 const data = fs.readFileSync(dataFile);
-const common = JSON.parse(data);
-let lang = $_GET['lang'];
+const jsonDB = JSON.parse(data);
+const url = __env.REQURL.split('/');
+const lang = $_GET['lang'];
 let res = {};
-if (common[$_GET['lang']]) {
-    res = common[$_GET['lang']]
+if (url[2] === 'admin') {
+    console.log(url[3])
+    if (url[3].indexOf('common') != -1) {
+        res = jsonDB[$_GET['lang']].common
+    }
+    if (url[3].indexOf('album') != -1) {
+        res = jsonDB[$_GET['lang']].album
+    }
+    if (url[3].indexOf('news') != -1) {
+        res = jsonDB[$_GET['lang']].news
+    }
+    if (url[3].indexOf('codes') != -1) {
+        res = jsonDB[$_GET['lang']].codes
+    }
+    if (url[3].indexOf('product') != -1) {
+        res = jsonDB[$_GET['lang']].product
+    }
+    if (url[3].indexOf('about') != -1) {
+        res = jsonDB[$_GET['lang']].about
+    }
+    if (url[3].indexOf('profile') != -1) {
+        res = jsonDB[$_GET['lang']].profile
+    }
 }
+if (url[2] === 'web') {}
 echo({
     code: 200,
     msg: 'success',

@@ -4,11 +4,11 @@ angular.module('app')
         return {
             restrict: 'E',
             scope: {
-                dt: '='
+                data: '='
             },
             template: `<div class="ft">
             <div class="pd-r-10 pd-l-2 text-right em-12">
-                <a ng-href="{{dt.data.ft.href}}">{{dt.data.ft.text}}</a>
+                <a ng-href="{{data.dt.ft.href}}">{{data.dt.ft.text}}</a>
             </div>
         </div>`,
             replace: true
