@@ -1,4 +1,4 @@
-$color: #000A0D, #1B1C1E, #EAEAEA, #FFF, #37474F, #21A675, #555;
+$color: #000A0D, #1B1C1E, #EAEAEA, #FFF, #1F312C, #21A675, #555;
 $num: 3.125, 1.875;
 @mixin s1 {
     border: 0;
@@ -53,5 +53,13 @@ $num: 3.125, 1.875;
     border-top: 2px nth($color, 6) solid;
     a, &:active, &:hover, &:focus {
         color: nth($color, 2);
+    }
+}
+.sld, .w-1140 {
+    width: auto;
+}
+@media (min-width: 992px) {
+    .sld, .w-1140 {
+        width: 1140px;
     }
 }

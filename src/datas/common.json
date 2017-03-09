@@ -1,36 +1,43 @@
 {
     "cn": {
-        "hd": {
-            "nav": [{
-                "text": "首页",
-                "href": "home"
-            }, {
-                "text": "代码",
-                "href": "codes"
-            }, {
-                "text": "关于",
-                "href": "about"
-            }]
+        "nav": [
+        {
+            "id": 1,
+            "text": "首页",
+            "href": "home"
         },
+        {
+            "id": 2,
+            "text": "代码",
+            "href": "codes"
+        },
+        {
+            "id": 3,
+            "text": "关于",
+            "href": "about"
+        }],
         "ft": {
             "text": "@龙 2017",
             "href": "http://zhulongzhen.cn"
         }
     },
     "en": {
-        "hd": {
-            "nav": [{
-                "text": "HOME",
-                "href": "home"
-            },
-            {
-                "text": "CODES",
-                "href": "codes"
-            }, {
-                "text": "ABOUT",
-                "href": "about"
-            }]
+        "nav": [
+        {
+            "id": 1,
+            "text": "HOME",
+            "href": "home"
         },
+        {
+            "id": 2,
+            "text": "CODES",
+            "href": "codes"
+        },
+        {
+            "id": 3,
+            "text": "ABOUT",
+            "href": "about"
+        }],
         "ft": {
             "text": "@LOON 2017",
             "href": "http://www.jsmodule.com"

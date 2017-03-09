@@ -55,3 +55,11 @@ $num: 3.125, 1.875;
         color: nth($color, 2);
     }
 }
+.sld {
+    width: auto;
+}
+@media (min-width: 992px) {
+    .sld {
+        width: 1140px;
+    }
+}

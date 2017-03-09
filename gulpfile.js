@@ -137,7 +137,7 @@ gulp.task('webpack', (callback) => {
                 use: [{
                     loader: 'babel-loader',
                     options: {
-                        presets: ['es2015'],
+                        presets: ['env'],
                         plugins: ['transform-runtime']
                     }
                 }]
@@ -198,10 +198,6 @@ gulp.task('connect', () => {
                 proxy(['/api'], {
                     target: 'http://127.0.0.1:9090',
                     changeOrigin: false
-                }),
-                proxy(['/data/imgs'], {
-                    target: 'http://image.baidu.com',
-                    changeOrigin: true
                 })
             ];
         }
@@ -212,7 +208,7 @@ gulp.task('shell', () => {
     return gulp.src('*.js', {
             read: false
         })
-        .pipe($.shell(['json-server --watch ./datas/datas.json --routes ./datas/json-server-routes.json --port 9090']));
+        .pipe($.shell(['justreq start -c']));
 });
 gulp.task('run', () => {
     runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'styleConcat'], 'webpack', 'watch', 'connect', 'shell');

@@ -1,0 +1,16 @@
+const path = require('path');
+const fs = require('fs');
+const dataFile = path.resolve('./src/datas/common.json');
+const data = fs.readFileSync(dataFile);
+const common = JSON.parse(data);
+let lang = $_GET['lang'];
+let res = {};
+if (common[$_GET['lang']]) {
+    res = common[$_GET['lang']]
+}
+echo({
+    code: 200,
+    msg: 'success',
+    data: res
+});
+end();

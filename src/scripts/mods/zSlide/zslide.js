@@ -40,6 +40,7 @@
         viewWidth = sld.innerWidth();
         stepWidth = viewWidth;
         setTitPage = function() {
+            console.log(step);
             tit.href = data[step].url;
             tit.html(data[step].title);
             pageItms.removeClass('sld-page-fcs')
@@ -47,9 +48,14 @@
                 .addClass('sld-page-fcs');
         };
         animLeft = function() {
+            if ($('body')
+                .find('.sld')
+                .length === 0) {
+                clearInterval(anim);
+            }
+            roll.stop(true, true);
             step = step + 1;
             stepWidth = viewWidth * step;
-            roll.stop(true, true);
             roll.animate({
                 scrollLeft: stepWidth
             }, spda, 'swing', function() {
@@ -61,13 +67,13 @@
             });
         };
         animRight = function() {
+            roll.stop(true, true);
             step = step - 1;
             if (step < 0) {
                 step = len - 1;
                 roll.scrollLeft(viewWidth * len);
             }
             stepWidth = viewWidth * step;
-            roll.stop(true, true);
             roll.animate({
                 scrollLeft: stepWidth
             }, spda, 'swing', function() {

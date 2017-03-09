@@ -9,7 +9,7 @@ angular.module('app')
             template: `<div class="hd relative">
             <div class="w-1140">
                 <ul class="vm">
-                    <li class="ib mg-r-30" ng-class="{'mg-l-20': $index === 0}" ng-repeat="item in dt.data[dt.trans].hd.nav">
+                    <li class="ib mg-r-30" ng-class="{'mg-l-20': $index === 0}" ng-repeat="item in dt.data.nav">
                         <a class="ib pd-lr-15" ui-sref="{{item.href}}" ui-sref-active="active">{{item.text}}</a>
                     </li>
                 </ul>

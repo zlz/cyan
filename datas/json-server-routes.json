@@ -1,7 +1,0 @@
-{
-    "/api/news": "/news",
-    "/api/codes": "/codes",
-    "/api/product": "/product",
-    "/api/profile": "/profile",
-    "/api/album": "/album"
-}

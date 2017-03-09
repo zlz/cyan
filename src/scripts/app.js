@@ -5,13 +5,15 @@ require('./controllers/codes');
 require('./controllers/about');
 require('./directives/hd');
 require('./directives/ft');
+require('./provider/globalConfig');
 require('./provider/crud');
 require('./provider/bridge');
 require('./provider/appInterceptor');
-app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$httpProvider', 'bridgeProvider', function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $httpProvider, bridgeProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$httpProvider', 'bridgeProvider', 'GLOBAL_CONFIG', function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $httpProvider, bridgeProvider, GLOBAL_CONFIG) {
         $urlRouterProvider.deferIntercept(false);
         bridgeProvider.store('$stateProvider', $stateProvider);
         bridgeProvider.store('$urlRouterProvider', $urlRouterProvider);
+        bridgeProvider.store('GLOBAL_CONFIG', GLOBAL_CONFIG);
         $sceDelegateProvider.resourceUrlWhitelist(['self', 'http://platform.sina.com.cn/slide/album', 'https://angularjs.org/**']);
         $httpProvider.interceptors.push('appInterceptor');
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
@@ -20,14 +22,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         let deferred = $q.defer();
         crud.$http({
                 method: 'GET',
-                url: './datas/common.json'
+                url: bridge.GLOBAL_CONFIG.path + 'common.do?lang=cn'
             })
             .then((res) => {
-                res.data.cn.hd.nav.forEach(function(item) {
+                res.data.data.nav.forEach(function(item) {
                     bridge.$stateProvider.state({
                         name: item.href,
                         url: '/' + item.href,
-                        templateUrl: '../views/' + item.href + '.htm',
+                        templateUrl: './views/' + item.href + '.htm',
                         controller: item.href + 'Ctrl as ' + item.href + 'ctrl'
                     });
                 });
@@ -53,6 +55,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
             localStorage.setItem('trans', para);
         };
         bridge.getCommonData.then((res) => {
-            vm.data = res.data;
+            vm.data = res.data.data;
+            console.log(vm.data);
+            
         });
     }]);
