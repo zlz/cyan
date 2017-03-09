@@ -13,7 +13,7 @@ angular.module('app')
                         <a class="ib pd-lr-15" ui-sref="{{item.href}}" ui-sref-active="active">{{item.text}}</a>
                     </li>
                 </ul>
-                <div class="translate em-12 cur"><span class="pd-r-10" ng-click="data.transFn('cn')">中</span><span ng-click="data.transFn('en')">EN</span></div>
+                <div class="translate em-12 cur"><span class="pd-r-10" ng-click="data.transFn()">{{data.transFlag}}</span></div>
             </div>
         </div>`,
             replace: true

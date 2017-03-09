@@ -22,16 +22,33 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
     .run(['$rootScope', '$injector', '$urlRouter', '$q', 'crud', 'bridge', 'trans', function($rootScope, $injector, $urlRouter, $q, crud, bridge, trans) {
         let localTrans = localStorage.getItem('trans');
         $rootScope.rootComm = {
-            transFn: (para) => {
-                $rootScope.rootComm.trans = para;
-                localStorage.setItem('trans', para);
+            transFn: () => {
+                if ($rootScope.rootComm.transFlag === '中') {
+                    $rootScope.rootComm.transFlag = 'EN';
+                    $rootScope.rootComm.trans = 'en';
+                } else if ($rootScope.rootComm.transFlag === 'EN') {
+                    $rootScope.rootComm.transFlag = '日';
+                    $rootScope.rootComm.trans = 'jp';
+                } else if ($rootScope.rootComm.transFlag === '日') {
+                    $rootScope.rootComm.transFlag = '中';
+                    $rootScope.rootComm.trans = 'cn';
+                }
+                localStorage.setItem('trans', $rootScope.rootComm.trans);
                 trans($rootScope.rootComm.trans);
-            }
+            },
         };
         if (!localTrans) {
             $rootScope.rootComm.trans = 'cn';
+            $rootScope.rootComm.transFlag = '中';
         } else {
             $rootScope.rootComm.trans = localTrans;
+            if ($rootScope.rootComm.trans === 'cn') {
+                $rootScope.rootComm.transFlag = '中';
+            } else if ($rootScope.rootComm.trans === 'en') {
+                $rootScope.rootComm.transFlag = 'EN';
+            } else if ($rootScope.rootComm.trans === 'JP') {
+                $rootScope.rootComm.transFlag = '日';
+            }
         }
         trans($rootScope.rootComm.trans);
         $rootScope.$watch('rootComm.dt', () => {
@@ -52,5 +69,4 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
             }
         });
     }])
-    .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {
-    }]);
+    .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {}]);
