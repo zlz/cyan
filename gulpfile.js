@@ -197,8 +197,9 @@ gulp.task('connect', () => {
     $.connect.server({
         debug: true,
         root: ['dist'],
-        index: 'app.htm',
+        index: false,
         port: 80,
+        fallback: 'dist/app.htm',
         middleware: () => {
             return [
                 proxy(['/api/admin', '/api/web'], {
