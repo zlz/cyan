@@ -1,15 +1,20 @@
 /*global angular*/
 let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap']);
 require('./controllers/home');
+require('./controllers/news');
 require('./controllers/codes');
 require('./controllers/about');
 require('./directives/hd');
 require('./directives/ft');
+require('./directives/list');
+require('./directives/weather');
+require('./directives/bdj');
 require('./provider/globalConfig');
 require('./provider/crud');
 require('./provider/bridge');
 require('./provider/appInterceptor');
 require('./provider/trans');
+require('./filter/trustHtml');
 app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$httpProvider', 'bridgeProvider', 'GLOBAL_CONFIG', function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $httpProvider, bridgeProvider, GLOBAL_CONFIG) {
         $urlRouterProvider.deferIntercept(false);
         bridgeProvider.store('$stateProvider', $stateProvider);
@@ -30,6 +35,9 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                     $rootScope.rootComm.transFlag = '日';
                     $rootScope.rootComm.trans = 'jp';
                 } else if ($rootScope.rootComm.transFlag === '日') {
+                    $rootScope.rootComm.transFlag = 'FR';
+                    $rootScope.rootComm.trans = 'fr';
+                } else if ($rootScope.rootComm.transFlag === 'FR') {
                     $rootScope.rootComm.transFlag = '中';
                     $rootScope.rootComm.trans = 'cn';
                 }
@@ -46,8 +54,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                 $rootScope.rootComm.transFlag = '中';
             } else if ($rootScope.rootComm.trans === 'en') {
                 $rootScope.rootComm.transFlag = 'EN';
-            } else if ($rootScope.rootComm.trans === 'JP') {
+            } else if ($rootScope.rootComm.trans === 'jp') {
                 $rootScope.rootComm.transFlag = '日';
+            } else if ($rootScope.rootComm.trans === 'fr') {
+                $rootScope.rootComm.transFlag = 'FR';
             }
         }
         trans($rootScope.rootComm.trans);

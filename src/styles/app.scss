@@ -1,0 +1,104 @@
+$colors-cn: (bg0: #F8FAFC, bg1: #24292C, bg2:#313639, fot1: #999, fot2:#FFF, fot3: #444, bdr1: #EBEBEB, bdr2:#24292C);
+$colors-en: (bg0: #F8FAFC, bg1: #FFF, bg2:#F8FAFC, fot1: #738A94, fot2:#343F44, fot3: #717171, bdr1: #E5EFF5, bdr2:#E8E8E8);
+$colors-jp: (bg0: #F8FAFC, bg1: #DB4437, bg2:#E06055, fot1: #FFF, fot2:#F7D7D4, fot3: #717171, bdr1: #EBEBEB, bdr2:#DB4437);
+$colors-fr: (bg0: #F8FAFC, bg1: #00ACAB, bg2:#33BCBB, fot1: #FFF, fot2:#E9F7F7, fot3: #717171, bdr1: #EBEBEB, bdr2:#33BCBB);
+$colors-pub: (bg0: #FFF, bg1: #F8FAFC, fot1: #4B4B4B, fot2: #C00, fot3:#7D8485, bdr1: #F4F6F8);
+$num: 3.125, 1.875, .75;
+@mixin s1($color) {
+    border: 0;
+    outline: 0;
+    background-color: map-get($color, bg2);
+    color: map-get($color, fot2);
+}
+body {
+    line-height: 2;
+    font-size: 16px;
+    color: map-get($colors-pub, fot1);
+    background-color: map-get($colors-pub, bg1);
+}
+a {
+    color: map-get($colors-pub, fot1);
+    &:active, &:hover, &:focus {
+        border: 0;
+        outline: 0;
+        text-decoration: none;
+        transition: color .3s ease-in;
+        color: map-get($colors-pub, fot2);
+    }
+}
+.lst1 {
+    border: 1px solid map-get($colors-pub, bdr1);
+    background: #FFF;
+    padding: 20px;
+    .dest {
+        font-size: #{nth($num, 3)}em;
+        color: map-get($colors-pub, fot3);
+    }
+}
+@each $trans, $color in (cn, $colors-cn), (en, $colors-en, ), (jp, $colors-jp), (fr, $colors-fr) {
+    .#{$trans} {
+        .clr1 {
+            @if map-get($color, bg1) == #FFF {
+                color: #738A94;
+            }
+            @else {
+                color: map-get($color, bg1);
+            }
+        }
+        .hd {
+            position: fixed;
+            z-index: 1000000;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: #{nth($num, 1)}em;
+            line-height: #{nth($num, 1)}em;
+            border-bottom: 1px solid map-get($color, bdr1);
+            background: map-get($color, bg1);
+            color: map-get($color, fot1);
+            font-size: 1em;
+            a {
+                color: map-get($color, fot1);
+                transition: background-color .3s ease-in;
+                &:active, &:hover, &:focus {
+                    @include s1($color);
+                }
+            }
+            .active {
+                @include s1($color);
+            }
+            .translate {
+                position: absolute;
+                top: 0;
+                right: 10px;
+            }
+        }
+        .bd {
+            position: absolute;
+            top: #{nth($num, 1) * 16 + 1}px;
+            left: 0;
+            right: 0;
+            bottom: #{nth($num, 2) * 16 + 2}px;
+            min-height: 300px;
+        }
+        .ft {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            height: #{nth($num, 2)}em;
+            line-height: #{nth($num, 2)}em;
+            border-top: 2px map-get($color, bdr2) solid;
+            a, &:active, &:hover, &:focus {
+                color: map-get($color, fot3);
+            }
+        }
+    }
+}
+.sld, .w-1140 {
+    width: auto;
+}
+@media (min-width: 992px) {
+    .sld, .w-1140 {
+        width: 1140px;
+    }
+}

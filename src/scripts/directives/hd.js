@@ -6,7 +6,7 @@ angular.module('app')
             scope: {
                 data: '=',
             },
-            template: `<div class="hd relative">
+            template: `<div class="hd clearfix relative">
             <div class="w-1140">
                 <ul class="vm">
                     <li class="ib mg-r-30" ng-class="{'mg-l-20': $index === 0}" ng-repeat="item in data.dt.nav">

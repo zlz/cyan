@@ -14,6 +14,7 @@ const gulp = require('gulp'),
             view: './src/views/**/*',
             img: './src/images/**/*',
             data: './src/datas/**/*',
+            font: './src/fonts/**/*',
             vendor: './src/vendors/**/*',
             entry: {
                 'vendor.common': './src/scripts/vendor.common',
@@ -27,10 +28,11 @@ const gulp = require('gulp'),
             view: './dist/views',
             img: './dist/images',
             data: './dist/datas',
+            font: './dist/fonts',
             vendor: './dist/vendors'
         },
         concat: {
-            css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/bootstrap.min.css', './dist/styles/common.min.css', './src/scripts/mods/zSlide/zslide.css']
+            css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/css/bootstrap.min.css', './dist/vendors/font-awesome/css/font-awesome.min.css', './dist/styles/common.min.css', './src/scripts/mods/zSlide/zslide.css']
         }
     };
 let status = '';
@@ -171,6 +173,10 @@ gulp.task('data', () => {
     return gulp.src(paths.src.data)
         .pipe(gulp.dest(paths.dest.data));
 });
+gulp.task('font', () => {
+    return gulp.src(paths.src.font)
+        .pipe(gulp.dest(paths.dest.font));
+});
 gulp.task('bower', () => {
     if (status === 'dev') {
         return true;
@@ -192,17 +198,37 @@ gulp.task('connect', () => {
         debug: true,
         root: ['dist'],
         index: 'app.htm',
-        port: 8899,
+        port: 80,
         middleware: () => {
             return [
-                proxy(['/api'], {
+                proxy(['/api/admin', '/api/web'], {
                     target: 'http://127.0.0.1:9090',
+                    changeOrigin: false
+                }),
+                proxy(['/api/cho'], {
+                    target: 'http://dig.chouti.com',
+                    changeOrigin: true,
+                    pathRewrite: {
+                        '^/api/cho': ''
+                    },
+                    logLevel: 'info'
+                }),
+                proxy(['/api/sho'], {
+                    target: 'http://route.showapi.com',
+                    changeOrigin: true,
+                    pathRewrite: {
+                        '^/api/sho': ''
+                    },
+                    logLevel: 'info'
+                }),
+                proxy(['/project', '/sso', '/authManage', '/indexController', '/globalPermissionManage', '/systemDDL', '/treeController'], {
+                    target: 'http://192.168.32.33:9080',
                     changeOrigin: false
                 })
             ];
         }
     });
-    open('http://127.0.0.1:8899');
+    open('http://127.0.0.1');
 });
 gulp.task('shell', () => {
     return gulp.src('*.js', {
@@ -211,7 +237,7 @@ gulp.task('shell', () => {
         .pipe($.shell(['node ./node_modules/justreq-cli/bin/justreq start -c']));
 });
 gulp.task('run', () => {
-    runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'styleConcat'], 'webpack', 'watch', 'connect', 'shell');
+    runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'font', 'styleConcat'], 'webpack', 'watch', 'connect', 'shell');
 });
 gulp.task('default', () => {
     status = 'dev';

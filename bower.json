@@ -22,7 +22,9 @@
     "/js"
   ],
   "dependencies": {
-    "angular-ui-bootstrap": "https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.min.js",
+    "angular-bootstrap": "^2.5.0",
+    "angular-resource": "^1.6.2",
+    "angular-ui-router": "^0.4.2",
     "angular": "latest",
     "artDialog": "https://github.com/aui/artDialog.git#~6",
     "artTemplate": "latest",
@@ -41,8 +43,6 @@
     "swiper": "latest",
     "uploadify": "latest",
     "vue": "latest",
-    "waves": "latest",
-    "angular-ui-router": "^0.4.2",
-    "angular-resource": "^1.6.2"
+    "waves": "latest"
   }
 }

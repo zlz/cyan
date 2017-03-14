@@ -17,11 +17,12 @@
             step = 0,
             animLeft,
             animRight,
-            anim,
             setTitPage;
         if (data.length === 0) {
             return false;
         }
+        sld.html('');
+        clearInterval(window.animTimer);
         len = data.length;
         for (i = 0; i < len; i = i + 1) {
             rollStr = rollStr + "<a href='" + data[i].fromUrl + "' target='_blank' class='sld-a0'><img class='sld-img' src='" + data[i].url + "'' style='height:100%'></a>";
@@ -51,7 +52,7 @@
             if ($('body')
                 .find('.sld')
                 .length === 0) {
-                clearInterval(anim);
+                clearInterval(window.animTimer);
             }
             roll.stop(true, true);
             step = step + 1;
@@ -80,12 +81,12 @@
                 setTitPage();
             });
         };
-        anim = window.setInterval(animLeft, spdb);
+        window.animTimer = window.setInterval(animLeft, spdb);
         setTitPage();
         sld.on({
             mouseover: function(evt) {
                 var $el = $(evt.target);
-                clearInterval(anim);
+                clearInterval(window.animTimer);
                 arwLeft.show();
                 arwRight.show();
                 if ($el.hasClass('sld-page-itm')) {
@@ -94,7 +95,7 @@
                 }
             },
             mouseout: function() {
-                anim = window.setInterval(animLeft, spdb);
+                window.animTimer = window.setInterval(animLeft, spdb);
             },
             click: function(evt) {
                 var $el = $(evt.target);

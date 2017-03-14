@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" ng-app="app" ng-controller="appCtrl as appctrl">
+<html lang="zh-CN" ng-app="app" ng-controller="appCtrl as appctrl" class="">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
@@ -16,9 +16,9 @@
         </script>
     <![endif]-->
     <link href="styles/vendor.common.min.css" rel="stylesheet">
-    <link ng-href="styles/app.{{rootComm.trans}}.min.css" rel="stylesheet">
+    <link ng-href="styles/app.min.css" rel="stylesheet">
 </head>
-<body>
+<body ng-class="rootComm.trans">
 <div class="">
     <hd data="rootComm"></hd>
     <div class="bd" ui-view></div>
