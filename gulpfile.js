@@ -32,7 +32,7 @@ const gulp = require('gulp'),
             vendor: './dist/vendors'
         },
         concat: {
-            css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/css/bootstrap.min.css', './dist/vendors/font-awesome/css/font-awesome.min.css', './dist/styles/common.min.css', './src/scripts/mods/zSlide/zslide.css']
+            css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/css/bootstrap.css', './dist/vendors/font-awesome/css/font-awesome.css', './dist/styles/common.min.css', './src/scripts/mods/zSlide/zslide.css']
         }
     };
 let status = '';
@@ -77,6 +77,8 @@ gulp.task('style', () => {
 });
 gulp.task('styleConcat', ['style'], () => {
     return gulp.src(paths.concat.css)
+        .pipe($.csso())
+        .pipe($.autoprefixer('last 2 version', 'safari5', 'ie8', 'ie9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe($.concat('vendor.common.min.css'))
         .pipe(gulp.dest(paths.dest.style));
 });

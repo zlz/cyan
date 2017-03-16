@@ -1,4 +1,4 @@
-window.jQuery = window.$ = require('../../dist/vendors/jquery1/dist/jquery.min');
+window.jQuery = window.$ = require('../../dist/vendors/jquery/dist/jquery');
 require('../../dist/vendors/angular/angular');
 require('../../dist/vendors/angular-resource/angular-resource');
 require('../../dist/vendors/angular-bootstrap/ui-bootstrap-tpls');

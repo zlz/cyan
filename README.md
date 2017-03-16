@@ -1,2 +1,2 @@
 # cyan
-cyan-js-css-lib
+cyan person project
