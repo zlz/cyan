@@ -1,5 +1,5 @@
 /*global angular*/
-let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap']);
+let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngAnimate', 'ngTouch']);
 require('./controllers/home');
 require('./controllers/news');
 require('./controllers/codes');
