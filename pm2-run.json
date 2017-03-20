@@ -1,0 +1,10 @@
+{
+    "apps": [
+    {
+        "name": "pm2-run",
+        "script": "npm",
+        "args": "run server",
+        "autorestart": true,
+        "restart_delay": 1000
+    }]
+}

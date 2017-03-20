@@ -10,11 +10,13 @@ angular.module('app')
                 <span class="em-14">明天{{data.f2.day_weather}},{{data.f2.day_air_temperature}}℃，
                 后天{{data.f3.day_weather}},{{data.f3.day_air_temperature}}℃</span>
             </div>`,
-            controller: ['$rootScope', '$scope', 'crud', ($rootScope, $scope, crud) => {
+            controller: ['$rootScope', '$scope', 'bridge', 'crud', ($rootScope, $scope, bridge, crud) => {
+                console.log(path);
+                const path = bridge.GLOBAL_CONFIG.path;
                 $scope.getWeather = () => {
                     crud.$http({
                             method: 'GET',
-                            url: '/api/sho/9-6?area=杭州&need3HourForcast=0&needAlarm=0&needHourData=0&needIndex=0&needMoreDay=0&showapi_appid=33446&spotId=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans
+                            url: path + 'sho/9-6?area=杭州&need3HourForcast=0&needAlarm=0&needHourData=0&needIndex=0&needMoreDay=0&showapi_appid=33446&spotId=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans
                         })
                         .then((res) => {
                             $scope.data = res.data.showapi_res_body;

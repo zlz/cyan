@@ -4,10 +4,13 @@
   "description": "cyan app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "bower": "bower install",
     "gulp": "gulp",
-    "gulp-prod": "gulp prod"
+    "gulp-prod": "gulp prod",
+    "start": "npm-run-all --parallel gulp server",
+    "server": "npm-run-all --parallel justreq express",
+    "express": "node server.js",
+    "justreq": "node ./node_modules/justreq-cli/bin/justreq start -c"
   },
   "keywords": [
     "cyan",
@@ -25,6 +28,8 @@
     "babel-preset-env": "^1.2.1",
     "bower": "^1.8.0",
     "browser-sync": "^2.18.8",
+    "compression": "^1.6.2",
+    "cors": "^2.8.1",
     "css-loader": "^0.27.3",
     "del": "^2.2.2",
     "eslint": "^3.17.1",
@@ -55,6 +60,7 @@
     "gulp-sourcemaps": "^2.4.1",
     "gulp-uglify": "^2.1.0",
     "gulp-util": "^3.0.8",
+    "helmet": "^3.5.0",
     "history": "^4.6.0",
     "htmlhint": "^0.9.13",
     "http-proxy-middleware": "^0.17.4",
@@ -62,7 +68,9 @@
     "jsxhint": "^0.15.1",
     "justreq": "^0.3.5",
     "justreq-cli": "^0.3.1",
+    "morgan": "^1.8.1",
     "node-sass": "^4.5.0",
+    "npm-run-all": "^4.0.2",
     "open": "0.0.5",
     "path": "^0.12.7",
     "run-sequence": "^1.2.2",

@@ -4,7 +4,7 @@ angular.module('app')
         return (para) => {
             crud.$http({
                     method: 'GET',
-                    url: bridge.GLOBAL_CONFIG.path + 'common.do?lang=' + para,
+                    url: bridge.GLOBAL_CONFIG.path + 'admin/common.do?lang=' + para,
                     cache: false
                 })
                 .then((res) => {

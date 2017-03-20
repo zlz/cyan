@@ -6,7 +6,7 @@ angular.module('app')
         let getData = () => {
             crud.$http({
                     method: 'GET',
-                    url: path + 'codes.do?lang=' + $rootScope.rootComm.trans
+                    url: path + 'admin/codes.do?lang=' + $rootScope.rootComm.trans
                 })
                 .then((res) => {
                     $scope.data = res.data.data;

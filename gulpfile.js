@@ -1,40 +1,39 @@
-const gulp = require('gulp'),
-    $ = require('gulp-load-plugins')(),
-    del = require('del'),
-    open = require('open'),
-    path = require('path'),
-    proxy = require('http-proxy-middleware'),
-    webpack = require('webpack'),
-    runSequence = require('run-sequence'),
-    paths = {
-        src: {
-            root: './src',
-            style: './src/styles/**/*',
-            js: './src/scripts/**/*.js',
-            view: './src/views/**/*',
-            img: './src/images/**/*',
-            data: './src/datas/**/*',
-            font: './src/fonts/**/*',
-            vendor: './src/vendors/**/*',
-            entry: {
-                'vendor.common': './src/scripts/vendor.common',
-                app: './src/scripts/app'
-            }
-        },
-        dest: {
-            root: './dist',
-            style: './dist/styles',
-            js: './dist/scripts',
-            view: './dist/views',
-            img: './dist/images',
-            data: './dist/datas',
-            font: './dist/fonts',
-            vendor: './dist/vendors'
-        },
-        concat: {
-            css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/css/bootstrap.css', './dist/vendors/font-awesome/css/font-awesome.css', './dist/styles/common.min.css', './src/scripts/mods/zSlide/zslide.css']
+const gulp = require('gulp');
+const $ = require('gulp-load-plugins')();
+const del = require('del');
+const path = require('path');
+const open = require('open');
+const webpack = require('webpack');
+const runSequence = require('run-sequence');
+const paths = {
+    src: {
+        root: './src',
+        style: './src/styles/**/*',
+        js: './src/scripts/**/*.js',
+        view: './src/views/**/*',
+        img: './src/images/**/*',
+        data: './src/datas/**/*',
+        font: './src/fonts/**/*',
+        vendor: './src/vendors/**/*',
+        entry: {
+            'vendor.common': './src/scripts/vendor.common',
+            app: './src/scripts/app'
         }
-    };
+    },
+    dest: {
+        root: './dist',
+        style: './dist/styles',
+        js: './dist/scripts',
+        view: './dist/views',
+        img: './dist/images',
+        data: './dist/datas',
+        font: './dist/fonts',
+        vendor: './dist/vendors'
+    },
+    concat: {
+        css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/css/bootstrap.css', './dist/vendors/font-awesome/css/font-awesome.css', './dist/styles/common.min.css', './src/scripts/mods/zSlide/zslide.css']
+    }
+};
 let status = '';
 gulp.task('clean', () => {
     if (status === 'dev') {
@@ -195,52 +194,11 @@ gulp.task('watch', () => {
     gulp.watch(paths.src.vendor, ['vendor']);
     gulp.watch(paths.src.js, ['webpack']);
 });
-gulp.task('connect', () => {
-    $.connect.server({
-        debug: true,
-        root: ['dist'],
-        index: false,
-        port: 80,
-        fallback: 'dist/app.htm',
-        middleware: () => {
-            return [
-                proxy(['/api/admin', '/api/web'], {
-                    target: 'http://127.0.0.1:9090',
-                    changeOrigin: false
-                }),
-                proxy(['/api/cho'], {
-                    target: 'http://dig.chouti.com',
-                    changeOrigin: true,
-                    pathRewrite: {
-                        '^/api/cho': ''
-                    },
-                    logLevel: 'info'
-                }),
-                proxy(['/api/sho'], {
-                    target: 'http://route.showapi.com',
-                    changeOrigin: true,
-                    pathRewrite: {
-                        '^/api/sho': ''
-                    },
-                    logLevel: 'info'
-                }),
-                proxy(['/project', '/sso', '/authManage', '/indexController', '/globalPermissionManage', '/systemDDL', '/treeController'], {
-                    target: 'http://192.168.32.33:9080',
-                    changeOrigin: false
-                })
-            ];
-        }
-    });
+gulp.task('open', () => {
     open('http://127.0.0.1');
 });
-gulp.task('shell', () => {
-    return gulp.src('*.js', {
-            read: false
-        })
-        .pipe($.shell(['node ./node_modules/justreq-cli/bin/justreq start -c']));
-});
 gulp.task('run', () => {
-    runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'font', 'styleConcat'], 'webpack', 'watch', 'connect', 'shell');
+    runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'font', 'styleConcat'], 'webpack', 'watch', 'open');
 });
 gulp.task('default', () => {
     status = 'dev';

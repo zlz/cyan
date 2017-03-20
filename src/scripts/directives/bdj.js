@@ -14,11 +14,12 @@ angular.module('app')
                     </a>
                 </li>
             </ul>`,
-            controller: ['$rootScope', '$scope', 'crud', ($rootScope, $scope, crud) => {
+            controller: ['$rootScope', '$scope', 'bridge', 'crud', ($rootScope, $scope, bridge, crud) => {
+                const path = bridge.GLOBAL_CONFIG.path;
                 $scope.getWeather = () => {
                     crud.$http({
                             method: 'GET',
-                            url: '/api/sho/255-1?page=&showapi_appid=33446&title=&type=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans
+                            url: path + 'sho/255-1?page=&showapi_appid=33446&title=&type=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans
                         })
                         .then((res) => {
                             $scope.data = res.data.showapi_res_body.pagebean;
