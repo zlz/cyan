@@ -7,7 +7,7 @@
     "bower": "bower install",
     "gulp": "gulp",
     "gulp-prod": "gulp prod",
-    "start": "npm-run-all --parallel gulp server",
+    "start": "npm-run-all --parallel server gulp",
     "server": "npm-run-all --parallel justreq express",
     "express": "node server.js",
     "justreq": "node ./node_modules/justreq-cli/bin/justreq start -c"

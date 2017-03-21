@@ -14,7 +14,6 @@ const paths = {
         img: './src/images/**/*',
         data: './src/datas/**/*',
         font: './src/fonts/**/*',
-        vendor: './src/vendors/**/*',
         entry: {
             'vendor.common': './src/scripts/vendor.common',
             app: './src/scripts/app'
@@ -27,20 +26,15 @@ const paths = {
         view: './dist/views',
         img: './dist/images',
         data: './dist/datas',
-        font: './dist/fonts',
-        vendor: './dist/vendors'
+        font: './dist/fonts'
     },
     concat: {
-        css: ['./dist/styles/cyan.common.min.css', './dist/vendors/bootstrap/dist/css/bootstrap.css', './dist/vendors/font-awesome/css/font-awesome.css', './dist/styles/common.min.css', './src/scripts/mods/zSlide/zslide.css']
+        css: ['./dist/styles/cyan.common.min.css', './src/vendors/bootstrap/dist/css/bootstrap.css', './dist/styles/common.min.css', './src/mods/zSlide/zslide.css']
     }
 };
 let status = '';
 gulp.task('clean', () => {
-    if (status === 'dev') {
-        return del([paths.dest.root + '/**/*', '!' + paths.dest.vendor + '/**']);
-    } else {
-        return del([paths.dest.root + '/**/*']);
-    }
+    return del([paths.dest.root + '/**/*']);
 });
 gulp.task('style', () => {
     let scss = $.filter('**/*.scss', {
@@ -191,7 +185,6 @@ gulp.task('watch', () => {
     gulp.watch(paths.src.view, ['view']);
     gulp.watch(paths.src.img, ['img']);
     gulp.watch(paths.src.data, ['data']);
-    gulp.watch(paths.src.vendor, ['vendor']);
     gulp.watch(paths.src.js, ['webpack']);
 });
 gulp.task('open', () => {

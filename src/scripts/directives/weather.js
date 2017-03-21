@@ -11,7 +11,6 @@ angular.module('app')
                 后天{{data.f3.day_weather}},{{data.f3.day_air_temperature}}℃</span>
             </div>`,
             controller: ['$rootScope', '$scope', 'bridge', 'crud', ($rootScope, $scope, bridge, crud) => {
-                console.log(path);
                 const path = bridge.GLOBAL_CONFIG.path;
                 $scope.getWeather = () => {
                     crud.$http({

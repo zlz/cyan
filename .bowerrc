@@ -1,5 +1,5 @@
 {
-    "directory":"./dist/vendors",
+    "directory":"./src/vendors",
     "json":"bower.json",
     "timeout": 10000
 }
