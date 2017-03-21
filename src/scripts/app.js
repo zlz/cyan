@@ -43,7 +43,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                 }
                 localStorage.setItem('trans', $rootScope.rootComm.trans);
                 trans($rootScope.rootComm.trans);
-            },
+            }
         };
         if (!localTrans) {
             $rootScope.rootComm.trans = 'cn';

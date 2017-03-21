@@ -187,6 +187,7 @@ gulp.task('watch', () => {
     gulp.watch(paths.src.view, ['view']);
     gulp.watch(paths.src.img, ['img']);
     gulp.watch(paths.src.data, ['data']);
+    gulp.watch(paths.src.font, ['styleConcat', 'font']);
     gulp.watch(paths.src.js, ['webpack']);
 });
 gulp.task('open', () => {

@@ -10,6 +10,17 @@ $num: 3.125, 1.875, .75;
     background-color: map-get($color, bg2);
     color: map-get($color, fot2);
 }
+@mixin s2() {
+    transition: left .5s ease-in, right .5s ease-in;
+    &.on {
+        display: block;
+        left: -10em;
+        right: 10em;
+    }
+}
+frameset, frame, html {
+    font-size: 16px;
+}
 body {
     line-height: 2;
     font-size: 16px;
@@ -35,10 +46,43 @@ a {
         color: map-get($colors-pub, fot3);
     }
 }
+.sld, .w-1140 {
+    width: 100%;
+}
+.h5-menu {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    cursor: pointer;
+    display: block;
+}
+.vm {
+    display: none;
+    z-index: 100000;
+    transition: right .5s ease-in;
+    li {
+        margin-right: 30px;
+    }
+    &.on {
+        display: block;
+        position: fixed;
+        top: 3.05em;
+        right: 0;
+        width: 6em;
+        background: #CCC;
+        li {
+            margin: 0;
+            width: 100%;
+        }
+        .active {
+            width: 100%;
+        }
+    }
+}
 @each $trans, $color in (cn, $colors-cn), (en, $colors-en, ), (jp, $colors-jp), (fr, $colors-fr) {
     .#{$trans} {
         .clr1 {
-            @if map-get($color, bg1) == #FFF {
+            @if map-get($color, bg1)==#FFF {
                 color: #738A94;
             }
             @else {
@@ -46,23 +90,26 @@ a {
             }
         }
         .hd {
-            position: fixed;
-            z-index: 1000000;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: #{nth($num, 1)}em;
             line-height: #{nth($num, 1)}em;
-            border-bottom: 1px solid map-get($color, bdr1);
-            background: map-get($color, bg1);
             color: map-get($color, fot1);
             font-size: 1em;
             a {
                 color: map-get($color, fot1);
                 transition: background-color .3s ease-in;
                 &:active, &:hover, &:focus {
+                    width: 100%;
                     @include s1($color);
                 }
+            }
+            .hd-btm {
+                position: fixed;
+                z-index: 10000;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: #{nth($num, 1)}em;
+                border-bottom: 1px solid map-get($color, bdr1);
+                background: map-get($color, bg1);
             }
             .active {
                 @include s1($color);
@@ -70,10 +117,10 @@ a {
             .translate {
                 position: absolute;
                 top: 0;
-                right: 10px;
+                right: 3em;
             }
         }
-        .bd {
+        .ui-view-ct {
             position: absolute;
             top: #{nth($num, 1) * 16 + 1}px;
             left: 0;
@@ -94,11 +141,14 @@ a {
         }
     }
 }
-.sld, .w-1140 {
-    width: auto;
-}
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
     .sld, .w-1140 {
         width: 1140px;
+    }
+    .h5-menu {
+        display: none;
+    }
+    .vm {
+        display: block;
     }
 }
