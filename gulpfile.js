@@ -15,7 +15,7 @@ const paths = {
         data: './src/datas/**/*',
         font: './src/fonts/**/*',
         entry: {
-            'vendor.common': './src/scripts/vendor.common',
+            vendor: ['./src/scripts/vendor.common'],
             app: './src/scripts/app'
         }
     },
@@ -29,9 +29,7 @@ const paths = {
         font: './dist/fonts'
     },
     concat: {
-        css: ['./dist/styles/cyan.common.min.css', 
-        './src/fonts/iconfont.css',
-        './bower_components/bootstrap/dist/css/bootstrap.css', './dist/styles/common.min.css', './src/mods/zSlide/zslide.css']
+        css: ['./dist/styles/cyan.common.min.css', './src/fonts/iconfont.css', './bower_components/bootstrap/dist/css/bootstrap.css', './dist/styles/common.min.css', './src/mods/zSlide/zslide.css']
     }
 };
 let status = '';
@@ -132,13 +130,13 @@ gulp.task('webpack', (callback) => {
         ],
         module: {
             rules: [{
-                test: path.join(__dirname, 'src/scripts'),
+                test: /\.js$/,
+                include: [
+                    path.resolve(__dirname, 'src/scripts'),
+                    path.resolve(__dirname, 'src/mods')
+                ],
                 use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env'],
-                        plugins: ['transform-runtime']
-                    }
+                    loader: 'babel-loader'
                 }]
             }]
         },
@@ -191,7 +189,7 @@ gulp.task('watch', () => {
     gulp.watch(paths.src.js, ['webpack']);
 });
 gulp.task('open', () => {
-    open('http://127.0.0.1');
+    //open('http://127.0.0.1');
 });
 gulp.task('run', () => {
     runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'font', 'styleConcat'], 'webpack', 'watch', 'open');

@@ -79,4 +79,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
             }
         });
     }])
-    .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {}]);
+    .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {
+        class Lign {
+
+        }
+    }]);

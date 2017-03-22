@@ -5,9 +5,7 @@
  Released under the MIT License.
  */
 class Cyan {
-    constructor() {
-
-    }
+    constructor() {}
     //顶部提示，自动隐藏
     pop(txt, type, callback) {
         var jct = {};
@@ -38,7 +36,7 @@ class Cyan {
                 }
         }
         jct.pp.style.left = (document.documentElement.clientWidth - jct.pp.offsetWidth) / 2 + 'px';
-        window.setTimeout(function () {
+        window.setTimeout(function() {
             document.body.removeChild(jct.pp);
         }, 3000);
     }
@@ -51,24 +49,26 @@ class Cyan {
         var el = document.createElement('div');
         el.innerHTML = htmStr;
         document.body.appendChild(el);
-        var si = setInterval(function () {
+        var si = setInterval(function() {
             if (el) {
                 document.body.removeChild(el);
                 clearInterval(si);
                 cb(cbVal);
             }
         }, 6e4);
-        document.querySelector('.cyan-confirm-y').addEventListener('click', function () {
-            clearInterval(si);
-            document.body.removeChild(el);
-            cbVal = true;
-            cb(cbVal);
-        }, false);
-        document.querySelector('.cyan-confirm-n').addEventListener('click', function () {
-            clearInterval(si);
-            document.body.removeChild(el);
-            cb(cbVal);
-        }, false);
+        document.querySelector('.cyan-confirm-y')
+            .addEventListener('click', function() {
+                clearInterval(si);
+                document.body.removeChild(el);
+                cbVal = true;
+                cb(cbVal);
+            }, false);
+        document.querySelector('.cyan-confirm-n')
+            .addEventListener('click', function() {
+                clearInterval(si);
+                document.body.removeChild(el);
+                cb(cbVal);
+            }, false);
     }
     //返回当前年月日星期
     date() {
@@ -88,7 +88,8 @@ class Cyan {
     //获取url参数name的值
     getUrlParam(name) {
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'),
-            r = window.location.search.substr(1).match(reg);
+            r = window.location.search.substr(1)
+            .match(reg);
         if (r !== null) {
             return decodeURIComponent(r[2]);
         }
@@ -124,7 +125,7 @@ export {
     cyan
 };
 //获取数组值val的索引
-Array.prototype.indexOf = function (val) {
+Array.prototype.indexOf = function(val) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] === val) {
             return i;
@@ -133,7 +134,7 @@ Array.prototype.indexOf = function (val) {
     return -1;
 };
 //删除数组值val
-Array.prototype.remove = function (val) {
+Array.prototype.remove = function(val) {
     var index = this.indexOf(val);
     if (index > -1) {
         this.splice(index, 1);

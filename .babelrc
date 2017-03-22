@@ -1,0 +1,15 @@
+{
+    "presets": [
+        ["env", {
+            "targets": {
+                "browsers": ["ie <= 9"],
+                "uglify": true,
+                "useBuiltIns": true,
+                "debug": true
+            }
+        }]
+    ],
+    "minified": true,
+    "comments": false,
+    "compact": true
+}

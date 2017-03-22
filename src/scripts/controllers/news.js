@@ -10,7 +10,7 @@ angular.module('app')
             $scope.news.selectedChanelName = para;
             crud.$http({
                     method: 'GET',
-                    url: path + 'sho/109-35?channelId=&channelName=' + $scope.news.selectedChanelName + '&maxResult=20&needAllList=1&needContent=1&needHtml=1&page=1&showapi_appid=33446&&title=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans
+                    url: path + 'sho/109-35?channelId=&channelName=' + encodeURIComponent($scope.news.selectedChanelName) + '&maxResult=20&needAllList=1&needContent=1&needHtml=1&page=1&showapi_appid=33446&&title=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans
                 })
                 .then((res) => {
                     $scope.news.data = res.data.showapi_res_body.pagebean;

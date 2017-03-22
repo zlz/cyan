@@ -1,4 +1,4 @@
-$colors-cn: (bg0: #F8FAFC, bg1: #24292C, bg2:#313639, fot1: #999, fot2:#FFF, fot3: #444, bdr1: #EBEBEB, bdr2:#24292C);
+$colors-cn: (bg0: #F8FAFC, bg1: #151C24, bg2:#212C34, fot1: #999, fot2:#FFF, fot3: #444, bdr1: #EBEBEB, bdr2:#24292C);
 $colors-en: (bg0: #F8FAFC, bg1: #FFF, bg2:#F8FAFC, fot1: #738A94, fot2:#343F44, fot3: #717171, bdr1: #E5EFF5, bdr2:#E8E8E8);
 $colors-jp: (bg0: #F8FAFC, bg1: #DB4437, bg2:#E06055, fot1: #FFF, fot2:#F7D7D4, fot3: #717171, bdr1: #EBEBEB, bdr2:#DB4437);
 $colors-fr: (bg0: #F8FAFC, bg1: #00ACAB, bg2:#33BCBB, fot1: #FFF, fot2:#E9F7F7, fot3: #717171, bdr1: #EBEBEB, bdr2:#33BCBB);
@@ -18,9 +18,6 @@ $num: 3.125, 1.875, .75;
         right: 10em;
     }
 }
-frameset, frame, html {
-    font-size: 16px;
-}
 body {
     line-height: 2;
     font-size: 16px;
@@ -37,48 +34,6 @@ a {
         color: map-get($colors-pub, fot2);
     }
 }
-.lst1 {
-    border: 1px solid map-get($colors-pub, bdr1);
-    background: #FFF;
-    padding: 20px;
-    .dest {
-        font-size: #{nth($num, 3)}em;
-        color: map-get($colors-pub, fot3);
-    }
-}
-.sld, .w-1140 {
-    width: 100%;
-}
-.h5-menu {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    cursor: pointer;
-    display: block;
-}
-.vm {
-    display: none;
-    z-index: 100000;
-    transition: right .5s ease-in;
-    li {
-        margin-right: 30px;
-    }
-    &.on {
-        display: block;
-        position: fixed;
-        top: 3.05em;
-        right: 0;
-        width: 6em;
-        background: #CCC;
-        li {
-            margin: 0;
-            width: 100%;
-        }
-        .active {
-            width: 100%;
-        }
-    }
-}
 @each $trans, $color in (cn, $colors-cn), (en, $colors-en, ), (jp, $colors-jp), (fr, $colors-fr) {
     .#{$trans} {
         .clr1 {
@@ -90,34 +45,23 @@ a {
             }
         }
         .hd {
-            line-height: #{nth($num, 1)}em;
             color: map-get($color, fot1);
             font-size: 1em;
             a {
                 color: map-get($color, fot1);
+                width: 100%;
                 transition: background-color .3s ease-in;
                 &:active, &:hover, &:focus {
-                    width: 100%;
                     @include s1($color);
                 }
             }
-            .hd-btm {
-                position: fixed;
-                z-index: 10000;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: #{nth($num, 1)}em;
+            .hd-bg {
                 border-bottom: 1px solid map-get($color, bdr1);
                 background: map-get($color, bg1);
+                box-sizing: content-box;
             }
             .active {
                 @include s1($color);
-            }
-            .translate {
-                position: absolute;
-                top: 0;
-                right: 3em;
             }
         }
         .ui-view-ct {
@@ -141,14 +85,112 @@ a {
         }
     }
 }
+.hd {
+    a.logo {
+        background: url(../images/logo.png) no-repeat;
+        background-size: contain;
+        position: absolute;
+        top: 2px;
+        left: 25px;
+        width: 90px;
+        height: 88%;
+        &:active, &:hover, &:focus {
+            width: 120px;
+            background-color: transparent;
+        }
+    }
+    .hd-bg {
+        position: fixed;
+        z-index: 10000;
+        top: 0;
+        width: 100%;
+        height: #{nth($num, 1)}em;
+        line-height: #{nth($num, 1)}em;
+    }
+    .hd-ct {
+        width: 100%;
+        z-index: 100000;
+        position: fixed;
+        top: 0;
+        left: 145px;
+        height: #{nth($num, 1)}em;
+        line-height: #{nth($num, 1)}em;
+        .vm {
+            display: none;
+            margin: 0;
+        }
+        .translate {
+            position: fixed;
+            top: 0;
+            right: 3em;
+        }
+        .h5-menu-btn {
+            position: fixed;
+            top: 0;
+            right: .5em;
+            cursor: pointer;
+            display: block;
+        }
+        li {
+            margin-right: 30px;
+        }
+        &.on {
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .2);
+            .vm {
+                display: block;
+                position: fixed;
+                height: 100%;
+                top: 0;
+                left: 100%;
+                width: 40%;
+                background-color: rgba(255, 255, 255, .9);
+                animation: anim-vm .3s ease-out forwards;
+                li {
+                    margin: 0;
+                    width: 100%;
+                    &:first-child {
+                        margin-top: 3em;
+                    }
+                }
+            }
+            .active {
+                width: 100%;
+            }
+        }
+    }
+}
+.lst1 {
+    border: 1px solid map-get($colors-pub, bdr1);
+    background: #FFF;
+    padding: 20px;
+    .dest {
+        font-size: #{nth($num, 3)}em;
+        color: map-get($colors-pub, fot3);
+    }
+}
+.sld, .w-1140 {
+    width: 100%;
+}
+@keyframes anim-vm {
+    100% {
+        left: 60%;
+    }
+}
 @media screen and (min-width: 992px) {
     .sld, .w-1140 {
         width: 1140px;
     }
-    .h5-menu {
-        display: none;
-    }
-    .vm {
-        display: block;
+    .hd {
+        .hd-ct {
+            .vm {
+                display: block;
+            }
+            .h5-menu-btn {
+                display: none;
+            }
+        }
     }
 }
