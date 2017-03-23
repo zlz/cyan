@@ -20,11 +20,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         bridgeProvider.store('$stateProvider', $stateProvider);
         bridgeProvider.store('$urlRouterProvider', $urlRouterProvider);
         bridgeProvider.store('GLOBAL_CONFIG', GLOBAL_CONFIG);
-        $sceDelegateProvider.resourceUrlWhitelist(['self', 'http://platform.sina.com.cn/slide/album', 'https://angularjs.org/**']);
+        $sceDelegateProvider.resourceUrlWhitelist(['self', '']);
         $httpProvider.interceptors.push('appInterceptor');
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
-    .run(['$rootScope', '$injector', '$urlRouter', '$q', 'crud', 'bridge', 'trans', function($rootScope, $injector, $urlRouter, $q, crud, bridge, trans) {
+    .run(['$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$q', 'crud', 'bridge', 'trans', function($rootScope, $injector, $urlRouter, $state, $stateParams, $q, crud, bridge, trans) {
+        bridge.store('$state', $state);
+        bridge.store('$stateParams', $stateParams);
         let localTrans = localStorage.getItem('trans');
         $rootScope.rootComm = {
             transFn: () => {
@@ -79,8 +81,4 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
             }
         });
     }])
-    .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {
-        class Lign {
-
-        }
-    }]);
+    .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {}]);

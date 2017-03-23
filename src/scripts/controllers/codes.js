@@ -12,7 +12,12 @@ angular.module('app')
                     $scope.data = res.data.data;
                 });
         };
-        $rootScope.$watch('rootComm.trans', () => {
+        $rootScope.transWatch = $rootScope.$watch('rootComm.trans', () => {
             getData();
+        });
+        $scope.$on('$destroy', () => {
+            if ($rootScope.transWatch instanceof Function) {
+                $rootScope.transWatch();
+            }
         });
     }]);

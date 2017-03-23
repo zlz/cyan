@@ -16,7 +16,12 @@ angular.module('app')
                     $scope.news.data = res.data.showapi_res_body.pagebean;
                 });
         };
-        $rootScope.$watch('rootComm.trans', () => {
+        $rootScope.transWatch = $rootScope.$watch('rootComm.trans', () => {
             $scope.getNews($scope.news.selectedChanelName);
+        });
+        $scope.$on('$destroy', () => {
+            if ($rootScope.transWatch instanceof Function) {
+                $rootScope.transWatch();
+            }
         });
     }]);

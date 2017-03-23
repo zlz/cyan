@@ -41,7 +41,6 @@
         viewWidth = sld.innerWidth();
         stepWidth = viewWidth;
         setTitPage = function() {
-            console.log(step);
             tit.href = data[step].url;
             tit.html(data[step].title);
             pageItms.removeClass('sld-page-fcs')
@@ -95,6 +94,7 @@
                 }
             },
             mouseout: function() {
+                clearInterval(window.animTimer);
                 window.animTimer = window.setInterval(animLeft, spdb);
             },
             click: function(evt) {

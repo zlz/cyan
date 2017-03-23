@@ -10,7 +10,13 @@ angular.module('app')
                     zslide($('.sld'), 3000);
                 });
         };
-        $rootScope.$watch('rootComm.trans', () => {
+        $rootScope.transWatch = $rootScope.$watch('rootComm.trans', () => {
             getData();
+        });
+        $scope.$on('$destroy', () => {
+            clearInterval(window.animTimer);
+            if ($rootScope.transWatch instanceof Function) {
+                $rootScope.transWatch();
+            }
         });
     }]);
