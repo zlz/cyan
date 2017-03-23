@@ -37,7 +37,7 @@ gulp.task('clean', () => {
     return del([paths.dest.root + '/**/*']);
 });
 gulp.task('style', () => {
-    let scss = $.filter('**/*.scss', {
+    let filterScss = $.filter('**/*.scss', {
         restore: true
     });
     return gulp.src(paths.src.style)
@@ -47,7 +47,7 @@ gulp.task('style', () => {
         .on('data', (file) => {
             $.util.log(file.path);
         })
-        .pipe(scss)
+        .pipe(filterScss)
         .pipe($.sass(
             {
                 outputStyle: 'expanded'
@@ -56,9 +56,12 @@ gulp.task('style', () => {
                 $.util.log(err.message);
                 this.emit('end');
             }))
-        .pipe(scss.restore)
+        .pipe(filterScss.restore)
+        .pipe($.autoprefixer({
+            browsers: ['last 2 versions', 'ie 9', 'Android 3'],
+            cascade: false
+        }))
         .pipe($.csso())
-        .pipe($.autoprefixer('last 2 version', 'safari5', 'ie8', 'ie9', 'opera 12.1', 'ios 6', 'android 4'))
         .on('error', (err) => {
             $.util.log(err.message);
             this.emit('end');
@@ -70,8 +73,11 @@ gulp.task('style', () => {
 });
 gulp.task('styleConcat', ['style'], () => {
     return gulp.src(paths.concat.css)
+        .pipe($.autoprefixer({
+            browsers: ['last 2 versions', 'ie 9', 'Android 3'],
+            cascade: false
+        }))
         .pipe($.csso())
-        .pipe($.autoprefixer('last 2 version', 'safari5', 'ie8', 'ie9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe($.concat('vendor.common.min.css'))
         .pipe(gulp.dest(paths.dest.style));
 });
