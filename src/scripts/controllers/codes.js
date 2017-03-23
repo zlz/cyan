@@ -9,7 +9,9 @@ angular.module('app')
                     url: path + 'admin/codes.do?lang=' + $rootScope.rootComm.trans
                 })
                 .then((res) => {
-                    $scope.data = res.data.data;
+                    if (res) {
+                        $scope.data = res.data.data;
+                    }
                 });
         };
         $rootScope.transWatch = $rootScope.$watch('rootComm.trans', () => {

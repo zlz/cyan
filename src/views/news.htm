@@ -3,7 +3,7 @@
         <div class="pd-20">
             <div class="btn-group pd-t-20" uib-dropdown dropdown-append-to-body><button id="btn-append-to-body" type="button" class="btn btn-info" uib-dropdown-toggle>{{news.selectedChanelName}}<span class="caret"></span></button>
                 <ul class="dropdown-menu" uib-dropdown-menu>
-                    <li ng-repeat="item in news.chanelNames"><a href="" ng-click="getNews(item)">{{item}}</a></li>
+                    <li ng-repeat="item in news.chanelNames"><a href="" ng-click="getNews(item, true)">{{item}}</a></li>
                 </ul>
             </div>
         </div>

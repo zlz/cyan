@@ -1,7 +1,9 @@
 /*global angular*/
 angular.module('app')
     .provider('crud', function() {
-        let that = this, $http, $q;
+        let that = this,
+            $http, $q;
+        this.cancel = () => {};
         this.$http = (paras) => {
             let deferred = $q.defer();
             $http({
@@ -11,13 +13,21 @@ angular.module('app')
                     params: paras.params,
                     jsonpCallbackParam: paras.jsonpCallbackParam || 'callback',
                     responseType: paras.responseType,
-                    cache: paras.cache
+                    cache: paras.cache,
+                    timeout: paras.timeout
                 })
                 .then((res) => {
-                    deferred.resolve(res);
+                    if (res && res.status !== -1) {
+                        deferred.resolve(res);
+                    } else {
+                        deferred.resolve(false);
+                    }
                 }, (err) => {
                     deferred.rejecct(err);
                 });
+            that.cancel = () => {
+                return deferred.resolve(false);
+            };
             return deferred.promise;
         };
         this.$get = ['$http', '$resource', '$q', function(_$http, _$resource, _$q) {
