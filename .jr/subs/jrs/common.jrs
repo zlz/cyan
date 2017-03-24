@@ -5,35 +5,38 @@ const data = fs.readFileSync(dataFile);
 const jsonDB = JSON.parse(data);
 const url = __env.REQURL.split('/');
 const lang = $_GET['lang'];
-let res = {};
+let ec = (res) => {
+    echo({
+        code: 200,
+        msg: 'success',
+        data: res
+    });
+}
 if (url[2] === 'admin') {
     console.log(url[3])
     if (url[3].indexOf('common') != -1) {
-        res = jsonDB[$_GET['lang']].common
+        ec(jsonDB[$_GET['lang']].common)
     }
     if (url[3].indexOf('album') != -1) {
-        res = jsonDB[$_GET['lang']].album
+        ec(jsonDB[$_GET['lang']].album)
     }
     if (url[3].indexOf('news') != -1) {
-        res = jsonDB[$_GET['lang']].news
+        ec(jsonDB[$_GET['lang']].news)
     }
     if (url[3].indexOf('form') != -1) {
-        res = jsonDB[$_GET['lang']].form
+        let res = jsonDB[$_GET['lang']].form.push($_POST);
+        fs.writeFile(path.resolve('./src/datas/datas.json'), JSON.stringify(jsonDB))
+        ec($_POST)
     }
     if (url[3].indexOf('product') != -1) {
-        res = jsonDB[$_GET['lang']].product
+        ec(jsonDB[$_GET['lang']].product);
     }
     if (url[3].indexOf('about') != -1) {
-        res = jsonDB[$_GET['lang']].about
+        ec(jsonDB[$_GET['lang']].about);
     }
     if (url[3].indexOf('profile') != -1) {
-        res = jsonDB[$_GET['lang']].profile
+        ec(jsonDB[$_GET['lang']].profile);
     }
 }
 if (url[2] === 'web') {}
-echo({
-    code: 200,
-    msg: 'success',
-    data: res
-});
 end();
