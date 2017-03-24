@@ -7,7 +7,7 @@ angular.module('app')
                 .get()
                 .$promise.then((res) => {
                     $scope.zslide = zslide.data = res.data;
-                    zslide($('.sld'), 3000);
+                    zslide($('.sld'), 6000);
                 });
         };
         $rootScope.transWatch = $rootScope.$watch('rootComm.trans', () => {
@@ -19,4 +19,11 @@ angular.module('app')
                 $rootScope.transWatch();
             }
         });
+        $scope.zslideSwipe = (para) => {
+            if (para === 'left') {
+                zslide.animLeft();
+            } else {
+                zslide.animRight();
+            }
+        };
     }]);

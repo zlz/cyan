@@ -15,8 +15,6 @@
             pageStr = '',
             stepWidth,
             step = 0,
-            animLeft,
-            animRight,
             setTitPage;
         if (data.length === 0) {
             return false;
@@ -47,7 +45,7 @@
                 .eq(step)
                 .addClass('sld-page-fcs');
         };
-        animLeft = function() {
+        fn.animLeft = function() {
             if ($('body')
                 .find('.sld')
                 .length === 0) {
@@ -66,7 +64,7 @@
                 setTitPage();
             });
         };
-        animRight = function() {
+        fn.animRight = function() {
             roll.stop(true, true);
             step = step - 1;
             if (step < 0) {
@@ -80,7 +78,7 @@
                 setTitPage();
             });
         };
-        window.animTimer = window.setInterval(animLeft, spdb);
+        window.animTimer = window.setInterval(fn.animLeft, spdb);
         setTitPage();
         sld.on({
             mouseover: function(evt) {
@@ -90,20 +88,20 @@
                 arwRight.show();
                 if ($el.hasClass('sld-page-itm')) {
                     step = $el.data('num') - 1;
-                    animLeft();
+                    fn.animLeft();
                 }
             },
             mouseout: function() {
                 clearInterval(window.animTimer);
-                window.animTimer = window.setInterval(animLeft, spdb);
+                window.animTimer = window.setInterval(fn.animLeft, spdb);
             },
             click: function(evt) {
                 var $el = $(evt.target);
                 if ($el.hasClass('sld-arw-left')) {
-                    animRight();
+                    fn.animRight();
                 }
                 if ($el.hasClass('sld-arw-right')) {
-                    animLeft();
+                    fn.animLeft();
                 }
             }
         });
