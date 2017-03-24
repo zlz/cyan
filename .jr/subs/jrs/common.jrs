@@ -23,10 +23,14 @@ if (url[2] === 'admin') {
     if (url[3].indexOf('news') != -1) {
         ec(jsonDB[$_GET['lang']].news)
     }
-    if (url[3].indexOf('form') != -1) {
-        let res = jsonDB[$_GET['lang']].form.push($_POST);
+    if (url[3].indexOf('post-form') != -1) {
+        let res = jsonDB[$_GET['lang']].form.unshift($_POST);
         fs.writeFile(path.resolve('./dist/datas/datas.json'), JSON.stringify(jsonDB))
+        fs.writeFile(path.resolve('./src/datas/datas.json'), JSON.stringify(jsonDB))
         ec($_POST)
+    }
+    if (url[3].indexOf('get-form') != -1) {
+        ec(jsonDB[$_GET['lang']].form)
     }
     if (url[3].indexOf('product') != -1) {
         ec(jsonDB[$_GET['lang']].product);

@@ -7,6 +7,7 @@ require('./controllers/about');
 require('./directives/hd');
 require('./directives/ft');
 require('./directives/list');
+require('./directives/formList');
 require('./directives/weather');
 require('./directives/bdj');
 require('./provider/globalConfig');
