@@ -17,8 +17,8 @@ if (url[2] === 'admin') {
     if (url[3].indexOf('news') != -1) {
         res = jsonDB[$_GET['lang']].news
     }
-    if (url[3].indexOf('codes') != -1) {
-        res = jsonDB[$_GET['lang']].codes
+    if (url[3].indexOf('form') != -1) {
+        res = jsonDB[$_GET['lang']].form
     }
     if (url[3].indexOf('product') != -1) {
         res = jsonDB[$_GET['lang']].product

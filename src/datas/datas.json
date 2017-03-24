@@ -14,8 +14,8 @@
             },
             {
                 "id": 3,
-                "text": "代码",
-                "href": "codes"
+                "text": "表单",
+                "href": "form"
             },
             {
                 "id": 4,
@@ -56,7 +56,7 @@
             "title": "news-title2",
             "author": "news-author2"
         }],
-        "codes": [
+        "form": [
         {
             "id": 1,
             "title": "code-title-1",
@@ -97,8 +97,8 @@
             },
             {
                 "id": 3,
-                "text": "CODES",
-                "href": "codes"
+                "text": "Form",
+                "href": "form"
             },
             {
                 "id": 4,
@@ -139,7 +139,7 @@
             "title": "ennews-title2",
             "author": "ennews-author2"
         }],
-        "codes": [
+        "form": [
         {
             "id": 1,
             "title": "encode-title-1",
@@ -180,8 +180,8 @@
             },
             {
                 "id": 3,
-                "text": "コード",
-                "href": "codes"
+                "text": "フォーム",
+                "href": "form"
             },
             {
                 "id": 4,
@@ -222,7 +222,7 @@
             "title": "jpnews-title2",
             "author": "jpnews-author2"
         }],
-        "codes": [
+        "form": [
         {
             "id": 1,
             "title": "jpcode-title-1",
@@ -263,8 +263,8 @@
             },
             {
                 "id": 3,
-                "text": "codes",
-                "href": "codes"
+                "text": "forme",
+                "href": "form"
             },
             {
                 "id": 4,
@@ -305,7 +305,7 @@
             "title": "frnews-title2",
             "author": "frnews-author2"
         }],
-        "codes": [
+        "form": [
         {
             "id": 1,
             "title": "frcode-title-1",

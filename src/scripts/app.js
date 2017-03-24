@@ -2,7 +2,7 @@
 let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngAnimate', 'ngTouch']);
 require('./controllers/home');
 require('./controllers/news');
-require('./controllers/codes');
+require('./controllers/form');
 require('./controllers/about');
 require('./directives/hd');
 require('./directives/ft');
