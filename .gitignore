@@ -6,3 +6,4 @@ dist/vendors/
 .idea/
 .tmp/
 dist/
+.jr/cache
