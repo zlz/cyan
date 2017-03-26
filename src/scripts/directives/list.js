@@ -8,7 +8,7 @@ angular.module('app')
                 data: '=',
             },
             template: `<div>
-                <div class="pd-30 text-center"  ng-if="!data.contentlist">
+                <div class="pd-30 text-center animated infinite flash"  ng-if="!data.contentlist">
                     数据加载中...
                 </div>
                 <ul ng-else>

@@ -7,9 +7,9 @@ angular.module('app')
                 window.cyan.pop('您提交的速度太快了！', 'warning');
                 return false;
             }
-            $scope.submitValid = true;
             let req = $scope.formData;
             if (req && $scope.form.$valid) {
+                $scope.submitValid = true;
                 crud.$http({
                         method: 'post',
                         url: path + 'admin/post-form.do?lang=' + $rootScope.rootComm.trans,

@@ -29,7 +29,7 @@ const paths = {
         font: './dist/fonts'
     },
     concat: {
-        css: ['./dist/styles/cyan.common.min.css', './src/fonts/iconfont.css', './bower_components/bootstrap/dist/css/bootstrap.css', './dist/styles/common.min.css', './src/mods/zSlide/zslide.css']
+        css: ['./dist/styles/cyan.common.min.css', './src/fonts/iconfont.css', './bower_components/bootstrap/dist/css/bootstrap.css', './bower_components/animate.css/animate.css', './dist/styles/common.min.css', './src/mods/zSlide/zslide.css']
     }
 };
 let status = '';

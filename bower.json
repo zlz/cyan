@@ -42,6 +42,7 @@
     "swiper": "^3.4.2",
     "uploadify": "^3.2.1",
     "vue": "^2.2.4",
-    "Waves": "waves#^0.7.5"
+    "Waves": "waves#^0.7.5",
+    "animate.css": "^3.5.2"
   }
 }
