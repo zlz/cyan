@@ -3,6 +3,7 @@ angular.module('app')
     .directive('formList', () => {
         return {
             restrict: 'E',
+            replace: true,
             template: `<ul class="pd-tb-30" ng-if="data.length > 0">
                 <li ng-repeat="item in data" class="lst1 pd-20 mg-b-20 clear">
                         <div class="pd-b-5 em-18">{{item.name}}</div>
@@ -15,7 +16,7 @@ angular.module('app')
                 $scope.getFormList = () => {
                     crud.$http({
                             method: 'GET',
-                            url: path + 'admin/get-form.do?lang='  + $rootScope.rootComm.trans
+                            url: path + 'admin/get-form.do?lang=' + $rootScope.rootComm.trans
                         })
                         .then((res) => {
                             if (res) {

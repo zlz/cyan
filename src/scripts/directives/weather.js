@@ -3,6 +3,7 @@ angular.module('app')
     .directive('weather', () => {
         return {
             restrict: 'E',
+            replace: true,
             scope: {},
             template: `<div class="lst1 pd-20 mg-b-20 clear text-center">
                 <span class="em-18">{{data.cityInfo.c3}} {{data.f1.day_weather}}</span>

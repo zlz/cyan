@@ -11,9 +11,10 @@ angular.module('app')
             if (para[1]) {
                 crud.cancel();
             }
+            $scope.news.data = undefined;
             crud.$http({
                     method: 'GET',
-                    url: path + 'sho/109-35?channelId=&channelName=' + encodeURIComponent($scope.news.selectedChanelName) + '&maxResult=20&needAllList=1&needContent=1&needHtml=1&page=1&showapi_appid=33446&&title=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans
+                    url: path + 'sho/109-35?channelId=&channelName=' + encodeURIComponent($scope.news.selectedChanelName) + '&maxResult=20&needAllList=0&needContent=0&needHtml=0&page=1&showapi_appid=33446&&title=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans
                 })
                 .then((res) => {
                     if (res) {
