@@ -65,22 +65,17 @@ a {
             }
         }
         .ui-view-ct {
-            position: absolute;
-            top: #{nth($num, 1) * 16 + 1}px;
-            left: 0;
-            right: 0;
-            bottom: #{nth($num, 2) * 16 + 2}px;
-            min-height: 300px;
+            margin-top: #{nth($num, 1) * 16 + 1}px;
+            min-height: 800px;
         }
         .ft {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            height: #{nth($num, 2)}em;
-            line-height: #{nth($num, 2)}em;
-            border-top: 2px map-get($color, bdr2) solid;
-            a, &:active, &:hover, &:focus {
-                color: map-get($color, fot3);
+            background-color: #E8E8E8;
+            color: #999;
+            a {
+                color: #999;
+            }
+            ul, p {
+                margin: 0;
             }
         }
     }
@@ -177,6 +172,12 @@ a {
 .w-500 {
     width: auto;
     display: block !important;
+}
+.tt1 {
+    color: #33BCBB;
+}
+.ct1 {
+    height: 220px;
 }
 @keyframes anim-vm {
     100% {
