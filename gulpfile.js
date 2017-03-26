@@ -10,7 +10,7 @@ const paths = {
         root: './src',
         style: './src/styles/**/*',
         js: './src/scripts/**/*.js',
-        view: './src/views/**/*',
+        htm: './src/**/*.htm',
         img: './src/images/**/*',
         data: './src/datas/**/*',
         font: './src/fonts/**/*',
@@ -23,7 +23,7 @@ const paths = {
         root: './dist',
         style: './dist/styles',
         js: './dist/scripts',
-        view: './dist/views',
+        htm: './dist',
         img: './dist/images',
         data: './dist/datas',
         font: './dist/fonts'
@@ -159,12 +159,21 @@ gulp.task('webpack', (callback) => {
     });
 });
 gulp.task('rootFile', () => {
-    return gulp.src(paths.src.root + '/*.*')
+    return gulp.src(paths.src.root + '/*.ico')
         .pipe(gulp.dest(paths.dest.root));
 });
-gulp.task('view', () => {
-    return gulp.src(paths.src.view)
-        .pipe(gulp.dest(paths.dest.view));
+gulp.task('htm', () => {
+    return gulp.src(paths.src.htm)
+        .pipe($.htmlmin({
+            collapseWhitespace: true,
+            conservativeCollapse: true,
+            minifyCSS: true,
+            minifyJS: true,
+            sortAttributes: true,
+            sortClassName: true,
+            useShortDoctype: true
+        }))
+        .pipe(gulp.dest(paths.dest.htm));
 });
 gulp.task('img', () => {
     return gulp.src(paths.src.img)
@@ -188,7 +197,7 @@ gulp.task('bower', () => {
 gulp.task('watch', () => {
     gulp.watch(paths.src.style, ['styleConcat']);
     gulp.watch(paths.src.root + '/*.*', ['rootFile']);
-    gulp.watch(paths.src.view, ['view']);
+    gulp.watch(paths.src.htm, ['htm']);
     gulp.watch(paths.src.img, ['img']);
     gulp.watch(paths.src.data, ['data']);
     gulp.watch(paths.src.font, ['styleConcat', 'font']);
@@ -198,7 +207,7 @@ gulp.task('open', () => {
     //open('http://127.0.0.1');
 });
 gulp.task('run', () => {
-    runSequence('clean', 'bower', ['rootFile', 'view', 'img', 'data', 'font', 'styleConcat'], 'webpack', 'watch', 'open');
+    runSequence('clean', 'bower', ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat'], 'webpack', 'watch', 'open');
 });
 gulp.task('default', () => {
     status = 'dev';
