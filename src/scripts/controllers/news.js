@@ -14,7 +14,8 @@ angular.module('app')
             $scope.news.data = undefined;
             crud.$http({
                     method: 'GET',
-                    url: path + 'sho/109-35?channelId=&channelName=' + encodeURIComponent($scope.news.selectedChanelName) + '&maxResult=20&needAllList=0&needContent=0&needHtml=0&page=1&showapi_appid=33446&&title=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans
+                    url: path + 'sho/109-35?&channelId=&channelName=' + encodeURIComponent($scope.news.selectedChanelName) + '&maxResult=20&needAllList=0&needContent=0&needHtml=0&page=1&showapi_appid=33446&&title=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans,
+                    cache: bridge.lruCache('news' + encodeURIComponent($scope.news.selectedChanelName), 10)
                 })
                 .then((res) => {
                     if (res) {

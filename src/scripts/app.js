@@ -15,6 +15,7 @@ require('./provider/crud');
 require('./provider/bridge');
 require('./provider/appInterceptor');
 require('./provider/trans');
+require('./provider/lruCache');
 require('./filter/trustHtml');
 app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$httpProvider', 'bridgeProvider', 'GLOBAL_CONFIG', function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $httpProvider, bridgeProvider, GLOBAL_CONFIG) {
         $urlRouterProvider.deferIntercept(false);
@@ -25,9 +26,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         $httpProvider.interceptors.push('appInterceptor');
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
-    .run(['$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$q', 'crud', 'bridge', 'trans', function($rootScope, $injector, $urlRouter, $state, $stateParams, $q, crud, bridge, trans) {
+    .run(['$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$q', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'trans', function($rootScope, $injector, $urlRouter, $state, $stateParams, $q, lruCache, $cacheFactory, crud, bridge, trans) {
         bridge.store('$state', $state);
         bridge.store('$stateParams', $stateParams);
+        bridge.store('$cacheFactory', $cacheFactory);
+        bridge.store('lruCache', lruCache);
         let localTrans = localStorage.getItem('trans');
         $rootScope.rootComm = {
             transFn: () => {

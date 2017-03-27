@@ -21,7 +21,7 @@ angular.module('app')
                     <i class="icon iconfont icon-caidan h5-menu-btn em-24" ng-click="menuFn()"></i>
                 </div>
             </div>`,
-            controller: ['$rootScope', '$scope', ($rootScope, $scope) => {
+            link: ($scope) => {
                 $scope.menuFn = () => {
                     if ($(window)
                         .width() < 992) {
@@ -37,6 +37,6 @@ angular.module('app')
                         }
                     }
                 };
-            }]
+            }
         };
     });
