@@ -3,7 +3,12 @@ angular.module('app')
     .controller('homeCtrl', ['$rootScope', '$scope', 'bridge', 'crud', ($rootScope, $scope, bridge, crud) => {
         const path = bridge.GLOBAL_CONFIG.path;
         let getData = () => {
-            crud.$resource(path + 'admin/album.do?lang=' + $rootScope.rootComm.trans)
+            crud.$resource(path + 'admin/album.do?lang=' + $rootScope.rootComm.trans, {}, {
+                    get: {
+                        method: 'GET',
+                        cache: true
+                    }
+                })
                 .get()
                 .$promise.then((res) => {
                     $scope.zslide = zslide.data = res.data;
