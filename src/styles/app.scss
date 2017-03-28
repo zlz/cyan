@@ -1,6 +1,6 @@
-$colors-cn: (bg0: #F8FAFC, bg1: #151C24, bg2:#212C34, fot1: #999, fot2:#FFF, fot3: #444, bdr1: #EBEBEB, bdr2:#24292C);
+$colors-zh-cn: (bg0: #F8FAFC, bg1: #151C24, bg2:#212C34, fot1: #999, fot2:#FFF, fot3: #444, bdr1: #EBEBEB, bdr2:#24292C);
 $colors-en: (bg0: #F8FAFC, bg1: #FFF, bg2:#F8FAFC, fot1: #738A94, fot2:#343F44, fot3: #717171, bdr1: #E5EFF5, bdr2:#E8E8E8);
-$colors-jp: (bg0: #F8FAFC, bg1: #DB4437, bg2:#E06055, fot1: #FFF, fot2:#F7D7D4, fot3: #717171, bdr1: #EBEBEB, bdr2:#DB4437);
+$colors-ja: (bg0: #F8FAFC, bg1: #DB4437, bg2:#E06055, fot1: #FFF, fot2:#F7D7D4, fot3: #717171, bdr1: #EBEBEB, bdr2:#DB4437);
 $colors-fr: (bg0: #F8FAFC, bg1: #00ACAB, bg2:#33BCBB, fot1: #FFF, fot2:#E9F7F7, fot3: #717171, bdr1: #EBEBEB, bdr2:#33BCBB);
 $colors-pub: (bg0: #FFF, bg1: #F8FAFC, fot1: #4B4B4B, fot2: #C00, fot3:#7D8485, bdr1: #F4F6F8);
 $num: 3.125, 1.875, .75;
@@ -31,10 +31,10 @@ a {
         outline: 0;
         text-decoration: none;
         transition: color .3s ease-in;
-        color: map-get($colors-pub, fot2);
+        color: map-get($colors-pub, fot1);
     }
 }
-@each $trans, $color in (cn, $colors-cn), (en, $colors-en, ), (jp, $colors-jp), (fr, $colors-fr) {
+@each $trans, $color in (zh-cn, $colors-zh-cn), (en, $colors-en, ), (ja, $colors-ja), (fr, $colors-fr) {
     .#{$trans} {
         .clr1 {
             @if map-get($color, bg1)==#FFF {
@@ -199,6 +199,12 @@ a {
             .h5-menu-btn {
                 display: none;
             }
+        }
+    }
+    a {
+        color: map-get($colors-pub, fot1);
+        &:active, &:hover, &:focus {
+            color: map-get($colors-pub, fot2);
         }
     }
 }

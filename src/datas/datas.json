@@ -1,5 +1,5 @@
 {
-    "cn": {
+    "zh-cn": {
         "common": {
             "nav": [{
                 "id": 1,
@@ -137,7 +137,7 @@
             "name": "entypicode"
         }
     },
-    "jp": {
+    "ja": {
         "common": {
             "nav": [{
                 "id": 1,

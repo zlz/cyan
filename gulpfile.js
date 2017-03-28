@@ -131,7 +131,7 @@ gulp.task('webpack', (callback) => {
             new UglifyJSPlugin({
                 compress: {
                     warnings: true,
-                    'drop_console': true,
+                    'drop_console': false
                 },
                 output: {
                     comments: false

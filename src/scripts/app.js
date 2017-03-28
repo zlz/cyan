@@ -31,7 +31,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         bridge.store('$stateParams', $stateParams);
         bridge.store('$cacheFactory', $cacheFactory);
         bridge.store('lruCache', lruCache);
-        let localTrans = localStorage.getItem('trans');
         $rootScope.rootComm = {
             transFn: () => {
                 if ($rootScope.rootComm.transFlag === '中') {
@@ -39,32 +38,54 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                     $rootScope.rootComm.trans = 'en';
                 } else if ($rootScope.rootComm.transFlag === 'EN') {
                     $rootScope.rootComm.transFlag = '日';
-                    $rootScope.rootComm.trans = 'jp';
+                    $rootScope.rootComm.trans = 'ja';
                 } else if ($rootScope.rootComm.transFlag === '日') {
                     $rootScope.rootComm.transFlag = 'FR';
                     $rootScope.rootComm.trans = 'fr';
                 } else if ($rootScope.rootComm.transFlag === 'FR') {
                     $rootScope.rootComm.transFlag = '中';
-                    $rootScope.rootComm.trans = 'cn';
+                    $rootScope.rootComm.trans = 'zh-cn';
                 }
                 localStorage.setItem('trans', $rootScope.rootComm.trans);
                 trans($rootScope.rootComm.trans);
             }
         };
-        if (!localTrans) {
-            $rootScope.rootComm.trans = 'cn';
-            $rootScope.rootComm.transFlag = '中';
-        } else {
-            $rootScope.rootComm.trans = localTrans;
-            if ($rootScope.rootComm.trans === 'cn') {
-                $rootScope.rootComm.transFlag = '中';
-            } else if ($rootScope.rootComm.trans === 'en') {
-                $rootScope.rootComm.transFlag = 'EN';
-            } else if ($rootScope.rootComm.trans === 'jp') {
-                $rootScope.rootComm.transFlag = '日';
-            } else if ($rootScope.rootComm.trans === 'fr') {
-                $rootScope.rootComm.transFlag = 'FR';
+        let localLang = localStorage.getItem('trans');
+        let bowserLang = (navigator.language || navigator.browserLanguage)
+            .toLowerCase();
+        console.log(bowserLang);
+        let getLang = (lang) => {
+            $rootScope.rootComm.trans = lang;
+            switch (lang) {
+                case 'zh-cn':
+                    {
+                        $rootScope.rootComm.transFlag = '中';
+                        break;
+                    }
+                case 'en':
+                    {
+                        $rootScope.rootComm.transFlag = 'EN';
+                        break;
+                    }
+                case 'ja':
+                    {
+                        $rootScope.rootComm.transFlag = '日';
+                        break;
+                    }
+                case 'fr':
+                    {
+                        $rootScope.rootComm.transFlag = 'FR';
+                        break;
+                    }
             }
+        };
+        if (localLang) {
+            getLang(localLang);
+        } else if (bowserLang) {
+            getLang(bowserLang);
+        } else {
+            $rootScope.rootComm.trans = 'zh-cn';
+            $rootScope.rootComm.transFlag = '中';
         }
         trans($rootScope.rootComm.trans);
         $rootScope.$watch('rootComm.dt', () => {
@@ -86,4 +107,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
             }
         });
     }])
-    .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {}]);
+    .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {
+        let goTop = () => {
+            $('html,body')
+                .animate({
+                    'scrollTop': 0
+                }, 500);
+        };
+        $scope.$on('$stateChangeStart', () => {
+            console.log(true);
+            goTop();
+        });
+    }]);
