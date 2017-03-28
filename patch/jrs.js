@@ -22,7 +22,8 @@ class Jrs{
       'setTimeout': setTimeout,
       'clearTimeout': clearTimeout,
       'setInterval': setInterval,
-      'clearInterval': clearInterval
+      'clearInterval': clearInterval,
+      'Buffer': Buffer
     };
     this.availableProperties = ['echo', 'end', 'sendFile', 'setMime', 'setCookie', 'setHeader',
       '$_GET', '$_POST', '$_COOKIE', '$_HEADER', '$_FILES', '$_TEMP'];
@@ -120,6 +121,21 @@ class Jrs{
     this.socket.setTimeout(0);
   }
 
+  responseBinary(buffer, res, isEnd) {
+    if (!this._hasSentBinaryHead) {
+      let mime = 'application/octet-stream';
+      let head = this.createResponseHead(mime, res.cookie, res.header);
+      this.socket.sendHead(200, head);
+      this._hasSentBinaryHead = true;
+      this.socket.setTimeout(0);
+    }
+    if (!isEnd) {
+      this.socket.write(buffer);
+    } else {
+      this.socket.end();
+    }
+  }
+
   createEnv(env) {
     this.__env = {
       GET: env.query,
@@ -135,6 +151,7 @@ class Jrs{
     this.__res = {
       body: '', cookie: [], header: {},
       end: this.responseText.bind(this),
+      write: this.responseBinary.bind(this),
       sendFile: this.responseFile.bind(this)
     };
   }

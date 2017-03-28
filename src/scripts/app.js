@@ -73,6 +73,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                 $rootScope.rootComm.dt.nav.forEach(function(item) {
                     bridge.$stateProvider.state({
                         name: item.href,
+                        cache: true,
                         url: '/' + item.href,
                         templateUrl: './views/' + item.href + '.htm',
                         controller: item.href + 'Ctrl',
