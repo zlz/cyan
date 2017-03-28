@@ -53,7 +53,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         let localLang = localStorage.getItem('trans');
         let bowserLang = (navigator.language || navigator.browserLanguage)
             .toLowerCase();
-        console.log(bowserLang);
         let getLang = (lang) => {
             $rootScope.rootComm.trans = lang;
             switch (lang) {
@@ -129,7 +128,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                 }, 500);
         };
         $scope.$on('$stateChangeStart', () => {
-            console.log(true);
             goTop();
         });
     }]);

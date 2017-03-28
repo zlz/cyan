@@ -48,8 +48,7 @@ gulp.task('style', () => {
             $.util.log(file.path);
         })
         .pipe(filterScss)
-        .pipe($.sass(
-            {
+        .pipe($.sass({
                 outputStyle: 'expanded'
             })
             .on('error', (err) => {
