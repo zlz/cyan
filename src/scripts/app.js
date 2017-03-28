@@ -62,6 +62,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                         $rootScope.rootComm.transFlag = '中';
                         break;
                     }
+                case 'cn':
+                    {
+                        $rootScope.rootComm.trans = 'zh-cn';
+                        localStorage.setItem('trans', 'zh-cn');
+                        $rootScope.rootComm.transFlag = '中';
+                        break;
+                    }
                 case 'en':
                     {
                         $rootScope.rootComm.transFlag = 'EN';
@@ -69,6 +76,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                     }
                 case 'ja':
                     {
+                        $rootScope.rootComm.transFlag = '日';
+                        break;
+                    }
+                case 'jp':
+                    {
+                        $rootScope.rootComm.trans = 'ja';
+                        localStorage.setItem('trans', 'ja');
                         $rootScope.rootComm.transFlag = '日';
                         break;
                     }
