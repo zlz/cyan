@@ -3,7 +3,7 @@ const fs = require('fs');
 const dataFile = path.resolve('./dist/datas/datas.json');
 const data = fs.readFileSync(dataFile);
 const jsonDB = JSON.parse(data);
-const url = __env.REQURL.split('/');
+const url = $_HEADER.url.split('/');
 const lang = $_GET['lang'];
 let ec = (res) => {
     echo({

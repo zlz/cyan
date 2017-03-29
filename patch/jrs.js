@@ -38,7 +38,7 @@ class Jrs{
     let query = querystring.parse(url.parse(req.url).query);
     let form = new formidable.IncomingForm();
     let fields = {}, files = {};
-    let reqUrl = req.url
+    head.url = req.url;
     form
       .on('error', (err)=>html.send400(this.socket, err))
       .on('file', (field, file)=>{
@@ -61,7 +61,7 @@ class Jrs{
           fields[field] = value;
         }
       })
-      .on('end', ()=>cb({head, query, fields, files, reqUrl}));
+      .on('end', ()=>cb({head, query, fields, files}));
     form.parse(req);
     if (chunk) form.write(chunk);
     req.resume();
@@ -142,8 +142,7 @@ class Jrs{
       POST: env.fields,
       COOKIE: querystring.parse(env.head.cookie, '; '),
       HEADER: env.head,
-      FILES: env.files,
-      REQURL: env.reqUrl
+      FILES: env.files
     };
   }
 
