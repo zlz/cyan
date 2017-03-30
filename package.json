@@ -74,6 +74,7 @@
     "npm-run-all": "^4.0.2",
     "open": "0.0.5",
     "path": "^0.12.7",
+    "react-template": "^0.4.0",
     "run-sequence": "^1.2.2",
     "style-loader": "^0.14.0",
     "stylelint": "^7.9.0",

@@ -24,6 +24,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         bridgeProvider.store('GLOBAL_CONFIG', GLOBAL_CONFIG);
         $sceDelegateProvider.resourceUrlWhitelist(['self', '']);
         $httpProvider.interceptors.push('appInterceptor');
+        $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
     .run(['$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$q', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'trans', function($rootScope, $injector, $urlRouter, $state, $stateParams, $q, lruCache, $cacheFactory, crud, bridge, trans) {
@@ -130,4 +131,5 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         $scope.$on('$stateChangeStart', () => {
             goTop();
         });
+        $('body').find('a[title="站长统计"]').addClass('hide');
     }]);
