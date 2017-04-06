@@ -5,6 +5,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const express = require('express');
 const app = express();
+const crypto = require('crypto');
 const port = 80;
 const proxy = require('http-proxy-middleware');
 app.use(morgan('common'));
@@ -14,6 +15,33 @@ app.use(compression());
 app.use('/', express.static(path.join(__dirname, 'dist'), {
     'index': ['index.html', 'index.htm', 'app.htm']
 }));
+app.get('/wx', function(req, res) {
+    const token = 'sdfs825dja';
+    let signature = req.param('signature');
+    let timestamp = req.param('timestamp');
+    let nonce = req.param('nonce');
+    let echostr = req.param('echostr');
+    let checkSignature = function(signature, timestamp, nonce) {
+        let tmpArr = [token, timestamp, nonce];
+        tmpArr.sort();
+        let tmpStr = tmpArr.join('');
+        let shasum = crypto.createHash('sha1');
+        shasum.update(tmpStr);
+        let shaResult = shasum.digest('hex');
+        if (shaResult === signature) {
+            return true;
+        }
+        return false;
+    };
+    if (checkSignature(signature, timestamp, nonce)) {
+        res.send(echostr);
+    } else {
+        res.json(200, {
+            code: -1,
+            msg: 'WX Error'
+        });
+    }
+});
 app.use(['/api/admin', '/api/web'], proxy({
     target: 'http://127.0.0.1:9090',
     changeOrigin: false
@@ -49,6 +77,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-app.listen(port, function() {
-});
+app.listen(port, function() {});
 module.exports = app;
