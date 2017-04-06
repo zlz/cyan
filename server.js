@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const compression = require('compression');
 const helmet = require('helmet');
+const prerender = require('prerender-node');
 const express = require('express');
 const app = express();
 const crypto = require('crypto');
@@ -12,6 +13,7 @@ app.use(morgan('common'));
 app.use(helmet());
 app.use(cors());
 app.use(compression());
+app.use(prerender.set('prerenderToken', 'pxJWN2fMPL7AhywN9XSm'));
 app.use('/', express.static(path.join(__dirname, 'dist'), {
     'index': ['index.html', 'index.htm', 'app.htm']
 }));
