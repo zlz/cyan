@@ -108,6 +108,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                 $rootScope.rootComm.dt.nav.forEach(function(item) {
                     bridge.$stateProvider.state({
                         name: item.href,
+                        title: item.text,
                         cache: true,
                         url: '/' + item.href,
                         templateUrl: './views/' + item.href + '.htm',
@@ -128,8 +129,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                     'scrollTop': 0
                 }, 500);
         };
-        $scope.$on('$stateChangeStart', () => {
+        $scope.$on('$stateChangeStart', (event, toState) => {
+            $rootScope.title = '.Beta Mach. ' + toState.title;
             goTop();
         });
-        $('body').find('a[title="站长统计"]').addClass('hide');
+        $('body')
+            .find('a[title="站长统计"]')
+            .addClass('hide');
     }]);
