@@ -2,7 +2,7 @@
 angular.module('app')
     .directive('ft', () => {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             replace: true,
             scope: {
                 data: '='

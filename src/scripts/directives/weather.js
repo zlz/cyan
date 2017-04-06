@@ -2,7 +2,7 @@
 angular.module('app')
     .directive('weather', () => {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             replace: true,
             scope: {},
             templateUrl: '../../views/weather.htm',

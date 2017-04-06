@@ -2,7 +2,7 @@
 angular.module('app')
     .directive('bdj', () => {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             replace: true,
             scope: {},
             templateUrl: '../../views/bdj.htm',

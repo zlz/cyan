@@ -2,7 +2,7 @@
 angular.module('app')
     .directive('hd', () => {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             replace: true,
             scope: {
                 data: '=',

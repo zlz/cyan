@@ -2,7 +2,7 @@
 angular.module('app')
     .directive('formList', () => {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             replace: true,
             templateUrl: '../../views/formList.htm',
             controller: ['$rootScope', '$scope', 'bridge', 'crud', ($rootScope, $scope, bridge, crud) => {
