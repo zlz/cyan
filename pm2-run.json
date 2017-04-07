@@ -3,7 +3,7 @@
     {
         "name": "pm2-run",
         "script": "npm",
-        "args": "run server",
+        "args": "run server-vps",
         "autorestart": true,
         "restart_delay": 1000
     }]
