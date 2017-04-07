@@ -7,9 +7,10 @@
     "bower": "bower install",
     "gulp": "gulp",
     "gulp-prod": "gulp prod",
-    "start": "npm-run-all --parallel server gulp",
+    "start": "npm-run-all --parallel prerender server gulp",
     "server": "npm-run-all --parallel justreq express",
     "express": "node server.js",
+    "prerender": "node ./node_modules/prerender/server.js",
     "justreq": "node ./node_modules/justreq-cli/bin/justreq start -c"
   },
   "keywords": [
@@ -75,6 +76,7 @@
     "npm-run-all": "^4.0.2",
     "open": "0.0.5",
     "path": "^0.12.7",
+    "prerender": "file:prerender",
     "prerender-node": "^2.7.0",
     "react-template": "^0.4.0",
     "run-sequence": "^1.2.2",

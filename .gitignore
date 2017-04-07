@@ -9,3 +9,4 @@ dist/
 .jr/cache
 .jr/fast-map.json
 .jr/slow-map.json
+prerender/node_modules

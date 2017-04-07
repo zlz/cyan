@@ -12,34 +12,37 @@ let ec = (res) => {
         data: res
     });
 }
+if (lang === 'en-us') {
+    lang = 'en';
+}
 if (url[2] === 'admin') {
     console.log(url[3])
     if (url[3].indexOf('common') != -1) {
-        ec(jsonDB[$_GET['lang']].common)
+        ec(jsonDB[lang].common)
     }
     if (url[3].indexOf('album') != -1) {
-        ec(jsonDB[$_GET['lang']].album)
+        ec(jsonDB[lang].album)
     }
     if (url[3].indexOf('news') != -1) {
-        ec(jsonDB[$_GET['lang']].news)
+        ec(jsonDB[lang].news)
     }
     if (url[3].indexOf('post-form') != -1) {
-        let res = jsonDB[$_GET['lang']].form.unshift($_POST);
+        let res = jsonDB[lang].form.unshift($_POST);
         fs.writeFile(path.resolve('./dist/datas/datas.json'), JSON.stringify(jsonDB))
         fs.writeFile(path.resolve('./src/datas/datas.json'), JSON.stringify(jsonDB))
         ec($_POST)
     }
     if (url[3].indexOf('get-form') != -1) {
-        ec(jsonDB[$_GET['lang']].form)
+        ec(jsonDB[lang].form)
     }
     if (url[3].indexOf('product') != -1) {
-        ec(jsonDB[$_GET['lang']].product);
+        ec(jsonDB[lang].product);
     }
     if (url[3].indexOf('about') != -1) {
-        ec(jsonDB[$_GET['lang']].about);
+        ec(jsonDB[lang].about);
     }
     if (url[3].indexOf('profile') != -1) {
-        ec(jsonDB[$_GET['lang']].profile);
+        ec(jsonDB[lang].profile);
     }
 }
 if (url[2] === 'web') {}

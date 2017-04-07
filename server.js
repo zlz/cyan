@@ -13,7 +13,7 @@ app.use(morgan('common'));
 app.use(helmet());
 app.use(cors());
 app.use(compression());
-app.use(prerender.set('prerenderToken', 'pxJWN2fMPL7AhywN9XSm'));
+app.use(prerender.set('prerenderServiceUrl', 'http://127.0.0.1:3000'));
 app.use('/', express.static(path.join(__dirname, 'dist'), {
     'index': ['index.html', 'index.htm', 'app.htm']
 }));
