@@ -56,6 +56,22 @@ app.use('/api/sho', proxy({
     },
     logLevel: 'info'
 }));
+app.use('/api/zhihu', proxy({
+    target: 'http://news-at.zhihu.com/api/4/news/latest',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api/zhihu': ''
+    },
+    logLevel: 'info'
+}));
+app.use('/api/zhihu', proxy({
+    target: 'http://news-at.zhihu.com/api/4/news/latest',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api/zhihu': ''
+    },
+    logLevel: 'info'
+}));
 app.use(['/project', '/sso', '/authManage', '/indexController', '/globalPermissionManage', '/systemDDL', '/treeController'], proxy({
     target: 'http://192.168.32.33:9080',
     changeOrigin: false,
