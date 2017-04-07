@@ -56,23 +56,6 @@ app.use('/api/sho', proxy({
     },
     logLevel: 'info'
 }));
-app.use('/api/zhihu', proxy({
-    target: 'http://news-at.zhihu.com/api/4/news/latest',
-    changeOrigin: true,
-    pathRewrite: {
-        '^/api/zhihu': ''
-    },
-    logLevel: 'info',
-    autoRewrite: true,    
-    onProxyRes: (proxyRes, req, res) => {
-        proxyRes.headers['Origin'] = 'http://www.zhihu.com';
-        proxyRes.headers['Referer'] = 'http://www.zhihu.com';
-    },
-    onProxyReq: (proxyReq, req, res) => {
-        proxyReq.setHeader('Origin', 'http://www.zhihu.com');
-        proxyReq.setHeader('Referer', 'http://www.zhihu.com');
-    }
-}));
 app.use(['/project', '/sso', '/authManage', '/indexController', '/globalPermissionManage', '/systemDDL', '/treeController'], proxy({
     target: 'http://192.168.32.33:9080',
     changeOrigin: false,
