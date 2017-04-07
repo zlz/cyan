@@ -10,7 +10,7 @@ const paths = {
         root: './src',
         style: './src/styles/**/*',
         js: './src/scripts/**/*.js',
-        htm: './src/**/*.htm',
+        htm: ['./src/**/*.htm', './src/**/*.html'],
         img: './src/images/**/*',
         data: './src/datas/**/*',
         font: './src/fonts/**/*',
