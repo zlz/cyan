@@ -51,6 +51,7 @@ app.use(['/api/admin', '/api/web'], proxy({
 app.use('/api/sho', proxy({
     target: 'http://route.showapi.com',
     changeOrigin: true,
+    autoRewrite: true,
     pathRewrite: {
         '^/api/sho': ''
     },
