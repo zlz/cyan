@@ -5,6 +5,7 @@ const data = fs.readFileSync(dataFile);
 const jsonDB = JSON.parse(data);
 const url = $_HEADER.url.split('/');
 let lang = $_GET['lang'];
+let langMark = 0;
 let ec = (res) => {
     echo({
         code: 200,
@@ -12,9 +13,15 @@ let ec = (res) => {
         data: res
     });
 }
-
-if (lang === 'en-us') {
-    lang = 'en';
+for (item of ['zh-cn', 'en', 'ja', 'fr']) {
+    console.log(item, lang);
+    if (item === lang) {
+        langMark = 1;
+        break
+    }
+}
+if (langMark === 0) {
+    lang = 'zh-cn';
 }
 console.log(lang);
 if (url[2] === 'admin') {
