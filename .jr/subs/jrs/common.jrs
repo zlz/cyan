@@ -14,16 +14,15 @@ let ec = (res) => {
     });
 }
 for (item of ['zh-cn', 'en', 'ja', 'fr']) {
-    console.log(item, lang);
     if (item === lang) {
         langMark = 1;
         break
     }
 }
+console.log(langMark);
 if (langMark === 0) {
     lang = 'zh-cn';
 }
-console.log(lang);
 if (url[2] === 'admin') {
     console.log(url[3])
     if (url[3].indexOf('common') != -1) {

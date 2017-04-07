@@ -91,6 +91,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                         $rootScope.rootComm.transFlag = 'FR';
                         break;
                     }
+                default:
+                    {
+                        $rootScope.rootComm.transFlag = '中';
+                        $rootScope.rootComm.trans = 'zh-cn';
+                        localStorage.setItem('trans', 'zh-cn');
+                    }
             }
         };
         if (localLang) {
