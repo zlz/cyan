@@ -51,7 +51,6 @@ app.use(['/api/admin', '/api/web'], proxy({
 app.use('/api/sho', proxy({
     target: 'http://route.showapi.com',
     changeOrigin: true,
-    autoRewrite: true,
     pathRewrite: {
         '^/api/sho': ''
     },
@@ -63,7 +62,16 @@ app.use('/api/zhihu', proxy({
     pathRewrite: {
         '^/api/zhihu': ''
     },
-    logLevel: 'info'
+    logLevel: 'info',
+    autoRewrite: true,    
+    onProxyRes: (proxyRes, req, res) => {
+        proxyRes.headers['Origin'] = 'http://www.zhihu.com';
+        proxyRes.headers['Referer'] = 'http://www.zhihu.com';
+    },
+    onProxyReq: (proxyReq, req, res) => {
+        proxyReq.setHeader('Origin', 'http://www.zhihu.com');
+        proxyReq.setHeader('Referer', 'http://www.zhihu.com');
+    }
 }));
 app.use(['/project', '/sso', '/authManage', '/indexController', '/globalPermissionManage', '/systemDDL', '/treeController'], proxy({
     target: 'http://192.168.32.33:9080',
