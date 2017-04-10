@@ -142,8 +142,7 @@ gulp.task('webpack', (callback) => {
             rules: [{
                 test: /\.js$/,
                 include: [
-                    path.resolve(__dirname, 'src/scripts'),
-                    path.resolve(__dirname, 'src/mods')
+                    path.resolve(__dirname, 'src/scripts')
                 ],
                 use: [{
                     loader: 'babel-loader'

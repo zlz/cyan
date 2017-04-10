@@ -33,7 +33,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         bridge.store('$cacheFactory', $cacheFactory);
         bridge.store('$ocLazyLoad', $ocLazyLoad);
         bridge.store('lruCache', lruCache);
-        bridge.$ocLazyLoad.load('../mods/Cyan.es6.min.js');
         $rootScope.rootComm = {
             transFn: () => {
                 if ($rootScope.rootComm.transFlag === '中') {
