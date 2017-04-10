@@ -10,6 +10,7 @@ const paths = {
         root: './src',
         style: './src/styles/**/*',
         js: './src/scripts/**/*.js',
+        mod: './src/mods/**/*',
         htm: ['./src/**/*.htm', './src/**/*.html'],
         img: './src/images/**/*',
         data: './src/datas/**/*',
@@ -23,6 +24,7 @@ const paths = {
         root: './dist',
         style: './dist/styles',
         js: './dist/scripts',
+        mod: './dist/mods',
         htm: './dist',
         img: './dist/images',
         data: './dist/datas',
@@ -80,15 +82,18 @@ gulp.task('styleConcat', ['style'], () => {
         .pipe($.concat('vendor.common.min.css'))
         .pipe(gulp.dest(paths.dest.style));
 });
-gulp.task('js', () => {
-    return gulp.src(paths.src.js)
-        .pipe($.changed(paths.dest.js, {
+gulp.task('mod', () => {
+    let modjs = $.filter('**/*.js', {
+        restore: true
+    });
+    return gulp.src(paths.src.mod)
+        .pipe($.changed(paths.dest.mod, {
             extension: '.min.js'
         }))
         .on('data', (file) => {
             $.util.log(file.path);
         })
-        // .pipe($.sourcemaps.init())
+        .pipe(modjs)
         .pipe($.babel({
             presets: ['es2015'],
             compact: true,
@@ -101,11 +106,7 @@ gulp.task('js', () => {
         .pipe($.rename({
             suffix: '.min'
         }))
-        // .pipe($.sourcemaps.write('./', {
-        //     includeContent: false,
-        //     sourceRoot: '/src/scripts'
-        // }))
-        .pipe(gulp.dest(paths.dest.js));
+        .pipe(gulp.dest(paths.dest.mod));
 });
 gulp.task('webpack', (callback) => {
     const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
@@ -210,7 +211,7 @@ gulp.task('open', () => {
     //open('http://127.0.0.1');
 });
 gulp.task('run', () => {
-    runSequence('clean', 'bower', ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat'], 'webpack', 'watch', 'open');
+    runSequence('clean', 'bower', ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat', 'mod'], 'webpack', 'watch', 'open');
 });
 gulp.task('default', () => {
     status = 'dev';

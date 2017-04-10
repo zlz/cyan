@@ -11,8 +11,14 @@ angular.module('app')
                 })
                 .get()
                 .$promise.then((res) => {
-                    $scope.zslide = zslide.data = res.data;
-                    zslide($('.sld'), 6000);
+                    bridge.$ocLazyLoad.load([{
+                            files: ['../mods/zSlide/zslide.min.js'],
+                            cache: true
+                        }])
+                        .then(() => {
+                            $scope.zslide = zslide.data = res.data;
+                            zslide($('.sld'), 6000);
+                        });
                 });
         };
         $rootScope.transWatch = $rootScope.$watch('rootComm.trans', () => {

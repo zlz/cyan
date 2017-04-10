@@ -1,5 +1,5 @@
 /*global angular*/
-let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngAnimate', 'ngTouch']);
+let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'oc.lazyLoad']);
 require('./controllers/home');
 require('./controllers/news');
 require('./controllers/form');
@@ -27,11 +27,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
-    .run(['$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$q', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'trans', function($rootScope, $injector, $urlRouter, $state, $stateParams, $q, lruCache, $cacheFactory, crud, bridge, trans) {
+    .run(['$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$q', '$ocLazyLoad', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'trans', function($rootScope, $injector, $urlRouter, $state, $stateParams, $q, $ocLazyLoad, lruCache, $cacheFactory, crud, bridge, trans) {
         bridge.store('$state', $state);
         bridge.store('$stateParams', $stateParams);
         bridge.store('$cacheFactory', $cacheFactory);
+        bridge.store('$ocLazyLoad', $ocLazyLoad);
         bridge.store('lruCache', lruCache);
+        bridge.$ocLazyLoad.load('../mods/Cyan.es6.min.js');
         $rootScope.rootComm = {
             transFn: () => {
                 if ($rootScope.rootComm.transFlag === '中') {
