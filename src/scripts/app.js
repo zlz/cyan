@@ -1,9 +1,9 @@
 /*global angular*/
 let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'oc.lazyLoad']);
-require('./controllers/home');
-require('./controllers/news');
-require('./controllers/form');
-require('./controllers/about');
+// require('./controllers/home');
+// require('./controllers/news');
+// require('./controllers/form');
+// require('./controllers/about');
 require('./directives/hd');
 require('./directives/ft');
 require('./directives/list');
@@ -120,7 +120,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                         url: '/' + item.href,
                         templateUrl: './views/' + item.href + '.htm',
                         controller: item.href + 'Ctrl',
-                        controllerAs: item.href + 'ctrl'
+                        controllerAs: item.href + 'ctrl',
+                        resolve: {
+                            loadMod: ['$ocLazyLoad', function($ocLazyLoad) {
+                                return $ocLazyLoad.load('./scripts/controllers/' + item.href + '.min.js');
+                            }]
+                        }
                     });
                 });
                 bridge.$urlRouterProvider.when('', '/home');

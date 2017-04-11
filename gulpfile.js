@@ -9,7 +9,7 @@ const paths = {
     src: {
         root: './src',
         style: './src/styles/**/*',
-        js: './src/scripts/**/*.js',
+        script: './src/scripts/**/*',
         mod: './src/mods/**/*',
         htm: ['./src/**/*.htm', './src/**/*.html'],
         img: './src/images/**/*',
@@ -23,7 +23,7 @@ const paths = {
     dest: {
         root: './dist',
         style: './dist/styles',
-        js: './dist/scripts',
+        script: './dist/scripts',
         mod: './dist/mods',
         htm: './dist',
         img: './dist/images',
@@ -82,18 +82,18 @@ gulp.task('styleConcat', ['style'], () => {
         .pipe($.concat('vendor.common.min.css'))
         .pipe(gulp.dest(paths.dest.style));
 });
-gulp.task('mod', () => {
-    let modjs = $.filter('**/*.js', {
+let jsComplie = (src, dest) => {
+    let flt = $.filter('**/*.js', {
         restore: true
     });
-    return gulp.src(paths.src.mod)
-        .pipe($.changed(paths.dest.mod, {
+    return gulp.src(src)
+        .pipe($.changed(dest, {
             extension: '.min.js'
         }))
         .on('data', (file) => {
             $.util.log(file.path);
         })
-        .pipe(modjs)
+        .pipe(flt)
         .pipe($.babel({
             presets: ['es2015'],
             compact: true,
@@ -106,7 +106,13 @@ gulp.task('mod', () => {
         .pipe($.rename({
             suffix: '.min'
         }))
-        .pipe(gulp.dest(paths.dest.mod));
+        .pipe(gulp.dest(dest));
+};
+gulp.task('mod', () => {
+    jsComplie(paths.src.mod, paths.dest.mod);
+});
+gulp.task('script', () => {
+    jsComplie(paths.src.script, paths.dest.script);
 });
 gulp.task('webpack', (callback) => {
     const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
@@ -123,7 +129,7 @@ gulp.task('webpack', (callback) => {
     webpack({
         entry: paths.src.entry,
         output: {
-            path: path.join(__dirname, paths.dest.js),
+            path: path.join(__dirname, paths.dest.script),
             filename: filename,
             chunkFilename: chunkFilename
         },
@@ -204,13 +210,14 @@ gulp.task('watch', () => {
     gulp.watch(paths.src.img, ['img']);
     gulp.watch(paths.src.data, ['data']);
     gulp.watch(paths.src.font, ['styleConcat', 'font']);
-    gulp.watch(paths.src.js, ['webpack']);
+    gulp.watch(paths.src.script, ['script']);
+    gulp.watch([paths.src.entry.vendor + '.js', paths.src.entry.app + '.js'], ['webpack']);
 });
 gulp.task('open', () => {
     //open('http://127.0.0.1');
 });
 gulp.task('run', () => {
-    runSequence('clean', 'bower', ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat', 'mod'], 'webpack', 'watch', 'open');
+    runSequence('clean', 'bower', ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat', 'mod', 'script'], 'webpack', 'watch', 'open');
 });
 gulp.task('default', () => {
     status = 'dev';
