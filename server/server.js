@@ -60,14 +60,14 @@ app.get('/wx', function(req, res) {
     }
 });
 const mgo = require('./mdb');
-// let login = require('./login')(mgo);
-// app.use('/login', login);
+let login = require('./login')(mgo);
+app.use('/login', login);
 let common = require('./common')(mgo);
 app.use('/api/web/common', common);
 let album = require('./album')(mgo);
 app.use('/api/web/album', album);
-// let Form = require('./form')(mgo);
-// app.use('/api/web/form', Form);
+let Form = require('./form')(mgo);
+app.use('/api/web/form', Form);
 app.use((req, res, next) => {
     res.type('text/plain');
     res.status(404);
