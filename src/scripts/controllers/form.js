@@ -12,7 +12,7 @@ angular.module('app')
                 $scope.submitValid = true;
                 crud.$http({
                         method: 'post',
-                        url: path + 'admin/post-form.do?lang=' + $rootScope.rootComm.trans,
+                        url: path + 'web/form',
                         data: req
                     })
                     .then(() => {

@@ -1,9 +1,5 @@
 /*global angular*/
 let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'oc.lazyLoad']);
-// require('./controllers/home');
-// require('./controllers/news');
-// require('./controllers/form');
-// require('./controllers/about');
 require('./directives/hd');
 require('./directives/ft');
 require('./directives/list');

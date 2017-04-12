@@ -10,7 +10,7 @@ angular.module('app')
                 $scope.getFormList = () => {
                     crud.$http({
                             method: 'GET',
-                            url: path + 'admin/get-form.do?lang=' + $rootScope.rootComm.trans
+                            url: path + 'web/form'
                         })
                         .then((res) => {
                             if (res) {

@@ -210,8 +210,7 @@ gulp.task('watch', () => {
     gulp.watch(paths.src.img, ['img']);
     gulp.watch(paths.src.data, ['data']);
     gulp.watch(paths.src.font, ['styleConcat', 'font']);
-    gulp.watch(paths.src.script, ['script']);
-    gulp.watch([paths.src.entry.vendor + '.js', paths.src.entry.app + '.js'], ['webpack']);
+    gulp.watch(paths.src.script, ['script', 'webpack']);
 });
 gulp.task('open', () => {
     //open('http://127.0.0.1');

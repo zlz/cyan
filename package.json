@@ -8,11 +8,10 @@
     "gulp": "gulp",
     "gulp-prod": "gulp prod",
     "start": "npm-run-all --parallel prerender server gulp",
-    "server": "npm-run-all --parallel justreq express",
+    "server": "npm-run-all --parallel express",
     "server-vps": "npm-run-all --parallel prerender server",
     "express": "node server.js",
-    "prerender": "node ./node_modules/prerender/server.js",
-    "justreq": "node ./node_modules/justreq-cli/bin/justreq start -c"
+    "prerender": "node ./node_modules/prerender/server.js"
   },
   "keywords": [
     "cyan",
@@ -30,6 +29,7 @@
     "babel-preset-env": "^1.2.1",
     "babel-preset-es2015": "^6.24.0",
     "babel-runtime": "^6.23.0",
+    "body-parser": "^1.17.1",
     "bower": "^1.8.0",
     "browser-sync": "^2.18.8",
     "compression": "^1.6.2",
@@ -71,9 +71,10 @@
     "http-proxy-middleware": "^0.17.4",
     "json-server": "^0.9.6",
     "jsxhint": "^0.15.1",
-    "justreq": "^0.3.5",
     "justreq-cli": "^0.3.1",
+    "mongoose": "^4.9.4",
     "morgan": "^1.8.1",
+    "multer": "^1.3.0",
     "node-sass": "^4.5.2",
     "npm-run-all": "^4.0.2",
     "open": "0.0.5",
