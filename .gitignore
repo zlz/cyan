@@ -6,6 +6,7 @@ dist/vendors/
 .idea/
 .tmp/
 dist/
+static/
 .jr/cache
 .jr/fast-map.json
 .jr/slow-map.json
