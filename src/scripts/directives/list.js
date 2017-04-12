@@ -7,6 +7,6 @@ angular.module('app')
             scope: {
                 data: '=',
             },
-            templateUrl: '../../views/list.htm'
+            templateUrl: '../../tpls/list.htm'
         };
     });

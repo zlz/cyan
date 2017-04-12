@@ -10,7 +10,7 @@
     "start": "npm-run-all --parallel prerender server gulp",
     "server": "npm-run-all --parallel express",
     "server-vps": "npm-run-all --parallel prerender server",
-    "express": "node server.js",
+    "express": "node ./server/server.js",
     "prerender": "node ./node_modules/prerender/server.js"
   },
   "keywords": [

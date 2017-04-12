@@ -21,17 +21,17 @@ const paths = {
         }
     },
     dest: {
-        root: './dist',
-        style: './dist/styles',
-        script: './dist/scripts',
-        mod: './dist/mods',
-        htm: './dist',
-        img: './dist/images',
-        data: './dist/datas',
-        font: './dist/fonts'
+        root: './static',
+        style: './static/styles',
+        script: './static/scripts',
+        mod: './static/mods',
+        htm: './static',
+        img: './static/images',
+        data: './static/datas',
+        font: './static/fonts'
     },
     concat: {
-        css: ['./dist/styles/cyan.common.min.css', './src/fonts/iconfont.css', './bower_components/bootstrap/dist/css/bootstrap.css', './bower_components/animate.css/animate.css', './dist/styles/common.min.css', './src/mods/zSlide/zslide.css']
+        css: ['./static/styles/cyan.common.min.css', './src/fonts/iconfont.css', './bower_components/bootstrap/dist/css/bootstrap.css', './bower_components/animate.css/animate.css', './static/styles/common.min.css', './src/mods/zSlide/zslide.css']
     }
 };
 let status = '';
