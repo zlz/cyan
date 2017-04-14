@@ -4,11 +4,11 @@ const path = require('path');
 const phantom = require('phantom');
 router.get('/', (req, res, next) => {
     const ua = req.headers['user-agent'];
-    const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '#!' + req.cookies.current_hash;
     const pattern = /Googlebot|Googlebot-News|Googlebot-Image|Googlebot-Video|Googlebot-Mobile|Mediapartners-Google|Mediapartners|AdsBot-Google|AdsBot-Google-Mobile-Apps|Baiduspider|bingbot/i;
     let isRobot = pattern.test(ua);
     if (isRobot) {
-        console.log('bot');
+        console.log(fullUrl);
         let sitepage = null;
         let phInstance = null;
         phantom.create()

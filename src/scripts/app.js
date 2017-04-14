@@ -1,5 +1,5 @@
 /*global angular*/
-let app = angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'oc.lazyLoad']);
+let app = angular.module('app', ['ngCookies', 'ui.router', 'ngResource', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'oc.lazyLoad']);
 require('./directives/hd');
 require('./directives/ft');
 require('./directives/list');
@@ -23,7 +23,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
-    .run(['$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$q', '$ocLazyLoad', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'trans', function($rootScope, $injector, $urlRouter, $state, $stateParams, $q, $ocLazyLoad, lruCache, $cacheFactory, crud, bridge, trans) {
+    .run(['$cookies', '$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$q', '$ocLazyLoad', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'trans', function($cookies, $rootScope, $injector, $urlRouter, $state, $stateParams, $q, $ocLazyLoad, lruCache, $cacheFactory, crud, bridge, trans) {
+        bridge.store('$cookies', $cookies);
         bridge.store('$state', $state);
         bridge.store('$stateParams', $stateParams);
         bridge.store('$cacheFactory', $cacheFactory);
@@ -124,7 +125,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                         }
                     });
                 });
-                bridge.$urlRouterProvider.when('', '/home')
+                bridge.$urlRouterProvider.when('', ['$state', '$location', ($state, $location) => {
+                        console.log($location);
+                        if ($location.$$absUrl.indexOf('_escaped_fragment_') < 0) {
+                            $state.go('home');
+                        }
+                    }])
                     .otherwise('/404');
                 $urlRouter.sync();
             }
@@ -139,9 +145,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         };
         $scope.$on('$stateChangeStart', (event, toState) => {
             $rootScope.title = '.Beta Mach. ' + toState.title;
+            console.log(toState);
+            bridge.$cookies.put('current_hash', toState.name);
             goTop();
         });
         $('body')
             .find('a[title="站长统计"]')
             .addClass('hide');
+        // window.prerenderReady = true;
     }]);

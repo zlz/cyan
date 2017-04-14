@@ -44,6 +44,7 @@
     "vue": "^2.2.4",
     "Waves": "waves#^0.7.5",
     "animate.css": "^3.5.2",
-    "oclazyload": "^1.1.0"
+    "oclazyload": "^1.1.0",
+    "angular-cookies": "^1.6.4"
   }
 }
