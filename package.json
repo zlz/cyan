@@ -7,11 +7,10 @@
     "bower": "bower install",
     "gulp": "gulp",
     "gulp-prod": "gulp prod",
-    "start": "npm-run-all --parallel prerender server gulp",
+    "start": "npm-run-all --parallel server gulp",
     "server": "npm-run-all --parallel express",
-    "server-vps": "npm-run-all --parallel prerender server",
-    "express": "node ./server/server.js",
-    "prerender": "node ./node_modules/prerender/server.js"
+    "server-vps": "npm-run-all --parallel server",
+    "express": "node ./server/server.js"
   },
   "keywords": [
     "cyan",
@@ -79,8 +78,7 @@
     "npm-run-all": "^4.0.2",
     "open": "0.0.5",
     "path": "^0.12.7",
-    "prerender": "^4.4.1",
-    "prerender-node": "^2.7.0",
+    "phantom": "^4.0.2",
     "react-template": "^0.4.0",
     "run-sequence": "^1.2.2",
     "style-loader": "^0.14.0",

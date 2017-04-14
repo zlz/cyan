@@ -6,7 +6,8 @@ module.exports = (mgo) => {
         let Schema = new mgo.mongoose.Schema();
         let Model = mgo.conn.model('Login', Schema);
         router.get('/', (req, res, next) => {
-                res.sendfile(path.join(__dirname, 'dist/views/login.htm'));
+                console.log(req);
+                res.sendfile(path.join(__dirname, '../static/tpls/login.htm'));
             })
             .post('/', (req, res, next) => {
                 Model.create(req.body, (error, doc) => {

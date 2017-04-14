@@ -94,11 +94,7 @@ let jsComplie = (src, dest) => {
             $.util.log(file.path);
         })
         .pipe(flt)
-        .pipe($.babel({
-            presets: ['es2015'],
-            compact: true,
-            comments: false
-        }))
+        .pipe($.babel())
         .on('error', (err) => {
             $.util.log(err.fileName, err.lineNumber, err.message);
             this.emit('end');
@@ -148,7 +144,7 @@ gulp.task('webpack', (callback) => {
             rules: [{
                 test: /\.js$/,
                 include: [
-                    path.resolve(__dirname, 'src/scripts')
+                    path.resolve(__dirname, 'src/scripts'), path.resolve(__dirname, 'src/mods')
                 ],
                 use: [{
                     loader: 'babel-loader'

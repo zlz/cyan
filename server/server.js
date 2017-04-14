@@ -1,28 +1,24 @@
-const path = require('path');
-const cors = require('cors');
-const morgan = require('morgan');
-const compression = require('compression');
-const helmet = require('helmet');
-const prerender = require('prerender-node');
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
+const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-const crypto = require('crypto');
-const port = 80;
 const proxy = require('http-proxy-middleware');
+const morgan = require('morgan');
 app.use(morgan('common'));
+const helmet = require('helmet');
 app.use(helmet());
+const cors = require('cors');
 app.use(cors());
+const compression = require('compression');
 app.use(compression());
-app.use(prerender.set('prerenderServiceUrl', 'http://127.0.0.1:3000'));
+const path = require('path');
 app.use('/', express.static(path.join(__dirname, '../static'), {
-    'index': ['index.html', 'index.htm', 'app.htm']
+    index: false
 }));
 app.use('/api/sho', proxy({
     target: 'http://route.showapi.com',
@@ -32,6 +28,7 @@ app.use('/api/sho', proxy({
     },
     logLevel: 'info'
 }));
+const crypto = require('crypto');
 app.get('/wx', function(req, res) {
     const token = 'sdfs825dja';
     let signature = req.param('signature');
@@ -59,15 +56,17 @@ app.get('/wx', function(req, res) {
         });
     }
 });
+let index = require('./index');
+app.use('/', index);
 const mgo = require('./mdb');
 let login = require('./login')(mgo);
 app.use('/login', login);
-let common = require('./common')(mgo);
+let common = require('./api.common')(mgo);
 app.use('/api/web/common', common);
-let album = require('./album')(mgo);
+let album = require('./api.album')(mgo);
 app.use('/api/web/album', album);
-let Form = require('./form')(mgo);
-app.use('/api/web/form', Form);
+let form = require('./api.form')(mgo);
+app.use('/api/web/form', form);
 app.use((req, res, next) => {
     res.type('text/plain');
     res.status(404);
@@ -89,5 +88,6 @@ app.use((err, req, res, next) => {
     });
     next();
 });
+const port = 80;
 app.listen(port, function() {});
 module.exports = app;

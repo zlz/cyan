@@ -124,8 +124,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                         }
                     });
                 });
-                bridge.$urlRouterProvider.when('', '/home');
-                bridge.$urlRouterProvider.otherwise('/404');
+                bridge.$urlRouterProvider.when('', '/home')
+                    .otherwise('/404');
                 $urlRouter.sync();
             }
         });
