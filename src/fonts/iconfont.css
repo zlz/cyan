@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('../fonts/iconfont.eot?t=1490345631247'); /* IE9*/
-  src: url('../fonts/iconfont.eot?t=1490345631247#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('../fonts/iconfont.woff?t=1490345631247') format('woff'), /* chrome, firefox */
-  url('../fonts/iconfont.ttf?t=1490345631247') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('../fonts/iconfont.svg?t=1490345631247#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('../fonts/iconfont.eot?t=1492498067964'); /* IE9*/
+  src: url('../fonts/iconfont.eot?t=1492498067964#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/iconfont.woff?t=1492498067964') format('woff'), /* chrome, firefox */
+  url('../fonts/iconfont.ttf?t=1492498067964') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../fonts/iconfont.svg?t=1492498067964#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -19,6 +19,8 @@
 .icon-qq1:before { content: "\e791"; }
 
 .icon-email:before { content: "\e644"; }
+
+.icon-style:before { content: "\e685"; }
 
 .icon-danxuanfill:before { content: "\e71e"; }
 

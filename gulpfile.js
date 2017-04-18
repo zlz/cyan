@@ -57,7 +57,6 @@ gulp.task('style', () => {
                 $.util.log(err.message);
                 this.emit('end');
             }))
-        .pipe(filterScss.restore)
         .pipe($.autoprefixer({
             browsers: ['last 2 versions', 'ie 9', 'Android 3'],
             cascade: false
@@ -70,6 +69,7 @@ gulp.task('style', () => {
         .pipe($.rename({
             suffix: '.min'
         }))
+        .pipe(filterScss.restore)        
         .pipe(gulp.dest(paths.dest.style));
 });
 gulp.task('styleConcat', ['style'], () => {

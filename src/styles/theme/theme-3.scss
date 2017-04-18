@@ -1,14 +1,11 @@
-$colors-zh-cn: (bg0: #F8FAFC, bg1: #151C24, bg2:#212C34, fot1: #999, fot2:#FFF, fot3: #444, bdr1: #EBEBEB, bdr2:#24292C);
-$colors-en: (bg0: #F8FAFC, bg1: #FFF, bg2:#F8FAFC, fot1: #738A94, fot2:#343F44, fot3: #717171, bdr1: #E5EFF5, bdr2:#E8E8E8);
-$colors-ja: (bg0: #F8FAFC, bg1: #DB4437, bg2:#E06055, fot1: #FFF, fot2:#F7D7D4, fot3: #717171, bdr1: #EBEBEB, bdr2:#DB4437);
-$colors-fr: (bg0: #F8FAFC, bg1: #00ACAB, bg2:#33BCBB, fot1: #FFF, fot2:#E9F7F7, fot3: #717171, bdr1: #EBEBEB, bdr2:#33BCBB);
+$theme: (bg0: #F8FAFC, bg1: #DB4437, bg2:#E06055, fot1: #FFF, fot2:#F7D7D4, fot3: #717171, bdr1: #EBEBEB, bdr2:#DB4437);
 $colors-pub: (bg0: #FFF, bg1: #F8FAFC, fot1: #4B4B4B, fot2: #C00, fot3:#7D8485, bdr1: #F4F6F8);
 $num: 3.125, 1.875, .75;
-@mixin s1($color) {
+@mixin s1() {
     border: 0;
     outline: 0;
-    background-color: map-get($color, bg2);
-    color: map-get($color, fot2);
+    background-color: map-get($theme, bg2);
+    color: map-get($theme, fot2);
 }
 @mixin s2() {
     transition: left .5s ease-in, right .5s ease-in;
@@ -34,50 +31,46 @@ a {
         color: map-get($colors-pub, fot1);
     }
 }
-@each $trans, $color in (zh-cn, $colors-zh-cn), (en, $colors-en, ), (ja, $colors-ja), (fr, $colors-fr) {
-    .#{$trans} {
-        .clr1 {
-            @if map-get($color, bg1)==#FFF {
-                color: #738A94;
-            }
-            @else {
-                color: map-get($color, bg1);
-            }
+.clr1 {
+    @if map-get($theme, bg1)==#FFF {
+        color: #738A94;
+    }
+    @else {
+        color: map-get($theme, bg1);
+    }
+}
+.hd {
+    color: map-get($theme, fot1);
+    font-size: 1em;
+    a {
+        color: map-get($theme, fot1);
+        width: 100%;
+        transition: background-color .3s ease-in;
+        &:hover {
+            @include s1();
         }
-        .hd {
-            color: map-get($color, fot1);
-            font-size: 1em;
-            a {
-                color: map-get($color, fot1);
-                width: 100%;
-                transition: background-color .3s ease-in;
-                &:hover {
-                    @include s1($color);
-                }
-            }
-            .hd-bg {
-                border-bottom: 1px solid map-get($color, bdr1);
-                background: map-get($color, bg1);
-                box-sizing: content-box;
-            }
-            .active {
-                @include s1($color);
-            }
-        }
-        .ui-view-ct {
-            margin-top: #{nth($num, 1) * 16 + 1}px;
-            min-height: 800px;
-        }
-        .ft {
-            background-color: #E8E8E8;
-            color: #999;
-            a {
-                color: #999;
-            }
-            ul, p {
-                margin: 0;
-            }
-        }
+    }
+    .hd-bg {
+        border-bottom: 1px solid map-get($theme, bdr1);
+        background: map-get($theme, bg1);
+        box-sizing: content-box;
+    }
+    .active {
+        @include s1();
+    }
+}
+.ui-view-ct {
+    margin-top: #{nth($num, 1) * 16 + 1}px;
+    min-height: 800px;
+}
+.ft {
+    background-color: #E8E8E8;
+    color: #999;
+    a {
+        color: #999;
+    }
+    ul, p {
+        margin: 0;
     }
 }
 .hd {
@@ -207,64 +200,4 @@ a {
             color: map-get($colors-pub, fot2);
         }
     }
-}
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    box-sizing: border-box;
-}
-::-webkit-scrollbar-button {
-    width: 6px;
-    height: 0;
-}
-::-webkit-scrollbar-button:vertical:start {
-    background-position: 0 0;
-}
-::-webkit-scrollbar-button:vertical:start:hover {
-    background-position: -10px 0;
-}
-::-webkit-scrollbar-button:vertical:start:active {
-    background-position: -20px 0;
-}
-::-webkit-scrollbar-button:vertical:end {
-    background-position: -30px 0;
-}
-::-webkit-scrollbar-button:vertical:end:hover {
-    background-position: -40px 0;
-}
-::-webkit-scrollbar-button:vertical:end:active {
-    background-position: -50px 0;
-}
-::-webkit-scrollbar-button:horizontal:start {
-    background-position: 0 -11px;
-}
-::-webkit-scrollbar-button:horizontal:start:hover {
-    background-position: -10px -11px;
-}
-::-webkit-scrollbar-button:horizontal:start:active {
-    background-position: -19px -11px;
-}
-::-webkit-scrollbar-button:horizontal:end {
-    background-position: -30px -11px;
-}
-::-webkit-scrollbar-button:horizontal:end:hover {
-    background-position: -40px -11px;
-}
-::-webkit-scrollbar-button:horizontal:end:active {
-    background-position: -50px -11px;
-}
-::-webkit-scrollbar-track-piece {
-    background-color: #FFF;
-}
-::-webkit-scrollbar-thumb {
-    background-color: #999;
-}
-::-webkit-scrollbar-thumb:hover {
-    background-color: #888;
-}
-::-webkit-scrollbar-thumb:active {
-    background: #777;
-}
-::-webkit-scrollbar-corner {
-    background-color: #777;
 }

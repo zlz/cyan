@@ -11,7 +11,7 @@ angular.module('app')
                 $scope.getWeather = () => {
                     crud.$http({
                             method: 'GET',
-                            url: path + 'sho/255-1?page=&showapi_appid=33446&title=&type=&showapi_sign=d3f5fd95469849eb859a84e27023fa00&lang=' + $rootScope.rootComm.trans,
+                            url: path + 'sho/255-1?page=&showapi_appid=33446&title=&type=&showapi_sign=d3f5fd95469849eb859a84e27023fa00',
                             cache: bridge.lruCache('bdj', 10)
                         })
                         .then((res) => {

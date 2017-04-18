@@ -9,8 +9,9 @@ require('./directives/bdj');
 require('./provider/globalConfig');
 require('./provider/crud');
 require('./provider/bridge');
+require('./provider/auth');
 require('./provider/appInterceptor');
-require('./provider/trans');
+require('./provider/common');
 require('./provider/lruCache');
 require('./filter/trustHtml');
 app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$httpProvider', 'bridgeProvider', 'GLOBAL_CONFIG', function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $httpProvider, bridgeProvider, GLOBAL_CONFIG) {
@@ -23,93 +24,27 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
-    .run(['$cookies', '$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$q', '$ocLazyLoad', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'trans', function($cookies, $rootScope, $injector, $urlRouter, $state, $stateParams, $q, $ocLazyLoad, lruCache, $cacheFactory, crud, bridge, trans) {
+    .run(['$cookies', '$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$location', '$q', '$ocLazyLoad', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'common', function($cookies, $rootScope, $injector, $urlRouter, $state, $stateParams, $location, $q, $ocLazyLoad, lruCache, $cacheFactory, crud, bridge, common) {
         bridge.store('$cookies', $cookies);
         bridge.store('$state', $state);
         bridge.store('$stateParams', $stateParams);
         bridge.store('$cacheFactory', $cacheFactory);
         bridge.store('$ocLazyLoad', $ocLazyLoad);
         bridge.store('lruCache', lruCache);
-        $rootScope.rootComm = {
-            transFn: () => {
-                if ($rootScope.rootComm.transFlag === '中') {
-                    $rootScope.rootComm.transFlag = 'EN';
-                    $rootScope.rootComm.trans = 'en';
-                } else if ($rootScope.rootComm.transFlag === 'EN') {
-                    $rootScope.rootComm.transFlag = '日';
-                    $rootScope.rootComm.trans = 'ja';
-                } else if ($rootScope.rootComm.transFlag === '日') {
-                    $rootScope.rootComm.transFlag = 'FR';
-                    $rootScope.rootComm.trans = 'fr';
-                } else if ($rootScope.rootComm.transFlag === 'FR') {
-                    $rootScope.rootComm.transFlag = '中';
-                    $rootScope.rootComm.trans = 'zh-cn';
-                }
-                localStorage.setItem('trans', $rootScope.rootComm.trans);
-                trans($rootScope.rootComm.trans);
-            }
-        };
-        let localLang = localStorage.getItem('trans');
-        let bowserLang = (navigator.language || navigator.browserLanguage)
-            .toLowerCase();
-        let getLang = (lang) => {
-            $rootScope.rootComm.trans = lang;
-            switch (lang) {
-                case 'zh-cn':
-                    {
-                        $rootScope.rootComm.transFlag = '中';
-                        break;
-                    }
-                case 'cn':
-                    {
-                        $rootScope.rootComm.trans = 'zh-cn';
-                        localStorage.setItem('trans', 'zh-cn');
-                        $rootScope.rootComm.transFlag = '中';
-                        break;
-                    }
-                case 'en':
-                    {
-                        $rootScope.rootComm.transFlag = 'EN';
-                        break;
-                    }
-                case 'ja':
-                    {
-                        $rootScope.rootComm.transFlag = '日';
-                        break;
-                    }
-                case 'jp':
-                    {
-                        $rootScope.rootComm.trans = 'ja';
-                        localStorage.setItem('trans', 'ja');
-                        $rootScope.rootComm.transFlag = '日';
-                        break;
-                    }
-                case 'fr':
-                    {
-                        $rootScope.rootComm.transFlag = 'FR';
-                        break;
-                    }
-                default:
-                    {
-                        $rootScope.rootComm.transFlag = '中';
-                        $rootScope.rootComm.trans = 'zh-cn';
-                        localStorage.setItem('trans', 'zh-cn');
-                    }
-            }
-        };
-        if (localLang) {
-            getLang(localLang);
-        } else if (bowserLang) {
-            getLang(bowserLang);
+        $rootScope.common = {};
+        let localTheme = JSON.parse(localStorage.getItem('theme'));
+        if (localTheme) {
+            $rootScope.common.theme = localTheme;
         } else {
-            $rootScope.rootComm.trans = 'zh-cn';
-            $rootScope.rootComm.transFlag = '中';
+            $rootScope.common.theme = {
+                val: 'theme-1',
+                idx: 0
+            };
         }
-        trans($rootScope.rootComm.trans);
-        $rootScope.$watch('rootComm.dt', () => {
-            if ($rootScope.rootComm.dt && $rootScope.rootComm.routeFlag === undefined) {
-                $rootScope.rootComm.routeFlag = true;
-                $rootScope.rootComm.dt.nav.forEach(function(item) {
+        common()
+            .then((res) => {
+                $rootScope.common.dt = res.data.data;
+                $rootScope.common.dt.nav.forEach(function(item) {
                     bridge.$stateProvider.state({
                         name: item.href,
                         title: item.text,
@@ -125,16 +60,24 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                         }
                     });
                 });
-                bridge.$urlRouterProvider.when('', ['$state', '$location', ($state, $location) => {
+                bridge.$urlRouterProvider.when('', () => {
                         console.log($location);
                         if ($location.$$absUrl.indexOf('_escaped_fragment_') < 0) {
                             $state.go('home');
                         }
+                    })
+                    .when('/admin/:login', ['auth', (auth) => {
+                        let userInfo = auth.login();
+                        console.log($stateParams, $state, $location);
+                        if (userInfo) {
+                            $state.go($location.$$url);
+                        } else {
+                            $state.go('about');
+                        }
                     }])
                     .otherwise('/404');
                 $urlRouter.sync();
-            }
-        });
+            });
     }])
     .controller('appCtrl', ['$rootScope', '$scope', 'bridge', ($rootScope, $scope, bridge) => {
         let goTop = () => {
@@ -145,7 +88,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         };
         $scope.$on('$stateChangeStart', (event, toState) => {
             $rootScope.title = '.Beta Mach. ' + toState.title;
-            console.log(toState);
             bridge.$cookies.put('current_hash', toState.name);
             goTop();
         });

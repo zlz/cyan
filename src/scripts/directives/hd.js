@@ -1,6 +1,6 @@
 /*global angular*/
 angular.module('app')
-    .directive('hd', () => {
+    .directive('hd', ['$rootScope', ($rootScope) => {
         return {
             restrict: 'EA',
             replace: true,
@@ -24,6 +24,18 @@ angular.module('app')
                         }
                     }
                 };
+                $scope.themeFn = () => {
+                    if ($rootScope.common.theme) {
+                        $rootScope.common.theme.idx = $rootScope.common.theme.idx + 1;
+                        if ($rootScope.common.theme.idx >= $rootScope.common.dt.theme.length) {
+                            $rootScope.common.theme.idx = 0;
+                        }
+                        $rootScope.common.theme.val = $rootScope.common.dt.theme[$rootScope.common.theme.idx];
+                        localStorage.setItem('theme', JSON.stringify($rootScope.common.theme));
+                    } else {
+                        window.cyan.pop('数据读取中');
+                    }
+                };
             }
         };
-    });
+    }]);
