@@ -2,5 +2,5 @@
 angular.module('app')
     .constant('G_CFG', {
         url: '/b',
-        api: 'api/b/'
+        api: '/api/b/'
     });
