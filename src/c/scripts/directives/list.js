@@ -1,12 +1,12 @@
 /*global angular*/
 angular.module('app')
-    .directive('list', () => {
+    .directive('list', ['bridge', (bridge) => {
         return {
             restrict: 'EA',
             replace: true,
             scope: {
                 data: '=',
             },
-            templateUrl: '../../tpls/list.htm'
+            templateUrl: bridge.G_CFG.url + 'tpls/list.htm'
         };
-    });
+    }]);

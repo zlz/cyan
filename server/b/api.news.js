@@ -8,7 +8,7 @@ module.exports = (mgo) => {
             msg: 'String',
             name: 'String'
         });
-        let Model = mgo.conn.model('Form', Schema);
+        let Model = mgo.conn.model('NEWS', Schema);
         router.get('/', (req, res, next) => {
                 Model.find({}, null, {
                     sort: {

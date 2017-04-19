@@ -1,13 +1,13 @@
 /*global angular*/
 angular.module('app')
-    .directive('hd', ['$rootScope', ($rootScope) => {
+    .directive('hd', ['$rootScope', 'bridge', ($rootScope, bridge) => {
         return {
             restrict: 'EA',
             replace: true,
             scope: {
                 data: '=',
             },
-            templateUrl: '../../tpls/hd.htm',
+            templateUrl: bridge.G_CFG.url + 'tpls/hd.htm',
             link: ($scope) => {
                 $scope.menuFn = () => {
                     if ($(window)

@@ -5,7 +5,7 @@ angular.module('app')
             chanelNames: ['国际焦点', '国内焦点', '军事焦点', '互联网焦点', '娱乐焦点']
         };
         $scope.news.selectedChanelName = $scope.news.chanelNames[0];
-        $scope.getNews = (...para) => {
+        let getNews = (...para) => {
             $scope.news.selectedChanelName = para[0];
             if (para[1]) {
                 crud.cancel();
@@ -22,12 +22,5 @@ angular.module('app')
                     }
                 });
         };
-        $rootScope.transWatch = $rootScope.$watch('rootComm.trans', () => {
-            $scope.getNews($scope.news.selectedChanelName);
-        });
-        $scope.$on('$destroy', () => {
-            if ($rootScope.transWatch instanceof Function) {
-                $rootScope.transWatch();
-            }
-        });
+        getNews($scope.news.selectedChanelName);
     }]);

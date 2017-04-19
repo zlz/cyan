@@ -1,15 +1,15 @@
 /*global angular*/
 angular.module('app')
-    .directive('formList', () => {
+    .directive('newsList', ['bridge', (bridge) => {
         return {
             restrict: 'EA',
             replace: true,
-            templateUrl: '../../tpls/formList.htm',
+            templateUrl: bridge.G_CFG.url + 'tpls/newsList.htm',
             controller: ['$rootScope', '$scope', 'bridge', 'crud', ($rootScope, $scope, bridge, crud) => {
-                $scope.getFormList = () => {
+                $scope.getNewsList = () => {
                     crud.$http({
                             method: 'GET',
-                            url: bridge.G_CFG.api + 'form'
+                            url: bridge.G_CFG.api + 'news'
                         })
                         .then((res) => {
                             if (res) {
@@ -17,10 +17,10 @@ angular.module('app')
                             }
                         });
                 };
-                $scope.getFormList();
+                $scope.getNewsList();
                 $scope.$on('newMsg', () => {
                     $scope.data.unshift(JSON.parse(JSON.stringify($scope.formData)));
                 });
             }]
         };
-    });
+    }]);

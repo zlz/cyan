@@ -13,6 +13,7 @@ module.exports = (...para) => {
             root: src,
             style: [src + 'styles/**/*', './mods/**/*.scss'],
             script: src + 'scripts/**/*',
+            bower: './bower_components/',
             mod: './mods/**/*',
             htm: [src + '**/*.htm', src + '**/*.html'],
             img: src + 'images/**/*',
@@ -107,6 +108,8 @@ module.exports = (...para) => {
             .pipe(gulp.dest(dest));
     };
     gulp.task('mod', () => {
+       gulp.src([paths.src.bower + 'js-md5/build/md5.min.js'])
+            .pipe(gulp.dest(paths.dest.mod));
         jsComplie(paths.src.mod, paths.dest.mod);
     });
     gulp.task('script', () => {

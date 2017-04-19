@@ -23,9 +23,4 @@ angular.module('app')
                     });
             }
         };
-        $scope.$on('$destroy', () => {
-            if ($rootScope.transWatch instanceof Function) {
-                $rootScope.transWatch();
-            }
-        });
     }]);

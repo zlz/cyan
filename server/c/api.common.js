@@ -9,7 +9,7 @@ module.exports = (mgo) => {
                 res.send({
                     data: docs[0],
                     params: req.query,
-                    status: 200
+                    status: 0
                 });
             });
         });

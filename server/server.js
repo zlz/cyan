@@ -64,12 +64,12 @@ app.get('/wx', function(req, res) {
 const mgo = require('./mdb');
 let bApp = require('./b/app');
 app.use('/b', bApp);
-let bLogin = require('./b/login');
-app.use('/b/login', bLogin);
 let apiBLogin = require('./b/api.login')(mgo);
 app.use('/api/b/login', apiBLogin);
 let apiBCommon = require('./b/api.common')(mgo);
 app.use('/api/b/common', apiBCommon);
+let apiBNews = require('./b/api.news')(mgo);
+app.use('/api/b/news', apiBNews);
 let cApp = require('./c/app');
 app.use('/', cApp);
 let apiCCommon = require('./c/api.common')(mgo);

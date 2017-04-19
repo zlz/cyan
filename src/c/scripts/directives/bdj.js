@@ -1,13 +1,13 @@
 /*global angular*/
 angular.module('app')
-    .directive('bdj', () => {
+    .directive('bdj', ['bridge', (bridge) => {
         return {
             restrict: 'EA',
             replace: true,
             scope: {},
-            templateUrl: '../../tpls/bdj.htm',
+            templateUrl:  bridge.G_CFG.url + 'tpls/bdj.htm',
             controller: ['$rootScope', '$scope', 'bridge', 'crud', ($rootScope, $scope, bridge, crud) => {
-                $scope.getWeather = () => {
+                let getWeather = () => {
                     crud.$http({
                             method: 'GET',
                             url: bridge.G_CFG.api + 'sho/255-1?page=&showapi_appid=33446&title=&type=&showapi_sign=d3f5fd95469849eb859a84e27023fa00',
@@ -19,7 +19,7 @@ angular.module('app')
                             }
                         });
                 };
-                $scope.getWeather();
+                getWeather();
             }]
         };
-    });
+    }]);

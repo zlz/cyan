@@ -2,10 +2,7 @@
 let app = angular.module('app', ['ngCookies', 'ui.router', 'ngResource', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'oc.lazyLoad']);
 require('./directives/hd');
 require('./directives/ft');
-require('./directives/list');
-require('./directives/formList');
-require('./directives/weather');
-require('./directives/bdj');
+require('./directives/newsList');
 require('./provider/globalConfig');
 require('./provider/crud');
 require('./provider/bridge');
@@ -24,13 +21,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
-    .run(['$cookies', '$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$location', '$q', '$ocLazyLoad', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'common', function($cookies, $rootScope, $injector, $urlRouter, $state, $stateParams, $location, $q, $ocLazyLoad, lruCache, $cacheFactory, crud, bridge, common) {
+    .run(['$cookies', '$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$location', '$q', '$ocLazyLoad', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'common', 'auth', function($cookies, $rootScope, $injector, $urlRouter, $state, $stateParams, $location, $q, $ocLazyLoad, lruCache, $cacheFactory, crud, bridge, common, auth) {
         bridge.store('$cookies', $cookies);
+        bridge.store('$location', $location);
         bridge.store('$state', $state);
         bridge.store('$stateParams', $stateParams);
         bridge.store('$cacheFactory', $cacheFactory);
         bridge.store('$ocLazyLoad', $ocLazyLoad);
         bridge.store('lruCache', lruCache);
+        bridge.store('auth', auth);
         $rootScope.common = {};
         let localTheme = JSON.parse(localStorage.getItem('theme'));
         if (localTheme) {
@@ -41,6 +40,25 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                 idx: 0
             };
         }
+        bridge.$stateProvider.state({
+            name: 'login',
+            title: '登录',
+            cache: true,
+            url: '/login',
+            templateUrl: './tpls/login.htm',
+            controller: 'loginCtrl',
+            controllerAs: 'loginctrl',
+            resolve: {
+                loadMod: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load(['./scripts/controllers/login.min.js', './mods/md5.min.js']);
+                }]
+            },
+            onEnter: () => {
+                if (bridge.auth.check()) {
+                    bridge.$state.go('home');
+                }
+            }
+        });
         common(bridge.G_CFG.api)
             .then((res) => {
                 $rootScope.common.dt = res.data.data;
@@ -57,22 +75,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                             loadMod: ['$ocLazyLoad', function($ocLazyLoad) {
                                 return $ocLazyLoad.load('./scripts/controllers/' + item.href + '.min.js');
                             }]
+                        },
+                        onEnter: () => {
+                            if (!bridge.auth.check()) {
+                                bridge.$state.go('login');
+                            }
                         }
                     });
                 });
                 bridge.$urlRouterProvider.when('', () => {
-                        if ($location.$$absUrl.indexOf('_escaped_fragment_') < 0) {
-                            $state.go('home');
-                        }
+                        $state.go('login');
                     })
-                    .when('/admin/:login', ['auth', (auth) => {
-                        let userInfo = auth.login();
-                        if (userInfo) {
-                            $state.go($location.$$url);
-                        } else {
-                            $state.go('about');
-                        }
-                    }])
                     .otherwise('/404');
                 $urlRouter.sync();
             });

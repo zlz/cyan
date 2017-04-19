@@ -1,5 +1,10 @@
 # cyan
     MEAN 架构网站系统
+    
+## 安装 git
+    CentOS下
+
+    yum install git
 
 ## 获取
     https://github.com/zlz/cyan.git
@@ -12,11 +17,6 @@
     curl --silent --location https://rpm.nodesource.com/setup_7.x | bash -
     yum -y install nodejs
     yum install gcc-c++ make
-
-### 安装 git
-    CentOS下
-
-    yum install git
 
 ### 安装 mongodb
     CentOS下

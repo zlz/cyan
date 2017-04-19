@@ -1,27 +1,18 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-    <meta charset="utf-8">
-    <meta name="fragment" content="!">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <meta content="telephone=no" name="format-detection">
-    <meta content="address=no" name="format-detection">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="javascript css angular sass gulp webpack node express">
-    <meta name="description" content="一个供自己测试和演示的网站">
-    <title>登录</title>
-    <!--[if lt IE 9]>
-        <script type="text/javascript">
-            window.location.href = "https://browser-update.org/zh/update.html"
-        </script>
-    <![endif]-->
-    <link href="" rel="stylesheet">
-</head>
-<body>
-<div class="bd">
-
-    登录
+<div class="container" style="width:95%; max-width:400px">
+    <div class="panel panel-default">
+        <div class="panel-heading">登录</div>
+        <div class="panel-body pd-tb-30 pd-lr-50">
+            <form class="row" name="form">
+                <div class="form-group" ng-class="{'has-success': form.name.$dirty && !form.name.$error.minlength && !form.name.$error.maxlength, 'has-error': form.name.$dirty && form.name.$invalid}">
+                    <label>用户名</label>
+                    <input type="text" name="name" class="form-control" ng-model="formData.name" placeholder="请输入用户名" ng-minlength="3" ng-maxlength="16" required> </div>
+                <div class="form-group" ng-class="{'has-success': form.pswd.$dirty && form.pswd.$valid,'has-error': form.pswd.$dirty && form.pswd.$invalid}">
+                    <label>密码</label>
+                    <input type="password" name="pswd" class="form-control" ng-model="formData.pswd" placeholder="请输入密码"> </div>
+            </form>
+            <div class="text-right">
+                <button type="button" class="btn btn-success mg-r-30" ng-click="formSubmit()">登录</button>
+            </div>
+        </div>
+    </div>
 </div>
-</body>
-</html>

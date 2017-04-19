@@ -13,6 +13,7 @@ module.exports = (...para) => {
             root: src,
             style: [src + 'styles/**/*', './mods/**/*.scss'],
             script: src + 'scripts/**/*',
+            bower: './bower_components/',
             mod: './mods/**/*',
             htm: [src + '**/*.htm', src + '**/*.html'],
             img: src + 'images/**/*',

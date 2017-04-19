@@ -20,14 +20,9 @@ angular.module('app')
                         });
                 });
         };
-        $rootScope.transWatch = $rootScope.$watch('rootComm.trans', () => {
-            getData();
-        });
+        getData();
         $scope.$on('$destroy', () => {
             clearInterval(window.animTimer);
-            if ($rootScope.transWatch instanceof Function) {
-                $rootScope.transWatch();
-            }
         });
         $scope.zslideSwipe = (para) => {
             if (para === 'left') {
