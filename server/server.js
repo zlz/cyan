@@ -19,14 +19,17 @@ app.use(cors());
 const compression = require('compression');
 app.use(compression());
 const path = require('path');
-app.use('/', express.static(path.join(__dirname, '../static'), {
+app.use('/', express.static(path.join(__dirname, '../static/c'), {
     index: false
 }));
-app.use('/api/sho', proxy({
+app.use('/b', express.static(path.join(__dirname, '../static/b'), {
+    index: false
+}));
+app.use('/api/c/sho', proxy({
     target: 'http://route.showapi.com',
     changeOrigin: true,
     pathRewrite: {
-        '^/api/sho': ''
+        '^/api/c/sho': ''
     },
     logLevel: 'info'
 }));
@@ -58,17 +61,23 @@ app.get('/wx', function(req, res) {
         });
     }
 });
-let index = require('./index');
-app.use('/', index);
 const mgo = require('./mdb');
-let login = require('./login')(mgo);
-app.use('/login', login);
-let common = require('./api.common')(mgo);
-app.use('/api/web/common', common);
-let album = require('./api.album')(mgo);
-app.use('/api/web/album', album);
-let form = require('./api.form')(mgo);
-app.use('/api/web/form', form);
+let bApp = require('./b/app');
+app.use('/b', bApp);
+let bLogin = require('./b/login');
+app.use('/b/login', bLogin);
+let apiBLogin = require('./b/api.login')(mgo);
+app.use('/api/b/login', apiBLogin);
+let apiBCommon = require('./b/api.common')(mgo);
+app.use('/api/b/common', apiBCommon);
+let cApp = require('./c/app');
+app.use('/', cApp);
+let apiCCommon = require('./c/api.common')(mgo);
+app.use('/api/c/common', apiCCommon);
+let apiCAlbum = require('./c/api.album')(mgo);
+app.use('/api/c/album', apiCAlbum);
+let form = require('./c/api.form')(mgo);
+app.use('/api/c/form', form);
 app.use((req, res, next) => {
     res.type('text/plain');
     res.status(404);
