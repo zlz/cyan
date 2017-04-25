@@ -1,0 +1,42 @@
+{
+    "data": {
+        "nav": [{
+            "parent": "root",
+            "name": "home",
+            "title": "首页",
+            "url": "home",
+            "tpls": "home",
+            "ctrl": "home",
+            "js": "home"
+        }, {
+            "parent": "root",
+            "name": "news",
+            "title": "新闻",
+            "url": "news",
+            "tpls": "news",
+            "ctrl": "news",
+            "js": "news"
+        }, {
+            "parent": "root",
+            "name": "form",
+            "title": "留言",
+            "url": "form",
+            "tpls": "form",
+            "ctrl": "form",
+            "js": "form"
+        }, {
+            "parent": "root",
+            "name": "about",
+            "title": "关于",
+            "url": "about",
+            "tpls": "about",
+            "ctrl": "about",
+            "js": "about"
+        }],
+        "theme": ["theme-1", "theme-2", "theme-3", "theme-4"],
+        "ft": {
+            "text": "@龙 2017",
+            "href": "http://zhulongzhen.cn"
+        }
+    }
+}

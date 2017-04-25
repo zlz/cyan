@@ -1,0 +1,26 @@
+{
+    "data": {
+        "nav": [{
+            "parent": "root",
+            "name": "home",
+            "title": "首页",
+            "url": "home",
+            "tpls": "home",
+            "ctrl": "home",
+            "js": "home"
+        }, {
+            "parent": "root",
+            "name": "news",
+            "title": "编辑新闻",
+            "url": "news",
+            "tpls": "news",
+            "ctrl": "news",
+            "js": "news"
+        }],
+        "theme": ["theme-1", "theme-2", "theme-3", "theme-4"],
+        "ft": {
+            "text": "@龙 2017",
+            "href": "http://zhulongzhen.cn"
+        }
+    }
+}

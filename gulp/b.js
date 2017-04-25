@@ -17,6 +17,7 @@ module.exports = (...para) => {
             mod: './mods/**/*',
             htm: [src + '**/*.htm', src + '**/*.html'],
             img: src + 'images/**/*',
+            data: src + 'datas/**/*',
             font: './fonts/**/*',
             entry: {
                 vendor: [src + 'scripts/vendor.common'],
@@ -30,6 +31,7 @@ module.exports = (...para) => {
             mod: dist + 'mods',
             htm: dist,
             img: dist + 'images',
+            data: dist + 'datas',
             font: dist + 'fonts'
         },
         concat: {
@@ -108,7 +110,7 @@ module.exports = (...para) => {
             .pipe(gulp.dest(dest));
     };
     gulp.task('mod', () => {
-       gulp.src([paths.src.bower + 'js-md5/build/md5.min.js'])
+        gulp.src([paths.src.bower + 'js-md5/build/md5.min.js'])
             .pipe(gulp.dest(paths.dest.mod));
         jsComplie(paths.src.mod, paths.dest.mod);
     });
@@ -191,6 +193,10 @@ module.exports = (...para) => {
         return gulp.src(paths.src.img)
             .pipe(gulp.dest(paths.dest.img));
     });
+    gulp.task('data', () => {
+        return gulp.src(paths.src.data)
+            .pipe(gulp.dest(paths.dest.data));
+    });
     gulp.task('font', () => {
         return gulp.src(paths.src.font)
             .pipe(gulp.dest(paths.dest.font));
@@ -209,7 +215,7 @@ module.exports = (...para) => {
         }
     });
     gulp.task('run', () => {
-        runSequence('clean', ['rootFile', 'htm', 'img', 'font', 'styleConcat', 'mod', 'script'], 'webpack', 'watch');
+        runSequence('clean', ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat', 'mod', 'script'], 'webpack', 'watch');
     });
     return gulp.start('run');
 };

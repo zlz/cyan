@@ -1,11 +1,11 @@
 /*global angular*/
 angular.module('app')
     .factory('common', ['$rootScope', '$q', '$urlRouter', 'bridge', 'crud', function($rootScope, $q, $urlRouter, bridge, crud) {
-        return (...para) => {
+        return () => {
             let deferred = $q.defer();
             crud.$http({
                     method: 'GET',
-                    url: para[0] + 'common',
+                    url: 'datas/common.json',
                     cache: true
                 })
                 .then((res) => {

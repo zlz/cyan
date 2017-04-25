@@ -5,7 +5,7 @@ angular.module('app')
             chanelNames: ['国际焦点', '国内焦点', '军事焦点', '互联网焦点', '娱乐焦点']
         };
         $scope.news.selectedChanelName = $scope.news.chanelNames[0];
-        let getNews = (...para) => {
+        $scope.getNews = (...para) => {
             $scope.news.selectedChanelName = para[0];
             if (para[1]) {
                 crud.cancel();
@@ -22,5 +22,5 @@ angular.module('app')
                     }
                 });
         };
-        getNews($scope.news.selectedChanelName);
+        $scope.getNews($scope.news.selectedChanelName);
     }]);

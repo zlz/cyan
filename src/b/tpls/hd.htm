@@ -4,7 +4,7 @@
     </div>
     <div class="hd-ct" ng-class="{on:menuBool}" ng-swipe-right="menuFn()">
         <ul class="vm" ng-click="menuFn()">
-            <li class="ib" ng-repeat="item in data"> <a class="ib pd-lr-15" ui-sref="{{item.href}}" ui-sref-active="active">{{item.text}}</a> </li>
+            <li class="ib" ng-repeat="item in nav"> <a class="ib pd-lr-15" ui-sref="{{item.name}}" ui-sref-active="active">{{item.title}}</a> </li>
         </ul>
         <div class="translate em-12 cur">
             <span class="pd-r-10" ng-click="themeFn()"><i class="icon iconfont icon-style em-18"></i></span>

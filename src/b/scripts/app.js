@@ -21,7 +21,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
         $httpProvider.defaults.headers.common['X-Requested-By'] = 'cyan';
     }])
-    .run(['$cookies', '$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$location', '$q', '$ocLazyLoad', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'common', 'auth', function($cookies, $rootScope, $injector, $urlRouter, $state, $stateParams, $location, $q, $ocLazyLoad, lruCache, $cacheFactory, crud, bridge, common, auth) {
+    .run(['$cookies', '$rootScope', '$injector', '$urlRouter', '$state', '$stateParams', '$location', '$q', '$ocLazyLoad', 'lruCache', '$cacheFactory', 'crud', 'bridge', 'common', function($cookies, $rootScope, $injector, $urlRouter, $state, $stateParams, $location, $q, $ocLazyLoad, lruCache, $cacheFactory, crud, bridge, common) {
         bridge.store('$cookies', $cookies);
         bridge.store('$location', $location);
         bridge.store('$state', $state);
@@ -29,7 +29,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
         bridge.store('$cacheFactory', $cacheFactory);
         bridge.store('$ocLazyLoad', $ocLazyLoad);
         bridge.store('lruCache', lruCache);
-        bridge.store('auth', auth);
         $rootScope.common = {};
         let localTheme = JSON.parse(localStorage.getItem('theme'));
         if (localTheme) {
@@ -40,52 +39,41 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                 idx: 0
             };
         }
-        bridge.$stateProvider.state({
-            name: 'login',
-            title: '登录',
-            cache: true,
-            url: '/login',
-            templateUrl: './tpls/login.htm',
-            controller: 'loginCtrl',
-            controllerAs: 'loginctrl',
-            resolve: {
-                loadMod: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load(['./scripts/controllers/login.min.js', './mods/md5.min.js']);
-                }]
-            },
-            onEnter: () => {
-                if (bridge.auth.check()) {
-                    bridge.$state.go('home');
-                }
-            }
-        });
-        common(bridge.G_CFG.api)
+        common()
             .then((res) => {
                 $rootScope.common.dt = res.data.data;
-                $rootScope.common.dt.nav.forEach(function(item) {
-                    bridge.$stateProvider.state({
-                        name: item.href,
-                        title: item.text,
-                        cache: true,
-                        url: '/' + item.href,
-                        templateUrl: './tpls/' + item.href + '.htm',
-                        controller: item.href + 'Ctrl',
-                        controllerAs: item.href + 'ctrl',
-                        resolve: {
-                            loadMod: ['$ocLazyLoad', function($ocLazyLoad) {
-                                return $ocLazyLoad.load('./scripts/controllers/' + item.href + '.min.js');
-                            }]
-                        },
-                        onEnter: () => {
-                            if (!bridge.auth.check()) {
-                                bridge.$state.go('login');
+                let setRouter = (...para) => {
+                    para[0].forEach((item) => {
+                        bridge.$stateProvider.state({
+                            name: item.name,
+                            title: item.title,
+                            cache: true,
+                            url: '/' + item.url,
+                            templateUrl: './tpls/' + item.tpls + '.htm',
+                            controller: item.ctrl + 'Ctrl',
+                            controllerAs: item.href + 'ctrl',
+                            resolve: {
+                                loadMod: ['$ocLazyLoad', function($ocLazyLoad) {
+                                    return $ocLazyLoad.load('./scripts/controllers/' + item.js + '.min.js');
+                                }]
                             }
-                        }
+                        });
                     });
-                });
+                };
+                setRouter($rootScope.common.dt.nav);
                 bridge.$urlRouterProvider.when('', () => {
-                        $state.go('login');
+                        if ($location.$$absUrl.indexOf('_escaped_fragment_') < 0) {
+                            $state.go('home');
+                        }
                     })
+                    .when('/admin/:login', ['auth', (auth) => {
+                        let userInfo = auth.login();
+                        if (userInfo) {
+                            $state.go($location.$$url);
+                        } else {
+                            $state.go('about');
+                        }
+                    }])
                     .otherwise('/404');
                 $urlRouter.sync();
             });

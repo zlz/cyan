@@ -1,6 +1,6 @@
 # cyan
     MEAN 架构网站系统
-    
+
 ## 安装 git
     CentOS下
 
@@ -18,12 +18,16 @@
     yum -y install nodejs
     yum install gcc-c++ make
 
+    更换node版本
+    npm install n -g
+    PROJECT_NAME="node" PROJECT_URL="https://npm.taobao.org/mirrors/node/" n project latest
+
 ### 安装 mongodb
     CentOS下
 
     新建 /etc/yum.repos.d/mongodb-org-3.4.repo
     vi /etc/yum.repos.d/mongodb-org-3.4.repo
-    
+
     文件内容
         [mongodb-org-3.4]
         name=MongoDB Repository
@@ -41,6 +45,7 @@
     相关命令
     service mongod stop
     service mongod restart
+    use cyan //创建数据库cyan
 
     远程连接开启
     vi /etc/mongod.conf
@@ -63,7 +68,14 @@
     npm run dev
 
 ## 部署
-    npm start
+    npm start (发布code，运行server)
+    || npm run gulp:prod:b (发布B端 code)
+    || npm run gulp:prod:c (发布C端 code)
+    || npm run gulp:prod  (发布B端，C端 code)
 
 ## 运行
     npm run server
+
+    更改端口:
+    /server/server.js
+    const port = 80; ---> const port = XX;

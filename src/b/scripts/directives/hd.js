@@ -9,6 +9,12 @@ angular.module('app')
             },
             templateUrl: bridge.G_CFG.url + 'tpls/hd.htm',
             link: ($scope) => {
+                $scope.nav = [];
+                $scope.data.forEach((item) => {
+                    if (item.parent === 'root') {
+                        $scope.nav.push(item);
+                    }
+                });
                 $scope.menuFn = () => {
                     if ($(window)
                         .width() < 992) {
