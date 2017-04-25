@@ -1,43 +1,33 @@
-$theme: (bg0: #F8FAFC, bg1: #00ACAB, bg2:#33BCBB, fot1: #FFF, fot2:#E9F7F7, fot3: #717171, bdr1: #EBEBEB, bdr2:#33BCBB);
-$colors-pub: (bg0: #FFF, bg1: #F8FAFC, fot1: #4B4B4B, fot2: #C00, fot3:#7D8485, bdr1: #F4F6F8);
+$theme: (bg0: #F8FAFC, bg1: #FFF, bg2:#1ECDE2, bg3: #F8FAFC, fot1: #4F5362, fot2:#FFF, fot3: #444, fot4: #4B4B4B, fot5: #DB4437, bdr1: #EBEBEB, bdr2:#24292C, bdr3: #F4F6F8);
 $num: 3.125, 1.875, .75;
-@mixin s1() {
-    border: 0;
-    outline: 0;
-    background-color: map-get($theme, bg2);
-    color: map-get($theme, fot2);
-}
-@mixin s2() {
-    transition: left .5s ease-in, right .5s ease-in;
-    &.on {
-        display: block;
-        left: -10em;
-        right: 10em;
-    }
-}
 body {
     line-height: 2;
     font-size: 16px;
-    color: map-get($colors-pub, fot1);
-    background-color: map-get($colors-pub, bg1);
+    color: map-get($theme, fot4);
+    background-color: map-get($theme, fot2);
 }
 a {
-    color: map-get($colors-pub, fot1);
+    color: map-get($theme, fot4);
     &:active, &:hover, &:focus {
         border: 0;
         outline: 0;
         text-decoration: none;
         transition: color .3s ease-in;
-        color: map-get($colors-pub, fot1);
+        color: map-get($theme, fot4);
     }
 }
-.clr1 {
-    @if map-get($theme, bg1)==#FFF {
-        color: #738A94;
-    }
-    @else {
-        color: map-get($theme, bg1);
-    }
+.w-1140 {
+    width: 100%;
+}
+.w-500 {
+    width: auto;
+    display: block !important;
+}
+@mixin s1() {
+    border: 0;
+    outline: 0;
+    background-color: map-get($theme, bg2);
+    color: map-get($theme, fot2);
 }
 .hd {
     color: map-get($theme, fot1);
@@ -51,49 +41,28 @@ a {
         }
     }
     .hd-bg {
-        border-bottom: 1px solid map-get($theme, bdr1);
-        background: map-get($theme, bg1);
-        box-sizing: content-box;
-    }
-    .active {
-        @include s1();
-    }
-}
-.ui-view-ct {
-    margin-top: #{nth($num, 1) * 16 + 1}px;
-    min-height: 800px;
-}
-.ft {
-    background-color: #E8E8E8;
-    color: #999;
-    a {
-        color: #999;
-    }
-    ul, p {
-        margin: 0;
-    }
-}
-.hd {
-    a.logo {
-        background: url(/images/logo.png) no-repeat;
-        background-size: contain;
-        position: absolute;
-        top: 2px;
-        left: 25px;
-        width: 90px;
-        height: 88%;
-        &:active, &:hover, &:focus {
-            width: 120px;
-            background-color: transparent;
-        }
-    }
-    .hd-bg {
         position: fixed;
         z-index: 10000;
         top: 0;
         width: 100%;
         height: #{nth($num, 1)}em;
         line-height: #{nth($num, 1)}em;
+        border-bottom: 1px solid map-get($theme, bdr1);
+        background: map-get($theme, bg1);
+        box-sizing: content-box;
+        a.logo {
+            background: url(/images/logo.png) no-repeat;
+            background-size: contain;
+            position: absolute;
+            top: 2px;
+            left: 25px;
+            width: 90px;
+            height: 88%;
+            &:active, &:hover, &:focus {
+                width: 120px;
+                background-color: transparent;
+            }
+        }
     }
     .hd-ct {
         width: 100%;
@@ -103,25 +72,6 @@ a {
         left: 145px;
         height: #{nth($num, 1)}em;
         line-height: #{nth($num, 1)}em;
-        .vm {
-            display: none;
-            margin: 0;
-        }
-        .translate {
-            position: fixed;
-            top: 0;
-            right: 3em;
-        }
-        .h5-menu-btn {
-            position: fixed;
-            top: 0;
-            right: .5em;
-            cursor: pointer;
-            display: block;
-        }
-        li {
-            margin-right: 30px;
-        }
         &.on {
             left: 0;
             width: 100%;
@@ -144,33 +94,72 @@ a {
                     }
                 }
             }
-            .active {
-                width: 100%;
+        }
+        .vm {
+            display: none;
+            margin: 0;
+            li {
+                margin-right: 30px;
+                .active {
+                    @include s1();
+                }
+            }
+        }
+        .theme {
+            position: fixed;
+            top: 0;
+            right: 3em;
+        }
+        .h5-menu-btn {
+            position: fixed;
+            top: 0;
+            right: .5em;
+            cursor: pointer;
+            display: block;
+        }
+    }
+}
+.ui-view-ct {
+    margin-top: #{nth($num, 1) * 16 + 1}px;
+    min-height: 800px;
+    .ct {
+        .sld {
+            width: 100%;
+        }
+        .tt1 {
+            color: map-get($theme, fot5);
+        }
+        .ct1 {
+            height: 220px;
+        }
+        .lst1 {
+            border: 1px solid map-get($theme, bdr3);
+            background: #FFF;
+            padding: 20px;
+            .dest {
+                font-size: #{nth($num, 3)}em;
+                color: map-get($theme, bdr3);
+            }
+        }
+        .clr1 {
+            @if map-get($theme, bg1)==#FFF {
+                color: #738A94;
+            }
+            @else {
+                color: map-get($theme, bg1);
             }
         }
     }
 }
-.lst1 {
-    border: 1px solid map-get($colors-pub, bdr1);
-    background: #FFF;
-    padding: 20px;
-    .dest {
-        font-size: #{nth($num, 3)}em;
-        color: map-get($colors-pub, fot3);
+.ft {
+    background-color: #E8E8E8;
+    color: #999;
+    a {
+        color: #999;
     }
-}
-.sld, .w-1140 {
-    width: 100%;
-}
-.w-500 {
-    width: auto;
-    display: block !important;
-}
-.tt1 {
-    color: #33BCBB;
-}
-.ct1 {
-    height: 220px;
+    ul, p {
+        margin: 0;
+    }
 }
 @keyframes anim-vm {
     100% {
@@ -178,7 +167,7 @@ a {
     }
 }
 @media screen and (min-width: 992px) {
-    .sld, .w-1140 {
+    .w-1140 {
         width: 1140px;
     }
     .w-500 {
@@ -192,12 +181,6 @@ a {
             .h5-menu-btn {
                 display: none;
             }
-        }
-    }
-    a {
-        color: map-get($colors-pub, fot1);
-        &:active, &:hover, &:focus {
-            color: map-get($colors-pub, fot2);
         }
     }
 }

@@ -1,21 +1,23 @@
-$theme: (bg0: #F8FAFC, bg1: #151C24, bg2:#212C34, fot1: #999, fot2:#FFF, fot3: #444, bdr1: #EBEBEB, bdr2:#24292C);
-$colors-pub: (bg0: #FFF, bg1: #F8FAFC, fot1: #4B4B4B, fot2: #C00, fot3:#7D8485, bdr1: #F4F6F8);
+$theme: (bg0: #F8FAFC, bg1: #151C24, bg2:#212C34, bg3: #F8FAFC, fot1: #999, fot2:#FFF, fot3: #444, fot4: #4B4B4B, fot5:#33BCBB, bdr1: #EBEBEB, bdr2:#24292C, bdr3: #F4F6F8);
 $num: 3.125, 1.875, .75;
 body {
     line-height: 2;
     font-size: 16px;
-    color: map-get($colors-pub, fot1);
-    background-color: map-get($colors-pub, bg1);
+    color: map-get($theme, fot4);
+    background-color: map-get($theme, fot2);
 }
 a {
-    color: map-get($colors-pub, fot1);
+    color: map-get($theme, fot4);
     &:active, &:hover, &:focus {
         border: 0;
         outline: 0;
         text-decoration: none;
         transition: color .3s ease-in;
-        color: map-get($colors-pub, fot1);
+        color: map-get($theme, fot4);
     }
+}
+.w-1140 {
+    width: 100%;
 }
 .w-500 {
     width: auto;
@@ -121,22 +123,22 @@ a {
     margin-top: #{nth($num, 1) * 16 + 1}px;
     min-height: 800px;
     .ct {
-        .sld, .w-1140 {
+        .sld {
             width: 100%;
         }
         .tt1 {
-            color: #33BCBB;
+            color: map-get($theme, fot5);
         }
         .ct1 {
             height: 220px;
         }
         .lst1 {
-            border: 1px solid map-get($colors-pub, bdr1);
+            border: 1px solid map-get($theme, bdr3);
             background: #FFF;
             padding: 20px;
             .dest {
                 font-size: #{nth($num, 3)}em;
-                color: map-get($colors-pub, fot3);
+                color: map-get($theme, bdr3);
             }
         }
         .clr1 {
@@ -165,6 +167,12 @@ a {
     }
 }
 @media screen and (min-width: 992px) {
+    .w-1140 {
+        width: 1140px;
+    }
+    .w-500 {
+        width: 500px;
+    }
     .hd {
         .hd-ct {
             .vm {
@@ -173,14 +181,6 @@ a {
             .h5-menu-btn {
                 display: none;
             }
-        }
-    }
-    .ct {
-        .w-1140 {
-            width: 1140px;
-        }
-        .w-500 {
-            width: 500px;
         }
     }
 }

@@ -16,6 +16,9 @@ a {
         color: map-get($theme, fot4);
     }
 }
+.w-1140 {
+    width: 100%;
+}
 .w-500 {
     width: auto;
     display: block !important;
@@ -120,7 +123,7 @@ a {
     margin-top: #{nth($num, 1) * 16 + 1}px;
     min-height: 800px;
     .ct {
-        .sld, .w-1140 {
+        .sld {
             width: 100%;
         }
         .tt1 {
@@ -164,6 +167,12 @@ a {
     }
 }
 @media screen and (min-width: 992px) {
+    .w-1140 {
+        width: 1140px;
+    }
+    .w-500 {
+        width: 500px;
+    }
     .hd {
         .hd-ct {
             .vm {
@@ -172,14 +181,6 @@ a {
             .h5-menu-btn {
                 display: none;
             }
-        }
-    }
-    .ct {
-        .w-1140 {
-            width: 1140px;
-        }
-        .w-500 {
-            width: 500px;
         }
     }
 }
