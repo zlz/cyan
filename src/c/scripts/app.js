@@ -42,6 +42,20 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                 idx: 0
             };
         }
+        bridge.$stateProvider.state({
+            name: 'detail',
+            title: '详情',
+            cache: false,
+            url: '/detail/:type/:id',
+            templateUrl: './tpls/detail.htm',
+            controller: 'detailCtrl',
+            controllerAs: 'detailctrl',
+            resolve: {
+                loadMod: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load('./scripts/controllers/detail.min.js');
+                }]
+            }
+        });
         common()
             .then((res) => {
                 $rootScope.common.dt = res.data.data;
@@ -53,11 +67,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$sceDelegateProvider', '$ht
                             cache: true,
                             url: '/' + item.url,
                             templateUrl: './tpls/' + item.tpls + '.htm',
-                            controller: item.ctrl + 'Ctrl',
-                            controllerAs: item.href + 'ctrl',
+                            controller: item.ctrl === '' ? false : item.ctrl + 'Ctrl',
                             resolve: {
                                 loadMod: ['$ocLazyLoad', function($ocLazyLoad) {
-                                    return $ocLazyLoad.load('./scripts/controllers/' + item.js + '.min.js');
+                                    if (item.js === '') {
+                                        return false;
+                                    } else {
+                                        return $ocLazyLoad.load('./scripts/controllers/' + item.js + '.min.js');
+                                    }
                                 }]
                             }
                         });

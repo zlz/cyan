@@ -138,7 +138,7 @@ a {
             padding: 20px;
             .dest {
                 font-size: #{nth($num, 3)}em;
-                color: map-get($theme, bdr3);
+                color: map-get($theme, fot1);
             }
         }
         .clr1 {
