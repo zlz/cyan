@@ -1,18 +1,20 @@
 /*global angular*/
-angular.module('app')
-    .factory('appInterceptor', ['$q', function($q) {
+angular.module('app').factory('appInterceptor', [
+    '$q',
+    function($q) {
         return {
-            'request': function(config) {
+            request: function(config) {
                 return $q.when(config);
             },
-            'response': function(res) {
+            response: function(res) {
                 return $q.when(res);
             },
-            'requestError': function(reqErr) {
+            requestError: function(reqErr) {
                 return $q.when(reqErr);
             },
-            'responseError': function(resErr) {
+            responseError: function(resErr) {
                 return $q.when(resErr);
             }
         };
-    }]);
+    }
+]);

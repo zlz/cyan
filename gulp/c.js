@@ -35,78 +35,70 @@ module.exports = (...para) => {
             font: dist + 'fonts'
         },
         concat: {
-            css: [dist + 'styles/cyan/cyan.common.min.css', './fonts/iconfont.css', './bower_components/bootstrap/dist/css/bootstrap.css', './bower_components/animate.css/animate.css', dist + 'styles/common.min.css', './mods/zSlide/zslide.css']
+            css: [
+                dist + 'styles/cyan/cyan.common.min.css',
+                './fonts/iconfont.css',
+                './bower_components/bootstrap/dist/css/bootstrap.css',
+                './bower_components/animate.css/animate.css',
+                dist + 'styles/common.min.css',
+                './mods/zSlide/zslide.css'
+            ]
         }
     };
+    let errHandler = function(err) {
+        $.util.log(err.message);
+        this.emit('end');
+    };
     gulp.task('clean', () => {
-        return del([paths.dest.root + '**/*'], {
-            force: true
-        });
+        return del([paths.dest.root + '**/*'], { force: true });
     });
     gulp.task('style', () => {
-        let filterScss = $.filter('**/*.scss', {
-            restore: true
-        });
-        return gulp.src(paths.src.style)
-            .pipe($.changed(paths.dest.style, {
-                extension: '.min.css'
-            }))
-            .on('data', (file) => {
+        let filterScss = $.filter('**/*.scss', { restore: true });
+        return gulp
+            .src(paths.src.style)
+            .pipe($.changed(paths.dest.style, { extension: '.min.css' }))
+            .on('data', file => {
                 $.util.log(file.path);
             })
             .pipe(filterScss)
-            .pipe($.sass({
-                    outputStyle: 'expanded'
+            .pipe($.sass({ outputStyle: 'expanded' }).on('error', errHandler))
+            .pipe(
+                $.autoprefixer({
+                    browsers: ['last 2 versions', 'ie 9', 'Android 3'],
+                    cascade: false
                 })
-                .on('error', (err) => {
-                    $.util.log(err.message);
-                    this.emit('end');
-                }))
-            .pipe($.autoprefixer({
-                browsers: ['last 2 versions', 'ie 9', 'Android 3'],
-                cascade: false
-            }))
+            )
             .pipe($.csso())
-            .on('error', (err) => {
-                $.util.log(err.message);
-                this.emit('end');
-            })
-            .pipe($.rename({
-                suffix: '.min'
-            }))
+            .on('error', errHandler)
+            .pipe($.rename({ suffix: '.min' }))
             .pipe(filterScss.restore)
             .pipe(gulp.dest(paths.dest.style));
     });
     gulp.task('styleConcat', ['style'], () => {
-        return gulp.src(paths.concat.css)
-            .pipe($.autoprefixer({
-                browsers: ['last 2 versions', 'ie 9', 'Android 3'],
-                cascade: false
-            }))
+        return gulp
+            .src(paths.concat.css)
+            .pipe(
+                $.autoprefixer({
+                    browsers: ['last 2 versions', 'ie 9', 'Android 3'],
+                    cascade: false
+                })
+            )
             .pipe($.csso())
             .pipe($.concat('vendor.common.min.css'))
             .pipe(gulp.dest(paths.dest.style));
     });
     let jsComplie = (src, dest) => {
-        let flt = $.filter('**/*.js', {
-            restore: true
-        });
-        return gulp.src(src)
-            .pipe($.changed(dest, {
-                extension: '.min.js'
-            }))
-            .on('data', (file) => {
+        let flt = $.filter('**/*.js', { restore: true });
+        return gulp
+            .src(src)
+            .pipe($.changed(dest, { extension: '.min.js' }))
+            .on('data', file => {
                 $.util.log(file.path);
             })
             .pipe(flt)
             .pipe($.babel())
-            .on('error', (err) => {
-                $.util.log(err.fileName, err.lineNumber, err.message);
-                this.emit('end');
-            })
-            .pipe($.rename({
-                suffix: '.min'
-            }))
+            .on('error', errHandler)
+            .pipe($.rename({ suffix: '.min' }))
             .pipe(gulp.dest(dest));
     };
     gulp.task('mod', () => {
@@ -115,7 +107,7 @@ module.exports = (...para) => {
     gulp.task('script', () => {
         jsComplie(paths.src.script, paths.dest.script);
     });
-    gulp.task('webpack', (callback) => {
+    gulp.task('webpack', callback => {
         const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
         const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
         let filename = '';
@@ -129,75 +121,73 @@ module.exports = (...para) => {
             filename = '[name].bundle.min.js';
             chunkFilename = '[name].chunk.min.js';
         }
-        webpack({
-            entry: paths.src.entry,
-            output: {
-                path: path.resolve(__dirname, '../' + paths.dest.script),
-                filename: filename,
-                chunkFilename: chunkFilename
+        webpack(
+            {
+                entry: paths.src.entry,
+                output: {
+                    path: path.resolve(__dirname, '../' + paths.dest.script),
+                    filename: filename,
+                    chunkFilename: chunkFilename
+                },
+                plugins: [new UglifyJSPlugin({ comments: false })],
+                module: {
+                    rules: [
+                        {
+                            test: /\.js$/,
+                            include: [
+                                path.resolve(__dirname, '../' + paths.src.root + 'scripts'),
+                                path.resolve(__dirname, '../mods')
+                            ],
+                            use: [{ loader: 'babel-loader' }]
+                        }
+                    ]
+                },
+                resolve: {},
+                externals: {}
             },
-            plugins: [
-                new UglifyJSPlugin({
-                    compress: {
-                        warnings: true,
-                        'drop_console': false
-                    },
-                    output: {
-                        comments: false
-                    }
-                })
-            ],
-            module: {
-                rules: [{
-                    test: /\.js$/,
-                    include: [
-                        path.resolve(__dirname, '../' + paths.src.root + 'scripts'), path.resolve(__dirname, '../mods')
-                    ],
-                    use: [{
-                        loader: 'babel-loader'
-                    }]
-                }]
-            },
-            resolve: {},
-            externals: {}
-        }, (err, stats) => {
-            if (err) {
-                throw new $.util.PluginError('webpack', err);
+            (err, stats) => {
+                if (err) {
+                    throw new $.util.PluginError('webpack', err);
+                }
+                $.util.log(
+                    '[webpack]',
+                    stats.toString(
+                        {
+                            // output options
+                        }
+                    )
+                );
+                callback();
             }
-            $.util.log('[webpack]', stats.toString({
-                // output options
-            }));
-            callback();
-        });
+        );
     });
     gulp.task('rootFile', () => {
-        return gulp.src(paths.src.root + '*.ico')
-            .pipe(gulp.dest(paths.dest.root));
+        return gulp.src(paths.src.root + '*.ico').pipe(gulp.dest(paths.dest.root));
     });
     gulp.task('htm', () => {
-        return gulp.src(paths.src.htm)
-            .pipe($.htmlmin({
-                collapseWhitespace: true,
-                conservativeCollapse: true,
-                minifyCSS: true,
-                minifyJS: true,
-                sortAttributes: true,
-                sortClassName: true,
-                useShortDoctype: true
-            }))
+        return gulp
+            .src(paths.src.htm)
+            .pipe(
+                $.htmlmin({
+                    collapseWhitespace: true,
+                    conservativeCollapse: true,
+                    minifyCSS: true,
+                    minifyJS: true,
+                    sortAttributes: true,
+                    sortClassName: true,
+                    useShortDoctype: true
+                })
+            )
             .pipe(gulp.dest(paths.dest.htm));
     });
     gulp.task('img', () => {
-        return gulp.src(paths.src.img)
-            .pipe(gulp.dest(paths.dest.img));
+        return gulp.src(paths.src.img).pipe(gulp.dest(paths.dest.img));
     });
     gulp.task('data', () => {
-        return gulp.src(paths.src.data)
-            .pipe(gulp.dest(paths.dest.data));
+        return gulp.src(paths.src.data).pipe(gulp.dest(paths.dest.data));
     });
     gulp.task('font', () => {
-        return gulp.src(paths.src.font)
-            .pipe(gulp.dest(paths.dest.font));
+        return gulp.src(paths.src.font).pipe(gulp.dest(paths.dest.font));
     });
     gulp.task('watch', () => {
         if (status === 'dev') {
@@ -213,7 +203,12 @@ module.exports = (...para) => {
         }
     });
     gulp.task('run', () => {
-        runSequence('clean', ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat', 'mod', 'script'], 'webpack', 'watch');
+        runSequence(
+            'clean',
+            ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat', 'mod', 'script'],
+            'webpack',
+            'watch'
+        );
     });
     return gulp.start('run');
 };

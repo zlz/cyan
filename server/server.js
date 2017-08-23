@@ -6,9 +6,7 @@ const multer = require('multer');
 const upload = multer();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 const proxy = require('http-proxy-middleware');
 const morgan = require('morgan');
 app.use(morgan('common'));
@@ -19,20 +17,17 @@ app.use(cors());
 const compression = require('compression');
 app.use(compression());
 const path = require('path');
-app.use('/', express.static(path.join(__dirname, '../static/c'), {
-    index: false
-}));
-app.use('/b', express.static(path.join(__dirname, '../static/b'), {
-    index: false
-}));
-app.use('/api/c/sho', proxy({
-    target: 'http://route.showapi.com',
-    changeOrigin: true,
-    pathRewrite: {
-        '^/api/c/sho': ''
-    },
-    logLevel: 'info'
-}));
+app.use('/', express.static(path.join(__dirname, '../static/c'), { index: false }));
+app.use('/b', express.static(path.join(__dirname, '../static/b'), { index: false }));
+app.use(
+    '/api/c/sho',
+    proxy({
+        target: 'http://route.showapi.com',
+        changeOrigin: true,
+        pathRewrite: { '^/api/c/sho': '' },
+        logLevel: 'info'
+    })
+);
 const crypto = require('crypto');
 app.get('/wx', function(req, res) {
     const token = 'sdfs825dja';

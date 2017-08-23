@@ -1,7 +1,5 @@
 window.jQuery = window.$ = require('../../../bower_components/jquery/dist/jquery');
-import {
-    cyan
-} from '../../../mods/cyan/Cyan.es6';
+import { cyan } from '../../../mods/cyan/Cyan.es6';
 import '../../../bower_components/angular/angular';
 import '../../../bower_components/angular-cookies/angular-cookies';
 import '../../../bower_components/angular-resource/angular-resource';

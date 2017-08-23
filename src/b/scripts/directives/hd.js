@@ -1,32 +1,27 @@
 /*global angular*/
-angular.module('app')
-    .directive('hd', ['$rootScope', 'bridge', ($rootScope, bridge) => {
+angular.module('app').directive('hd', [
+    '$rootScope',
+    'bridge',
+    ($rootScope, bridge) => {
         return {
             restrict: 'EA',
             replace: true,
-            scope: {
-                data: '=',
-            },
+            scope: { data: '=' },
             templateUrl: bridge.G_CFG.url + 'tpls/hd.htm',
-            link: ($scope) => {
+            link: $scope => {
                 $scope.nav = [];
-                $scope.data.forEach((item) => {
+                $scope.data.forEach(item => {
                     if (item.parent === 'root') {
                         $scope.nav.push(item);
                     }
                 });
                 $scope.menuFn = () => {
-                    if ($(window)
-                        .width() < 992) {
+                    if ($(window).width() < 992) {
                         $scope.menuBool = !$scope.menuBool;
                         if ($scope.menuBool && navigator.userAgent.indexOf('Android') > -1) {
-                            $(document)
-                                .find('video')
-                                .hide();
+                            $(document).find('video').hide();
                         } else {
-                            $(document)
-                                .find('video')
-                                .show();
+                            $(document).find('video').show();
                         }
                     }
                 };
@@ -44,4 +39,5 @@ angular.module('app')
                 };
             }
         };
-    }]);
+    }
+]);

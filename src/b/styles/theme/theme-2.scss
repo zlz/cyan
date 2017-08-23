@@ -1,4 +1,17 @@
-$theme: (bg0: #F8FAFC, bg1: #222, bg2:#CC7A6F, bg3: #F8FAFC, fot1: #61DAFB, fot2:#FFF, fot3: #444, fot4: #4B4B4B, fot5:#61DAFB, bdr1: #EBEBEB, bdr2:#24292C, bdr3: #F4F6F8);
+$theme: (
+    bg0: #f8fafc,
+    bg1: #222,
+    bg2:#cc7a6f,
+    bg3: #f8fafc,
+    fot1: #61dafb,
+    fot2:#fff,
+    fot3: #444,
+    fot4: #4b4b4b,
+    fot5:#61dafb,
+    bdr1: #ebebeb,
+    bdr2:#24292c,
+    bdr3: #f4f6f8
+);
 $num: 3.125, 1.875, .75;
 body {
     line-height: 2;
@@ -8,7 +21,9 @@ body {
 }
 a {
     color: map-get($theme, fot4);
-    &:active, &:hover, &:focus {
+    &:active,
+    &:hover,
+    &:focus {
         border: 0;
         outline: 0;
         text-decoration: none;
@@ -58,7 +73,9 @@ a {
             left: 25px;
             width: 90px;
             height: 88%;
-            &:active, &:hover, &:focus {
+            &:active,
+            &:hover,
+            &:focus {
                 width: 120px;
                 background-color: transparent;
             }
@@ -134,7 +151,7 @@ a {
         }
         .lst1 {
             border: 1px solid map-get($theme, bdr3);
-            background: #FFF;
+            background: #fff;
             padding: 20px;
             .dest {
                 font-size: #{nth($num, 3)}em;
@@ -142,22 +159,22 @@ a {
             }
         }
         .clr1 {
-            @if map-get($theme, bg1)==#FFF {
-                color: #738A94;
-            }
-            @else {
+            @if map-get($theme, bg1) ==#FFF {
+                color: #738a94;
+            } @else {
                 color: map-get($theme, bg1);
             }
         }
     }
 }
 .ft {
-    background-color: #E8E8E8;
+    background-color: #e8e8e8;
     color: #999;
     a {
         color: #999;
     }
-    ul, p {
+    ul,
+    p {
         margin: 0;
     }
 }

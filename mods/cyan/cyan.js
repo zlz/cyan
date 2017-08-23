@@ -1,15 +1,11 @@
 /*global ActiveXjctject*/
 /*
- cyan.js v0.9.2
+ cyan.js v0.9.5
  (c) 2016 zlz
  Released under the MIT License.
  */
 (function(window) {
     var ob = {};
-    //
-    ob.$ = function(id) {
-        return document.getElementById(id);
-    };
     //
     ob.getEvt = function() {
         return window.event || event;
@@ -81,7 +77,8 @@
         if (el.currentStyle) {
             gs = el.currentStyle.style;
         } else if (window.getComputedStyle) {
-            gs = window.getComputedStyle(el, null).getPropertyValue(style);
+            gs = window.getComputedStyle(el, null)
+                .getPropertyValue(style);
         }
         return gs;
     };
@@ -157,7 +154,7 @@
         window.event.cancelBubble = true;
     };
     //顶部提示，自动隐藏
-    ob.pop = function(txt, type, callback) {
+    ob.pop = function(txt, type, cb) {
         var jct = {};
         var cssText = 'animation: anim-pop 3s linear forwards; border-radius: 0 0 5px 5px; position:fixed; z-index:1000000; opacity:0.1; left:1px; top:0; padding:3px 20px; text-align:center; background:#F2DEDE; color:#333; font-weight:normal;';
         jct.pp = document.createElement('div');
@@ -186,6 +183,9 @@
                 }
         }
         jct.pp.style.left = (document.documentElement.clientWidth - jct.pp.offsetWidth) / 2 + 'px';
+        if (cb && cb instanceof Function) {
+            cb();
+        }
         window.setTimeout(function() {
             document.body.removeChild(jct.pp);
         }, 3000);
@@ -203,20 +203,28 @@
             if (el) {
                 document.body.removeChild(el);
                 clearInterval(si);
-                cb(cbVal);
+                if (cb && cb instanceof Function) {
+                    cb(cbVal);
+                }
             }
         }, 6e4);
-        document.querySelector('.cyan-confirm-y').addEventListener('click', function() {
-            clearInterval(si);
-            document.body.removeChild(el);
-            cbVal = true;
-            cb(cbVal);
-        }, false);
-        document.querySelector('.cyan-confirm-n').addEventListener('click', function() {
-            clearInterval(si);
-            document.body.removeChild(el);
-            cb(cbVal);
-        }, false);
+        document.querySelector('.cyan-confirm-y')
+            .addEventListener('click', function() {
+                clearInterval(si);
+                document.body.removeChild(el);
+                cbVal = true;
+                if (cb && cb instanceof Function) {
+                    cb(cbVal);
+                }
+            }, false);
+        document.querySelector('.cyan-confirm-n')
+            .addEventListener('click', function() {
+                clearInterval(si);
+                document.body.removeChild(el);
+                if (cb && cb instanceof Function) {
+                    cb(cbVal);
+                }
+            }, false);
     };
     //返回当前年月日星期
     ob.date = function() {
@@ -236,9 +244,19 @@
     //获取url参数name的值
     ob.getUrlParam = function(name) {
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'),
-            r = window.location.search.substr(1).match(reg);
+            r = window.location.search.substr(1)
+            .match(reg);
         if (r !== null) {
             return decodeURIComponent(r[2]);
+        }
+        return null;
+    };
+    //获取pathName的值
+    ob.getPathName = function(param) {
+        var pathName = window.location.pathname.split('/')
+            .splice(1);
+        if (pathName[param] !== '' && pathName[param].indexOf('.') === -1) {
+            return decodeURIComponent(pathName[param]);
         }
         return null;
     };
@@ -266,6 +284,15 @@
         }
         return -1;
     };
+    //去除HTML标签
+    ob.removeHtmlTag = function(html) {
+        html = html.replace(/(\n)/g, '');
+        html = html.replace(/(\t)/g, '');
+        html = html.replace(/(\r)/g, '');
+        html = html.replace(/<\/?[^>]*>/g, '');
+        html = html.replace(/\s*/g, '');
+        return html;
+    };
     if (typeof define === 'function' && define.amd) {
         define('cyan', [], function() {
             return ob;
@@ -289,4 +316,10 @@
             this.splice(index, 1);
         }
     };
+    // console兼容
+    if (!window.console) {
+        window.console = {
+            log: function() {}
+        };
+    }
 }(window));

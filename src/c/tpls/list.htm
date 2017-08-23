@@ -1,14 +1,14 @@
 <div>
     <div class="pd-30 text-center animated infinite flash" ng-if="!data.contentlist"> 数据加载中... </div>
-    <ul ng-else>
-        <li ng-repeat="item in data.contentlist" class="lst1 pd-20 mg-b-20 clear">
-            <a target="_blank" ng-href="{{item.link}}">
+    <ul ng-else="">
+        <li class="lst1 pd-20 mg-b-20 clear" ng-repeat="item in data.contentlist">
+            <a ng-href="{{item.link}}" target="_blank">
                 <div class="pd-b-5 em-18">{{item.title}}</div>
                 <div class="dest" ng-bind="item.dest"></div>
             </a>
             <div ng-if="item.imageurls.length > 0">
                 <div class="pd-tb-10">
-                    <img style="max-width: 100%; max-height:300px;" ng-src="{{item.imageurls[0].url}}"> </div>
+                    <img ng-src="{{item.imageurls[0].url}}" style="max-width: 100%; max-height:300px;"> </div>
             </div>
             <div class="pull-right em-12 grey">
                 <span class="mg-r-10">

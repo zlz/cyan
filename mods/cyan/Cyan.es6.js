@@ -1,13 +1,13 @@
-/*global cyan */
+/*global */
 /*
- cyan.js v1.0.1
+ cyan.js v1.0.2
  (c) 2017 zlz
  Released under the MIT License.
  */
 class Cyan {
     constructor() {}
     //顶部提示，自动隐藏
-    pop(txt, type, callback) {
+    pop(txt, type, cb) {
         var jct = {};
         var cssText = 'animation: anim-pop 3s linear forwards; border-radius: 0 0 5px 5px; position:fixed; z-index:1000000; opacity:0.1; left:1px; top:0; padding:3px 20px; text-align:center; background:#F2DEDE; color:#333; font-weight:normal;';
         jct.pp = document.createElement('div');
@@ -36,6 +36,9 @@ class Cyan {
                 }
         }
         jct.pp.style.left = (document.documentElement.clientWidth - jct.pp.offsetWidth) / 2 + 'px';
+        if (cb && cb instanceof Function) {
+            cb();
+        }
         window.setTimeout(function() {
             document.body.removeChild(jct.pp);
         }, 3000);
@@ -53,7 +56,9 @@ class Cyan {
             if (el) {
                 document.body.removeChild(el);
                 clearInterval(si);
-                cb(cbVal);
+                if (cb && cb instanceof Function) {
+                    cb(cbVal);
+                }
             }
         }, 6e4);
         document.querySelector('.cyan-confirm-y')
@@ -61,13 +66,17 @@ class Cyan {
                 clearInterval(si);
                 document.body.removeChild(el);
                 cbVal = true;
-                cb(cbVal);
+                if (cb && cb instanceof Function) {
+                    cb(cbVal);
+                }
             }, false);
         document.querySelector('.cyan-confirm-n')
             .addEventListener('click', function() {
                 clearInterval(si);
                 document.body.removeChild(el);
-                cb(cbVal);
+                if (cb && cb instanceof Function) {
+                    cb(cbVal);
+                }
             }, false);
     }
     //返回当前年月日星期
@@ -95,6 +104,15 @@ class Cyan {
         }
         return null;
     }
+    //获取pathName的值
+    getPathName(param) {
+        var pathName = window.location.pathname.split('/')
+            .splice(1);
+        if (pathName[param] !== '' && pathName[param].indexOf('.') === -1) {
+            return decodeURIComponent(pathName[param]);
+        }
+        return null;
+    }
     //邮箱正则测试
     emailTest(val) {
         var regexp = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/i;
@@ -119,6 +137,16 @@ class Cyan {
         }
         return -1;
     }
+    //去除HTML标签
+    removeHtmlTag(html) {
+        html = html.replace(/(\n)/g, '');
+        html = html.replace(/(\t)/g, '');
+        html = html.replace(/(\r)/g, '');
+        html = html.replace(/<\/?[^>]*>/g, '');
+        html = html.replace(/\s*/g, '');
+        return html;
+    }
+    //设置首页
     setHome(obj, url) {
         try {
             obj.style.behavior = 'url(#default#homepage)';
@@ -126,7 +154,7 @@ class Cyan {
         } catch (e) {
             if (window.netscape) {
                 try {
-                    netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
+                    window.netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
                 } catch (e) {
                     alert("抱歉，此操作被浏览器拒绝！\n\n请在浏览器地址栏输入“about:config”并回车然后将[signed.applets.codebase_principal_support]设置为'true'");
                 }
@@ -167,3 +195,9 @@ Array.prototype.remove = function(val) {
         this.splice(index, 1);
     }
 };
+// console兼容
+if (!window.console) {
+    window.console = {
+        log: function() {}
+    };
+}

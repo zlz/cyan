@@ -1,6 +1,10 @@
 /*global angular */
-angular.module('app')
-    .controller('newsCtrl', ['$rootScope', '$scope', 'bridge', 'crud', ($rootScope, $scope, bridge, crud) => {
+angular.module('app').controller('newsCtrl', [
+    '$rootScope',
+    '$scope',
+    'bridge',
+    'crud',
+    ($rootScope, $scope, bridge, crud) => {
         $scope.formSubmit = () => {
             if ($scope.submitValid) {
                 window.cyan.pop('您提交的速度太快了！', 'warning');
@@ -9,7 +13,8 @@ angular.module('app')
             let req = $scope.formData;
             if (req && $scope.form.$valid) {
                 $scope.submitValid = true;
-                crud.$http({
+                crud
+                    .$http({
                         method: 'post',
                         url: bridge.G_CFG.api + 'news',
                         data: req
@@ -23,4 +28,5 @@ angular.module('app')
                     });
             }
         };
-    }]);
+    }
+]);

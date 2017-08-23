@@ -3,13 +3,13 @@
         ["env", {
             "targets": {
                 "browsers": ["ie <= 9"],
-                "uglify": true,
+                "uglify": false,
                 "useBuiltIns": true,
                 "debug": true
             }
         }]
     ],
-    "minified": true,
+    "minified": false,
     "comments": false,
-    "compact": true
+    "plugins": ["transform-remove-strict-mode", "transform-function-bind", "transform-remove-console"]
 }

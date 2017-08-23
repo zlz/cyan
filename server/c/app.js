@@ -11,19 +11,20 @@ router.get('/', (req, res, next) => {
         console.log(fullUrl);
         let sitepage = null;
         let phInstance = null;
-        phantom.create()
-            .then((instance) => {
+        phantom
+            .create()
+            .then(instance => {
                 phInstance = instance;
                 return instance.createPage();
             })
-            .then((page) => {
+            .then(page => {
                 sitepage = page;
                 return page.open(fullUrl);
             })
             .then(() => {
                 return sitepage.property('content');
             })
-            .then((content) => {
+            .then(content => {
                 console.log(content);
                 res.send(content);
                 sitepage.close();

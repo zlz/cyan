@@ -1,6 +1,10 @@
 /*global angular md5*/
-angular.module('app')
-    .controller('loginCtrl', ['$rootScope', '$scope', 'bridge', 'crud', ($rootScope, $scope, bridge, crud) => {
+angular.module('app').controller('loginCtrl', [
+    '$rootScope',
+    '$scope',
+    'bridge',
+    'crud',
+    ($rootScope, $scope, bridge, crud) => {
         $scope.formSubmit = () => {
             if ($scope.submitValid) {
                 window.cyan.pop('您提交的速度太快了！', 'warning');
@@ -12,12 +16,13 @@ angular.module('app')
             };
             if (req && $scope.form.$valid) {
                 $scope.submitValid = true;
-                crud.$http({
+                crud
+                    .$http({
                         method: 'post',
                         url: bridge.G_CFG.api + 'login',
                         data: req
                     })
-                    .then((res) => {
+                    .then(res => {
                         if (res.data.status === 1003) {
                             window.cyan.pop(res.data.msg, 'warning');
                         } else {
@@ -30,4 +35,5 @@ angular.module('app')
                     });
             }
         };
-    }]);
+    }
+]);

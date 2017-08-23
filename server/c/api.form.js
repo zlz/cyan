@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-module.exports = (mgo) => {
+module.exports = mgo => {
     if (mgo.conn) {
         let Schema = new mgo.mongoose.Schema({
             email: 'String',
@@ -9,12 +9,9 @@ module.exports = (mgo) => {
             name: 'String'
         });
         let Model = mgo.conn.model('Form', Schema);
-        router.get('/', (req, res, next) => {
-                Model.find({}, null, {
-                    sort: {
-                        _id: -1
-                    }
-                }, (err, docs) => {
+        router
+            .get('/', (req, res, next) => {
+                Model.find({}, null, { sort: { _id: -1 } }, (err, docs) => {
                     res.send({
                         data: docs,
                         params: req.query,
