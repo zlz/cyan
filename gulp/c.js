@@ -1,19 +1,17 @@
-module.exports = (...para) => {
+module.exports = (...param) => {
     const gulp = require('gulp');
     const $ = require('gulp-load-plugins')();
     const del = require('del');
     const path = require('path');
     const webpack = require('webpack');
     const runSequence = require('run-sequence');
-    const status = para[0];
+    const status = param[0];
     const src = './src/c/';
-    const dist = './static/c/';
+    const dist = './dist/c/';
     let paths = {
         src: {
-            root: src,
             style: [src + 'styles/**/*', './mods/**/*.scss'],
             script: src + 'scripts/**/*',
-            bower: './bower_components/',
             mod: './mods/**/*',
             htm: [src + '**/*.htm', src + '**/*.html'],
             img: src + 'images/**/*',
@@ -24,8 +22,7 @@ module.exports = (...para) => {
                 app: src + 'scripts/app'
             }
         },
-        dest: {
-            root: dist,
+        dist: {
             style: dist + 'styles',
             script: dist + 'scripts',
             mod: dist + 'mods',
@@ -38,8 +35,8 @@ module.exports = (...para) => {
             css: [
                 dist + 'styles/cyan/cyan.common.min.css',
                 './fonts/iconfont.css',
-                './bower_components/bootstrap/dist/css/bootstrap.css',
-                './bower_components/animate.css/animate.css',
+                './node_modules/bootstrap/dist/css/bootstrap.css',
+                './node_modules/animate.css/animate.css',
                 dist + 'styles/common.min.css',
                 './mods/zSlide/zslide.css'
             ]
@@ -50,13 +47,13 @@ module.exports = (...para) => {
         this.emit('end');
     };
     gulp.task('clean', () => {
-        return del([paths.dest.root + '**/*'], { force: true });
+        return del([dist + '**/*'], { force: true });
     });
     gulp.task('style', () => {
         let filterScss = $.filter('**/*.scss', { restore: true });
         return gulp
             .src(paths.src.style)
-            .pipe($.changed(paths.dest.style, { extension: '.min.css' }))
+            .pipe($.changed(paths.dist.style, { extension: '.min.css' }))
             .on('data', file => {
                 $.util.log(file.path);
             })
@@ -72,7 +69,7 @@ module.exports = (...para) => {
             .on('error', errHandler)
             .pipe($.rename({ suffix: '.min' }))
             .pipe(filterScss.restore)
-            .pipe(gulp.dest(paths.dest.style));
+            .pipe(gulp.dest(paths.dist.style));
     });
     gulp.task('styleConcat', ['style'], () => {
         return gulp
@@ -85,7 +82,7 @@ module.exports = (...para) => {
             )
             .pipe($.csso())
             .pipe($.concat('vendor.common.min.css'))
-            .pipe(gulp.dest(paths.dest.style));
+            .pipe(gulp.dest(paths.dist.style));
     });
     let jsComplie = (src, dest) => {
         let flt = $.filter('**/*.js', { restore: true });
@@ -102,10 +99,10 @@ module.exports = (...para) => {
             .pipe(gulp.dest(dest));
     };
     gulp.task('mod', () => {
-        jsComplie(paths.src.mod, paths.dest.mod);
+        jsComplie(paths.src.mod, paths.dist.mod);
     });
     gulp.task('script', () => {
-        jsComplie(paths.src.script, paths.dest.script);
+        jsComplie(paths.src.script, paths.dist.script);
     });
     gulp.task('webpack', callback => {
         const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
@@ -125,7 +122,7 @@ module.exports = (...para) => {
             {
                 entry: paths.src.entry,
                 output: {
-                    path: path.resolve(__dirname, '../' + paths.dest.script),
+                    path: path.resolve(__dirname, '../' + paths.dist.script),
                     filename: filename,
                     chunkFilename: chunkFilename
                 },
@@ -135,7 +132,7 @@ module.exports = (...para) => {
                         {
                             test: /\.js$/,
                             include: [
-                                path.resolve(__dirname, '../' + paths.src.root + 'scripts'),
+                                path.resolve(__dirname, '../' + src + 'scripts'),
                                 path.resolve(__dirname, '../mods')
                             ],
                             use: [{ loader: 'babel-loader' }]
@@ -162,7 +159,7 @@ module.exports = (...para) => {
         );
     });
     gulp.task('rootFile', () => {
-        return gulp.src(paths.src.root + '*.ico').pipe(gulp.dest(paths.dest.root));
+        return gulp.src(src + '*.ico').pipe(gulp.dest(dist));
     });
     gulp.task('htm', () => {
         return gulp
@@ -178,21 +175,21 @@ module.exports = (...para) => {
                     useShortDoctype: true
                 })
             )
-            .pipe(gulp.dest(paths.dest.htm));
+            .pipe(gulp.dest(paths.dist.htm));
     });
     gulp.task('img', () => {
-        return gulp.src(paths.src.img).pipe(gulp.dest(paths.dest.img));
+        return gulp.src(paths.src.img).pipe(gulp.dest(paths.dist.img));
     });
     gulp.task('data', () => {
-        return gulp.src(paths.src.data).pipe(gulp.dest(paths.dest.data));
+        return gulp.src(paths.src.data).pipe(gulp.dest(paths.dist.data));
     });
     gulp.task('font', () => {
-        return gulp.src(paths.src.font).pipe(gulp.dest(paths.dest.font));
+        return gulp.src(paths.src.font).pipe(gulp.dest(paths.dist.font));
     });
     gulp.task('watch', () => {
         if (status === 'dev') {
             gulp.watch(paths.src.style, ['styleConcat']);
-            gulp.watch(paths.src.root + '/*.*', ['rootFile']);
+            gulp.watch(src + '/*.*', ['rootFile']);
             gulp.watch(paths.src.htm, ['htm']);
             gulp.watch(paths.src.img, ['img']);
             gulp.watch(paths.src.data, ['data']);

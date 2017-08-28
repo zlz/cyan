@@ -35,7 +35,7 @@ router.get('/', (req, res, next) => {
                 phInstance.exit();
             });
     } else {
-        res.sendfile(path.join(__dirname, '../../static/c/app.htm'));
+        res.sendfile(path.join(__dirname, '../../dist/c/app.htm'));
     }
 });
 module.exports = router;

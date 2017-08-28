@@ -17,8 +17,8 @@ app.use(cors());
 const compression = require('compression');
 app.use(compression());
 const path = require('path');
-app.use('/', express.static(path.join(__dirname, '../static/c'), { index: false }));
-app.use('/b', express.static(path.join(__dirname, '../static/b'), { index: false }));
+app.use('/', express.static(path.join(__dirname, '../dist/c'), { index: false }));
+app.use('/b', express.static(path.join(__dirname, '../dist/b'), { index: false }));
 app.use(
     '/api/c/sho',
     proxy({

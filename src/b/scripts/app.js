@@ -164,6 +164,6 @@ app
                 bridge.$cookies.put('current_hash', toState.name);
                 goTop();
             });
-            $('body').find('a[title="????"]').addClass('hide');
+            $('body').find('a[title="站长统计"]').addClass('hide');
         }
     ]);

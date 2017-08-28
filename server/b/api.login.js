@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 module.exports = mgo => {
     if (mgo.conn) {
         let Schema = new mgo.mongoose.Schema({

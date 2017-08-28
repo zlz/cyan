@@ -1,13 +1,5 @@
 node_modules/
-bower_components/
-src/vendors/
-dist/vendors/
 .vscode/
 .idea/
 .tmp/
 dist/
-static/
-.jr/cache
-.jr/fast-map.json
-.jr/slow-map.json
-prerender/node_modules

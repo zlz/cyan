@@ -4,14 +4,40 @@ cyan.common.scss v0.9.1
 Released under the MIT License.
 */
 
-$nums: (2, 5, 8, 10, 15, 20, 30, 50, 70, 100), (8, 9, 10, 12, 14, 16, 18, 20, 22, 24, 26, 30, 32, 36, 48, 60, 72, 96);
+$nums: (2, 5, 8, 10, 15, 20, 30, 50, 70, 100),  (8, 9, 10, 12, 14, 16, 18, 20, 22, 24, 26, 30, 32, 36, 48, 60, 72, 96);
 $base-font-size: 16;
-$color: #FFF, #333, #666, #999;
+$color: #fff, #333, #666, #999;
 html {
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-blockquote, body, button, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, hr, input, legend, li, ol, p, pre, select, td, textarea, th, ul {
+blockquote,
+body,
+button,
+dd,
+div,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+input,
+legend,
+li,
+ol,
+p,
+pre,
+select,
+td,
+textarea,
+th,
+ul {
     font-family: 'Microsoft Yahei', PingHei, Roboto, 'Heiti SC Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: inherit;
     margin: 0;
@@ -28,26 +54,40 @@ body {
 a {
     background-color: transparent;
     text-decoration: none;
-    &:active, &:hover, &:focus {
+    &:active,
+    &:hover,
+    &:focus {
         border: 0;
         outline: 0;
     }
 }
-img, a:active, a:hover {
+img,
+a:active,
+a:hover {
     border: 0;
     outline: 0;
 }
-input[type=text], input[type=button], input[type=submit], button, textarea, img {
+input[type=text],
+input[type=button],
+input[type=submit],
+button,
+textarea,
+img {
     vertical-align: middle;
     outline: 0;
 }
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
     outline: 0;
 }
-a, button, input {
+a,
+button,
+input {
     -webkit-tap-highlight-color: transparent;
 }
-div, td, th {
+div,
+td,
+th {
     line-height: inherit;
     text-align: left;
 }
@@ -71,7 +111,8 @@ li {
     padding: .5em 1.5em;
     text-align: center;
     white-space: nowrap;
-    &:active, &.active {
+    &:active,
+    &.active {
         border: 0;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 0 6px rgba(0, 0, 0, .2) inset;
     }
@@ -79,9 +120,10 @@ li {
         border: 0;
         outline: 0;
     }
-    &[disabled], &.disabled {
-        background: #EEE;
-        color: #CCC;
+    &[disabled],
+    &.disabled {
+        background: #eee;
+        color: #ccc;
     }
     &.hidden {
         display: none;
@@ -136,7 +178,7 @@ li {
 }
 .hr1 {
     border: none;
-    border-bottom: 1px dashed #DDD;
+    border-bottom: 1px dashed #ddd;
     height: 0;
     font-size: 0;
 }
@@ -269,11 +311,24 @@ li {
     box-sizing: border-box;
     display: table;
     width: 100%;
-    td, th {
+    td,
+    th {
         line-height: 1.7;
     }
 }
-.tb-cell, .tb-cell-1, .tb-cell-10, .tb-cell-11, .tb-cell-12, .tb-cell-2, .tb-cell-3, .tb-cell-4, .tb-cell-5, .tb-cell-6, .tb-cell-7, .tb-cell-8, .tb-cell-9 {
+.tb-cell,
+.tb-cell-1,
+.tb-cell-10,
+.tb-cell-11,
+.tb-cell-12,
+.tb-cell-2,
+.tb-cell-3,
+.tb-cell-4,
+.tb-cell-5,
+.tb-cell-6,
+.tb-cell-7,
+.tb-cell-8,
+.tb-cell-9 {
     display: table-cell;
     vertical-align: middle;
 }
@@ -313,76 +368,100 @@ li {
 .tb-cell-12 {
     width: 100%;
 }
-.red, a.red {
-    color: #C00 !important;
+.red,
+a.red {
+    color: #c00 !important;
 }
-.orange, a.orange {
-    color: #F18D05 !important;
+.orange,
+a.orange {
+    color: #f18d05 !important;
 }
-.yellow, a.yellow {
-    color: #FF0 !important;
+.yellow,
+a.yellow {
+    color: #ff0 !important;
 }
-.blue, a.blue {
-    color: #00A1CB !important;
+.blue,
+a.blue {
+    color: #00a1cb !important;
 }
-.green, a.green {
-    color: #7DB500 !important;
+.green,
+a.green {
+    color: #7db500 !important;
 }
-.purple, a.purple {
-    color: #87318C !important;
+.purple,
+a.purple {
+    color: #87318c !important;
 }
-.black, a.black {
+.black,
+a.black {
     color: #000 !important;
 }
-.grey3, a.grey3 {
+.grey3,
+a.grey3 {
     color: #333 !important;
 }
-.grey45, a.grey45 {
+.grey45,
+a.grey45 {
     color: #454545 !important;
 }
-.grey6, a.grey6 {
+.grey6,
+a.grey6 {
     color: #666 !important;
 }
-.dimgrey, a.dimgrey {
+.dimgrey,
+a.dimgrey {
     color: #696969 !important;
 }
-.grey80, a.grey80 {
+.grey80,
+a.grey80 {
     color: #808080 !important;
 }
-.grey8e, a.grey8e {
-    color: #8E8E8E !important;
+.grey8e,
+a.grey8e {
+    color: #8e8e8e !important;
 }
-.grey9, a.grey9 {
+.grey9,
+a.grey9 {
     color: #999 !important;
 }
-.darkgrey, a.darkgrey {
-    color: #A9A9A9 !important;
+.darkgrey,
+a.darkgrey {
+    color: #a9a9a9 !important;
 }
-.aaa, a.aaa {
-    color: #AAA !important;
+.aaa,
+a.aaa {
+    color: #aaa !important;
 }
-.bbb, a.bbb {
-    color: #BBB !important;
+.bbb,
+a.bbb {
+    color: #bbb !important;
 }
-.grey, a.grey {
-    color: #BEBEBE !important;
+.grey,
+a.grey {
+    color: #bebebe !important;
 }
-.silver, a.silver {
-    color: #C0C0C0 !important;
+.silver,
+a.silver {
+    color: #c0c0c0 !important;
 }
-.ccc, a.ccc {
-    color: #CCC !important;
+.ccc,
+a.ccc {
+    color: #ccc !important;
 }
-.lightgrey, a.lightgrey {
-    color: #D3D3D3 !important;
+.lightgrey,
+a.lightgrey {
+    color: #d3d3d3 !important;
 }
-.ddd, a.ddd {
-    color: #DDD !important;
+.ddd,
+a.ddd {
+    color: #ddd !important;
 }
-.eee, a.eee {
-    color: #EEE !important;
+.eee,
+a.eee {
+    color: #eee !important;
 }
-.white, a.white {
+.white,
+a.white {
     color: nth($color, 1) !important;
 }
 @each $num in nth($nums, 2) {
@@ -446,9 +525,11 @@ li {
         @extend .mg-tb-#{$num};
     }
 }
-.clear, .elps {
+.clear,
+.elps {
     zoom: 1;
-    &:after, &:before {
+    &:after,
+    &:before {
         content: '';
         display: table;
     }

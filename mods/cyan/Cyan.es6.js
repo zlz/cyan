@@ -9,31 +9,28 @@ class Cyan {
     //顶部提示，自动隐藏
     pop(txt, type, cb) {
         var jct = {};
-        var cssText = 'animation: anim-pop 3s linear forwards; border-radius: 0 0 5px 5px; position:fixed; z-index:1000000; opacity:0.1; left:1px; top:0; padding:3px 20px; text-align:center; background:#F2DEDE; color:#333; font-weight:normal;';
+        var cssText =
+            'animation: anim-pop 3s linear forwards; border-radius: 0 0 5px 5px; position:fixed; z-index:1000000; opacity:0.1; left:1px; top:0; padding:3px 20px; text-align:center; background:#F2DEDE; color:#333; font-weight:normal;';
         jct.pp = document.createElement('div');
         jct.pp.innerHTML = txt;
         document.body.appendChild(jct.pp);
         switch (type) {
-            case 'error':
-                {
-                    jct.pp.style.cssText = cssText + ' background:#f2dede; color:#a94442;';
-                    break;
-                }
-            case 'warning':
-                {
-                    jct.pp.style.cssText = cssText + ' background:#fcf8e3; color:#8a6d3b;';
-                    break;
-                }
-            case 'success':
-                {
-                    jct.pp.style.cssText = cssText + ' background:#dff0d8; color:#3c763d;';
-                    break;
-                }
-            default:
-                {
-                    jct.pp.style.cssText = cssText + ' background:#d9edf7; color:#31708f';
-                    break;
-                }
+            case 'error': {
+                jct.pp.style.cssText = cssText + ' background:#f2dede; color:#a94442;';
+                break;
+            }
+            case 'warning': {
+                jct.pp.style.cssText = cssText + ' background:#fcf8e3; color:#8a6d3b;';
+                break;
+            }
+            case 'success': {
+                jct.pp.style.cssText = cssText + ' background:#dff0d8; color:#3c763d;';
+                break;
+            }
+            default: {
+                jct.pp.style.cssText = cssText + ' background:#d9edf7; color:#31708f';
+                break;
+            }
         }
         jct.pp.style.left = (document.documentElement.clientWidth - jct.pp.offsetWidth) / 2 + 'px';
         if (cb && cb instanceof Function) {
@@ -48,7 +45,10 @@ class Cyan {
         if (!txt) {
             txt = '确定删除？';
         }
-        var htmStr = '<div style="z-index:100000000; position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.4)"></div><div style="z-index:100000001;font-size:13px;background:#fff;border-radius:5px;position:absolute;width:300px; height:120px; top:50%; left:50%; margin-left:-150px; margin-top:-125px;border:1px solid #ddd; color:#333;"><div style="text-align:center; margin-top:30px;height:50px;">' + txt + '</div><div style="text-align:center;font-size:12px;"><span class="cyan-confirm-y" style="background:#337ab7; color:#fff;border:1px solid #337ab7; cursor:pointer; padding:5px 20px;border-radius:5px;margin-right:10px;">确定</span><span class="cyan-confirm-n" style="background:#f1f1f1;border:1px solid #ddd; cursor:pointer; padding:5px 20px;border-radius:5px;">取消</span></div></div>';
+        var htmStr =
+            '<div style="z-index:100000000; position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.4)"></div><div style="z-index:100000001;font-size:13px;background:#fff;border-radius:5px;position:absolute;width:300px; height:120px; top:50%; left:50%; margin-left:-150px; margin-top:-125px;border:1px solid #ddd; color:#333;"><div style="text-align:center; margin-top:30px;height:50px;">' +
+            txt +
+            '</div><div style="text-align:center;font-size:12px;"><span class="cyan-confirm-y" style="background:#337ab7; color:#fff;border:1px solid #337ab7; cursor:pointer; padding:5px 20px;border-radius:5px;margin-right:10px;">确定</span><span class="cyan-confirm-n" style="background:#f1f1f1;border:1px solid #ddd; cursor:pointer; padding:5px 20px;border-radius:5px;">取消</span></div></div>';
         var el = document.createElement('div');
         el.innerHTML = htmStr;
         document.body.appendChild(el);
@@ -61,23 +61,29 @@ class Cyan {
                 }
             }
         }, 6e4);
-        document.querySelector('.cyan-confirm-y')
-            .addEventListener('click', function() {
+        document.querySelector('.cyan-confirm-y').addEventListener(
+            'click',
+            function() {
                 clearInterval(si);
                 document.body.removeChild(el);
                 cbVal = true;
                 if (cb && cb instanceof Function) {
                     cb(cbVal);
                 }
-            }, false);
-        document.querySelector('.cyan-confirm-n')
-            .addEventListener('click', function() {
+            },
+            false
+        );
+        document.querySelector('.cyan-confirm-n').addEventListener(
+            'click',
+            function() {
                 clearInterval(si);
                 document.body.removeChild(el);
                 if (cb && cb instanceof Function) {
                     cb(cbVal);
                 }
-            }, false);
+            },
+            false
+        );
     }
     //返回当前年月日星期
     date() {
@@ -97,8 +103,7 @@ class Cyan {
     //获取url参数name的值
     getUrlParam(name) {
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'),
-            r = window.location.search.substr(1)
-            .match(reg);
+            r = window.location.search.substr(1).match(reg);
         if (r !== null) {
             return decodeURIComponent(r[2]);
         }
@@ -106,8 +111,7 @@ class Cyan {
     }
     //获取pathName的值
     getPathName(param) {
-        var pathName = window.location.pathname.split('/')
-            .splice(1);
+        var pathName = window.location.pathname.split('/').splice(1);
         if (pathName[param] !== '' && pathName[param].indexOf('.') === -1) {
             return decodeURIComponent(pathName[param]);
         }
@@ -156,7 +160,9 @@ class Cyan {
                 try {
                     window.netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
                 } catch (e) {
-                    alert("抱歉，此操作被浏览器拒绝！\n\n请在浏览器地址栏输入“about:config”并回车然后将[signed.applets.codebase_principal_support]设置为'true'");
+                    alert(
+                        "抱歉，此操作被浏览器拒绝！\n\n请在浏览器地址栏输入“about:config”并回车然后将[signed.applets.codebase_principal_support]设置为'true'"
+                    );
                 }
             } else {
                 alert('抱歉，您所使用的浏览器无法完成此操作。\n\n您需要手动将【' + url + '】设置为首页。');
@@ -176,9 +182,7 @@ class Cyan {
     }
 }
 let cyan = new Cyan();
-export {
-    cyan
-};
+export { cyan };
 //获取数组值val的索引
 Array.prototype.indexOf = function(val) {
     for (var i = 0; i < this.length; i++) {
@@ -197,7 +201,5 @@ Array.prototype.remove = function(val) {
 };
 // console兼容
 if (!window.console) {
-    window.console = {
-        log: function() {}
-    };
+    window.console = { log: function() {} };
 }
