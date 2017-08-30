@@ -3,8 +3,11 @@ module.exports = (...param) => {
     const $ = require('gulp-load-plugins')();
     const del = require('del');
     const path = require('path');
-    const webpack = require('webpack');
     const runSequence = require('run-sequence');
+    const glob = require('glob');
+    const webpack = require('webpack');
+    const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+    const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
     const status = param[0];
     const src = './src/b/';
     const dist = './dist/b/';
@@ -19,7 +22,8 @@ module.exports = (...param) => {
             font: './fonts/**/*',
             entry: {
                 vendor: [src + 'scripts/vendor.common'],
-                app: src + 'scripts/app'
+                app: src + 'scripts/app',
+                zslide: './mods/zSlide/zslide'
             }
         },
         dist: {
@@ -42,7 +46,7 @@ module.exports = (...param) => {
             ]
         }
     };
-    let errHandler = function(err) {
+    let errHandler = err => {
         $.util.log(err.message);
         this.emit('end');
     };
@@ -84,30 +88,7 @@ module.exports = (...param) => {
             .pipe($.concat('vendor.common.min.css'))
             .pipe(gulp.dest(paths.dist.style));
     });
-    let jsComplie = (src, dist) => {
-        let flt = $.filter('**/*.js', { restore: true });
-        return gulp
-            .src(src)
-            .pipe($.changed(dist, { extension: '.min.js' }))
-            .on('data', file => {
-                $.util.log(file.path);
-            })
-            .pipe(flt)
-            .pipe($.babel())
-            .on('error', errHandler)
-            .pipe($.rename({ suffix: '.min' }))
-            .pipe(gulp.dest(dist));
-    };
-    gulp.task('mod', () => {
-        gulp.src([paths.src.bower + 'js-md5/build/md5.min.js']).pipe(gulp.dest(paths.dist.mod));
-        jsComplie(paths.src.mod, paths.dist.mod);
-    });
-    gulp.task('script', () => {
-        jsComplie(paths.src.script, paths.dist.script);
-    });
     gulp.task('webpack', callback => {
-        const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-        const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
         let filename = '';
         let chunkFilename = '';
         if (status === 'dev') {
@@ -201,12 +182,7 @@ module.exports = (...param) => {
         }
     });
     gulp.task('run', () => {
-        runSequence(
-            'clean',
-            ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat', 'mod', 'script'],
-            'webpack',
-            'watch'
-        );
+        runSequence('clean', ['rootFile', 'htm', 'img', 'data', 'font', 'styleConcat'], 'webpack', 'watch');
     });
     return gulp.start('run');
 };

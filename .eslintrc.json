@@ -69,7 +69,6 @@
         "new-parens": "error",
         "no-console": "warn",
         "no-mixed-spaces-and-tabs": "error",
-        "vars-on-top": "error",
         "no-extra-parens": "error",
         "no-use-before-define": "error",
         "func-style": ["error", "expression"],

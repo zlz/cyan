@@ -22,7 +22,7 @@ angular.module('app').controller('homeCtrl', [
                     bridge.$ocLazyLoad
                         .load([
                             {
-                                files: ['../mods/zSlide/zslide.min.js'],
+                                files: ['./scripts/zslide.bundle.min.js'],
                                 cache: true
                             }
                         ])
