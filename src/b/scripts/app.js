@@ -8,16 +8,16 @@ let app = angular.module('app', [
     'ngTouch',
     'oc.lazyLoad'
 ]);
-require('./directives/hd');
-require('./directives/ft');
-require('./provider/globalConfig');
-require('./provider/crud');
-require('./provider/bridge');
-require('./provider/auth');
-require('./provider/appInterceptor');
-require('./provider/common');
-require('./provider/lruCache');
-require('./filter/trustHtml');
+require('./directive.hd');
+require('./directive.ft');
+require('./provider.globalConfig');
+require('./provider.crud');
+require('./provider.bridge');
+require('./provider.auth');
+require('./provider.appInterceptor');
+require('./provider.common');
+require('./provider.lruCache');
+require('./filter.trustHtml');
 app
     .config([
         '$stateProvider',
@@ -97,7 +97,7 @@ app
                     loadMod: [
                         '$ocLazyLoad',
                         function($ocLazyLoad) {
-                            return $ocLazyLoad.load('./scripts/controllers/detail.min.js');
+                            return $ocLazyLoad.load('./scripts/controllers.detail.bundle.min.js');
                         }
                     ]
                 }
@@ -120,7 +120,9 @@ app
                                         if (item.js === '') {
                                             return false;
                                         } else {
-                                            return $ocLazyLoad.load('./scripts/controllers/' + item.js + '.min.js');
+                                            return $ocLazyLoad.load(
+                                                './scripts/controller.' + item.js + '.bundle.min.js'
+                                            );
                                         }
                                     }
                                 ]

@@ -14,27 +14,22 @@ module.exports = (...param) => {
     let paths = {
         src: {
             style: [src + 'styles/**/*', './mods/**/*.scss'],
-            script: src + 'scripts/**/*',
-            mod: './mods/**/*',
             htm: [src + '**/*.htm', src + '**/*.html'],
             img: src + 'images/**/*',
             data: src + 'datas/**/*',
             font: './fonts/**/*',
-            entry: {
-                vendor: [src + 'scripts/vendor.common'],
-                app: src + 'scripts/app',
-                zslide: './mods/zSlide/zslide'
-            }
+            mod: './mods/**/*.js',
+            script: src + 'scripts/**/*'
         },
         dist: {
             style: dist + 'styles',
-            script: dist + 'scripts',
-            mod: dist + 'mods',
             htm: dist,
             img: dist + 'images',
             data: dist + 'datas',
             font: dist + 'fonts'
         },
+        entry: {},
+        output: dist + 'scripts',
         concat: {
             css: [
                 dist + 'styles/cyan/cyan.common.min.css',
@@ -46,6 +41,17 @@ module.exports = (...param) => {
             ]
         }
     };
+    let getEntryMap = src => {
+        let arr = glob.sync(src, { nodir: true });
+        let i;
+        for (i = 0; i < arr.length; i = i + 1) {
+            let item = arr[i];
+            paths.entry[item.substring(item.lastIndexOf('/') + 1, item.lastIndexOf('.'))] = item;
+        }
+    };
+    getEntryMap('./mods/**/!(*min).js');
+    getEntryMap(src + 'scripts/**/!(directive*|provider*|filter*).js');
+    console.log(paths.entry);
     let errHandler = err => {
         $.util.log(err.message);
         this.emit('end');
@@ -88,7 +94,7 @@ module.exports = (...param) => {
             .pipe($.concat('vendor.common.min.css'))
             .pipe(gulp.dest(paths.dist.style));
     });
-    gulp.task('webpack', callback => {
+    gulp.task('webpack', cb => {
         let filename = '';
         let chunkFilename = '';
         if (status === 'dev') {
@@ -102,9 +108,9 @@ module.exports = (...param) => {
         }
         webpack(
             {
-                entry: paths.src.entry,
+                entry: paths.entry,
                 output: {
-                    path: path.resolve(__dirname, '../' + paths.dist.script),
+                    path: path.resolve(__dirname, '../' + paths.output),
                     filename: filename,
                     chunkFilename: chunkFilename
                 },
@@ -136,7 +142,9 @@ module.exports = (...param) => {
                         }
                     )
                 );
-                callback();
+                if (cb && cb instanceof Function) {
+                    cb();
+                }
             }
         );
     });
@@ -176,7 +184,7 @@ module.exports = (...param) => {
             gulp.watch(paths.src.img, ['img']);
             gulp.watch(paths.src.data, ['data']);
             gulp.watch(paths.src.font, ['styleConcat', 'font']);
-            gulp.watch(paths.src.script, ['script', 'webpack']);
+            gulp.watch(paths.src.script, ['webpack']);
         } else {
             return true;
         }

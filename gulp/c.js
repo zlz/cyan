@@ -18,7 +18,8 @@ module.exports = (...param) => {
             img: src + 'images/**/*',
             data: src + 'datas/**/*',
             font: './fonts/**/*',
-            mod: './mods/**/*.js'
+            mod: './mods/**/*.js',
+            script: src + 'scripts/**/*'
         },
         dist: {
             style: dist + 'styles',
